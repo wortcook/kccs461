@@ -42,4 +42,22 @@ public class City implements Comparable<City>, Measureable<City>{
         }
         return this.name.compareTo(o.name);
     }
+
+    public int hashCode(){
+        return this.name.hashCode();
+    }
+
+    public boolean equals(Object o){
+        if(null == o){
+            return false;
+        }
+        if(this == o){
+            return true;
+        }
+        if(o instanceof City){
+            City other = (City)o;
+            return this.name.equals(other.name);
+        }
+        return false;
+    }
 }

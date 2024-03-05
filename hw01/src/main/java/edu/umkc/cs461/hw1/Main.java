@@ -7,14 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import edu.umkc.cs461.hw1.data.BiDirectGraph;
-import edu.umkc.cs461.hw1.data.City;
-import edu.umkc.cs461.hw1.data.NodePair;
-import edu.umkc.cs461.hw1.data.BiDirectGraph.BiDirectGraphBuilder;
+import edu.umkc.cs461.hw1.data.*;
 
 public class Main {
-    private static final String CITIES_LIST = "./data/coordinates.csv";
-    private static final String ADJACENCY_LIST = "./data/Adjacencies.txt";
+    private static final String CITIES_LIST    = "/Users/wortcook/Workspace/kccs461/hw01/data/coordinates.csv";
+    private static final String ADJACENCY_LIST = "/Users/wortcook/Workspace/kccs461/hw01/data/Adjacencies.txt";
 
 
     public static void main(String[] args) {
@@ -22,9 +19,10 @@ public class Main {
 
         //Load the data
         final List<City> cities = DataLoader.loadCities(CITIES_LIST);
-        final List<NodePair<City>> adjacencies = DataLoader.loadAdjacencies(ADJACENCY_LIST);
 
-        BiDirectGraphBuilder<City> builder = new BiDirectGraphBuilder();
+        final List<NodePair<City>> adjacencies = DataLoader.loadAdjacencies(ADJACENCY_LIST, cities);
+
+        BiDirectGraph.BiDirectGraphBuilder<City> builder = new BiDirectGraph.BiDirectGraphBuilder<City>();
         builder.addNodes(cities);
         builder.addEdges(adjacencies);
 
@@ -50,7 +48,7 @@ public class Main {
                 String line;
                 while ((line = br.readLine()) != null) {
                     String[] parts = line.split(",");
-                    cities.add(new City(parts[0], Double.parseDouble(parts[1]), Double.parseDouble(parts[2]));
+                    cities.add(new City(parts[0], Double.parseDouble(parts[1]), Double.parseDouble(parts[2])));
                 }
                 br.close();
             } catch (IOException e) {
@@ -59,14 +57,20 @@ public class Main {
             return cities;
         }
 
-        public static List<NodePair<City>> loadAdjacencies(final String filename) {
+        public static List<NodePair<City>> loadAdjacencies(final String filename, final List<City> cities) {
+
+            Map<String, City> cityMap = new java.util.HashMap<String, City>();
+            for(City city : cities){
+                cityMap.put(city.getName(), city);
+            }
+
             List<NodePair<City>> adjacencies = new ArrayList<NodePair<City>>();
             try {
                 BufferedReader br = new BufferedReader(new FileReader(filename));
                 String line;
                 while ((line = br.readLine()) != null) {
-                    String[] parts = line.split(",");
-                    adjacencies.add(new NodePair<City>(new City(parts[0]), new City(parts[1])));
+                    String[] parts = line.split(" ");                    
+                    adjacencies.add(new NodePair<City>(cityMap.get(parts[0]), cityMap.get(parts[1])));
                 }
                 br.close();
             } catch (IOException e) {

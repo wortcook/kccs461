@@ -41,17 +41,20 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
     public Map<K,Double> getConnections(final K node){
 
         //memoization
-        if(this.nodeMap.containsKey(node)){
-            return this.getConnections(node);
+        if(this.connections.containsKey(node)){
+            return this.connections.get(node);
         }
 
         int index = this.nodeMap.get(node);
+
         Map<K,Double> ret = new HashMap<K,Double>();
 
-        double[] indexRow = edges[index];
-        for(int i = 0 ; i < indexRow.length; i++){
-            if(indexRow[i] != Double.POSITIVE_INFINITY){
-                ret.put( this.reverseNodeMap.get(i), indexRow[i]);
+        if(index>0){
+            double[] indexRow = edges[index];
+            for(int i = 0 ; i < indexRow.length; i++){
+                if(indexRow[i] != Double.POSITIVE_INFINITY){
+                    ret.put( this.reverseNodeMap.get(i), indexRow[i]);
+                }
             }
         }
 
@@ -76,28 +79,28 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
         }
 
         public BiDirectGraphBuilder<K> addNodes(List<K> nodes){
-            toAdd.addAll(nodes);
+            this.toAdd.addAll(nodes);
             return this;
         }
 
 
         public BiDirectGraphBuilder<K> addNode(K node){
-            toAdd.add(node);
+            this.toAdd.add(node);
             return this;
         }
 
         public BiDirectGraphBuilder<K> addEdge(NodePair<K> edge){
-            edges.add(edge);
+            this.edges.add(edge);
             return this;
         }
 
         public BiDirectGraphBuilder<K> addEdges(List<NodePair<K>> edges){
-            edges.addAll(edges);
+            this.edges.addAll(edges);
             return this;
         }
 
         public BiDirectGraph<K> build(){
-            toAdd.sort(null);
+            this.toAdd.sort(null);
 
             //Puts the list of nodes so we can map city name to array position
             Map<K, Integer> nodeMap = new HashMap<K, Integer>();
