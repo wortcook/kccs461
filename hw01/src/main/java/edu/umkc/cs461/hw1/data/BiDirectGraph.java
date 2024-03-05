@@ -5,22 +5,36 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-import com.google.common.collect.BiMap;
 
-
-
+/**
+ * A bi-directional graph that is used to store the distances between nodes
+ * The graph is read-only once the builder has created it.
+ * 
+ */
 public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
-    final BiMap<K, Integer> nodeMap = new HashMap<K, Integer>();
-    final BiMap<Integer, K> reverseNodeMap = new HashMap<Integer, K>();
+    //Map of nodes to index values.
+    final Map<K, Integer> nodeMap = new HashMap<K, Integer>();
 
+    //Map of index values to nodes
+    final Map<Integer, K> reverseNodeMap = new HashMap<Integer, K>();
+
+    //The edges of the graph, i.e. distances or infinity if not connected
+    final double[][] edges;
+
+
+    //Memoization of the connections. We'll store connections here once requested
     final Map<K, Map<K,Double>> connections = new HashMap<K, Map<K,Double>>();
 
-    double[][] edges;
 
-    //We assume nodes is sorted
-    protected BiDirectGraph(final  Map<K, Integer> nodeMap, final double[][] edges){
+    //Constructor is package private so that only the builder can create it
+    /*package*/ BiDirectGraph(final  Map<K, Integer> nodeMap, final double[][] edges){
         this.nodeMap.putAll(nodeMap);
-        this.reverseNodeMap = nodeMap.inverse();
+
+        //We need to reverse the map so we can look up the nodes by index
+        for(Map.Entry<K,Integer> entry : nodeMap.entrySet()){
+            this.reverseNodeMap.put(entry.getValue(), entry.getKey());
+        }
+
         this.edges = edges;
     }
 
@@ -51,7 +65,6 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
 
         return ret;
     }
-
 
 
     public static class BiDirectGraphBuilder<K extends Comparable<K> & Measureable<K>>{
