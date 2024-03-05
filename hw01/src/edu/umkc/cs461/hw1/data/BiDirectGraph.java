@@ -12,15 +12,25 @@ import com.google.common.collect.BiMap;
 public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
     final BiMap<K, Integer> nodeMap = new HashMap<K, Integer>();
     final BiMap<Integer, K> reverseNodeMap = new HashMap<Integer, K>();
+
+    final Map<K, Map<K,Double>> connections = new HashMap<K, Map<K,Double>>();
+
     double[][] edges;
 
     //We assume nodes is sorted
     protected BiDirectGraph(final  Map<K, Integer> nodeMap, final double[][] edges){
         this.nodeMap.putAll(nodeMap);
+        this.reverseNodeMap = nodeMap.inverse();
         this.edges = edges;
     }
 
     public Map<K,Double> getConnections(final K node){
+
+        //memoization
+        if(this.nodeMap.containsKey(node)){
+            return this.getConnections(node);
+        }
+
         int index = this.nodeMap.get(node);
         Map<K,Double> ret = new HashMap<K,Double>();
 
@@ -36,6 +46,8 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
                 ret.put( this.reverseNodeMap.get(i), edges[i][index]);
             }
         }
+
+        this.connections.put(node, ret);
 
         return ret;
     }
