@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.umkc.cs461.hw1.data.*;
+import edu.umkc.cs461.hw1.algorithms.*;
 
 public class Main {
     private static final String CITIES_LIST    = "/Users/wortcook/Workspace/kccs461/hw01/data/coordinates.csv";
@@ -38,6 +39,16 @@ public class Main {
                 System.out.println("\t" + entry.getKey().getName() + " : " + entry.getValue());
             }
         }
+
+        BreadthFirst bf = new BreadthFirst(cities.get(0), cities.get(cities.size()-1), graph);
+
+        List<City> path = bf.findRoute();
+
+        System.out.println("Path: ");
+        for(City city : path){
+            System.out.println(city.getName());
+        }
+
     }
 
     private static class DataLoader {

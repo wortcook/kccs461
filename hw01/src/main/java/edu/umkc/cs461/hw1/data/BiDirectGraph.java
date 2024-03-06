@@ -150,6 +150,5 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
 
             return new BiDirectGraph<>(nodeMap, edgeArray);
         }
-
     }
 }

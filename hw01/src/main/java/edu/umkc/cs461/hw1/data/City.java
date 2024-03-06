@@ -1,5 +1,7 @@
 package edu.umkc.cs461.hw1.data;
 
+import java.util.List;
+
 public class City implements Comparable<City>, Measureable<City>{
 
     private final String name;
@@ -59,5 +61,13 @@ public class City implements Comparable<City>, Measureable<City>{
             return this.name.equals(other.name);
         }
         return false;
+    }
+
+    public static double distanceThrough(final List<City> cities){
+        double distance = 0;
+        for(int i = 0; i < cities.size() - 1; i++){
+            distance += cities.get(i).distanceFrom(cities.get(i+1));
+        }
+        return distance;
     }
 }
