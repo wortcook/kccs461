@@ -69,6 +69,10 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
         return ret;
     }
 
+    public int getNodeCount(){
+        return this.nodeMap.size();
+    }
+
 
     public static class BiDirectGraphBuilder<K extends Comparable<K> & Measureable<K>>{
 

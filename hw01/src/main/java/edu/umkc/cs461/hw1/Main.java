@@ -42,43 +42,66 @@ public class Main {
 
         // final int startIdx = cities.size()-1;
         // final int endIdx   = 0;
-        final int startIdx = 2;
-        final int endIdx   = 0;
+        final int startIdx = 0;
+        final int endIdx   = cities.size()-1;
+        final int maxIterations = 10000;
 
         System.out.println("Finding route from " + cities.get(startIdx).getName() + " to " + cities.get(endIdx).getName());
 
         BreadthFirst bf = new BreadthFirst(cities.get(startIdx), cities.get(endIdx), graph);
+        {
 
-        final long bfStart = System.currentTimeMillis();
-        List<City> bfpath = bf.findFirstRoute();
-        final long bfEnd = System.currentTimeMillis();
+            List<City> bfpath = bf.findFirstRoute();
+            final long bfStart = System.currentTimeMillis();
+            for(int i = 0; i < maxIterations; i++){
+                bfpath = bf.findFirstRoute();
+            }
+            final long bfEnd = System.currentTimeMillis();
 
-        System.out.println("\nBFS Path: ");
-        // System.out.println("Time: " + (bfEnd - bfStart) + "ms");
-        System.out.println("Distance: " + City.distanceThrough(bfpath));
-        for(City city : bfpath){
-            System.out.print(city.getName()+" -> ");
+            System.out.println("Time: " + (bfEnd - bfStart) + "ms");
+            System.out.println("BFS Path: ");
+            // System.out.println("Time: " + (bfEnd - bfStart) + "ms");
+            System.out.println("Distance: " + City.distanceThrough(bfpath));
+            for(City city : bfpath){
+                System.out.print(city.getName()+" -> ");
+            }
+            System.out.println();
         }
 
         DepthFirst df = new DepthFirst(cities.get(startIdx), cities.get(endIdx), graph);
-        final long dfStart = System.currentTimeMillis();
-        List<City> dfpath = df.findFirstRoute();
-        final long dfEnd = System.currentTimeMillis();
-        System.out.println("\nDFS Path: ");
-        // System.out.println("Time: " + (dfEnd - dfStart) + "ms");
-        System.out.println("Distance: " + City.distanceThrough(dfpath));
-        for(City city : dfpath){
-            System.out.print(city.getName() + " -> ");
+        {
+            List<City> dfpath = df.findFirstRoute();
+
+            final long dfStart = System.currentTimeMillis();
+            for(int i = 0; i < maxIterations; i++){
+                dfpath = df.findFirstRoute();
+            }
+            final long dfEnd = System.currentTimeMillis();
+            System.out.println("Time: " + (dfEnd - dfStart) + "ms");
+            System.out.println("DFS Path: ");
+            // System.out.println("Time: " + (dfEnd - dfStart) + "ms");
+            System.out.println("Distance: " + City.distanceThrough(dfpath));
+            for(City city : dfpath){
+                System.out.print(city.getName() + " -> ");
+            }
+            System.out.println();
         }
 
         IDDFS iddfs = new IDDFS(cities.get(startIdx), cities.get(endIdx), graph);
-        final long iddfsStart = System.currentTimeMillis();
-        List<City> iddfsPath = iddfs.findFirstRoute();
-        final long iddfsEnd = System.currentTimeMillis();
-        System.out.println("\nIDDFS Path: ");
-        System.out.println("Time: " + (iddfsEnd - iddfsStart) + "ms");
-        for(City city : iddfsPath){
-            System.out.println(city.getName());
+        {
+            List<City> iddfsPath = iddfs.findFirstRoute();
+            final long iddfsStart = System.currentTimeMillis();
+            for(int i = 0; i < maxIterations; i++){
+                iddfsPath = iddfs.findFirstRoute();
+            }
+            final long iddfsEnd = System.currentTimeMillis();
+            System.out.println("Time: " + (iddfsEnd - iddfsStart) + "ms");
+            System.out.println("IDDFS Path: ");
+            System.out.println("Distance: " + City.distanceThrough(iddfsPath));
+            for(City city : iddfsPath){
+                System.out.print(city.getName() + " -> ");
+            }
+            System.out.println();
         }
 
         if( false ){
