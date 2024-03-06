@@ -1,6 +1,7 @@
 package edu.umkc.cs461.hw1.algorithms;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
@@ -40,13 +41,17 @@ public class DepthFirst extends SearchState{
                 if(current.equals(getEnd())){
                     return createCityListFromNode(curr);
                 }
+
                 visited.add(current);
-                for(City neighbor : getGraph().getConnections(current).keySet()){
-                    if(!visited.contains(neighbor)){
-                        Node neighborNode = new Node(neighbor, curr);
-                        stack.push(neighborNode);
-                    }
-                }
+
+                getGraph().getConnections(current).entrySet().stream()
+                    // .sorted((e1, e2) -> e1.getValue().compareTo(e2.getValue()))
+                    .forEach(e -> {
+                        if(!visited.contains(e.getKey())){
+                            Node neighborNode = new Node(e.getKey(), curr);
+                            stack.push(neighborNode);
+                        }
+                    });
             }
             return new ArrayList<City>();
         }
@@ -64,12 +69,16 @@ public class DepthFirst extends SearchState{
                 if(current.equals(getEnd())){
                     routes.add(createCityListFromNode(curr));
                 }
-                for(City neighbor : getGraph().getConnections(current).keySet()){
-                    if(!NodeInPath(curr, neighbor)){
-                        Node neighborNode = new Node(neighbor, curr);
-                        stack.push(neighborNode);
-                    }
-                }
+
+                //sort connections by distance and return as a list
+                getGraph().getConnections(current).entrySet().stream()
+                    // .sorted((e1, e2) -> e1.getValue().compareTo(e2.getValue()))
+                    .forEach(e -> {
+                        if(!NodeInPath(curr, e.getKey())){
+                            Node neighborNode = new Node(e.getKey(), curr);
+                            stack.push(neighborNode);
+                        }
+                    });
             }
             return routes;
         }        

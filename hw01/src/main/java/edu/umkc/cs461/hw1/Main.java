@@ -54,9 +54,10 @@ public class Main {
         final long bfEnd = System.currentTimeMillis();
 
         System.out.println("\nBFS Path: ");
-        System.out.println("Time: " + (bfEnd - bfStart) + "ms");
+        // System.out.println("Time: " + (bfEnd - bfStart) + "ms");
+        System.out.println("Distance: " + City.distanceThrough(bfpath));
         for(City city : bfpath){
-            System.out.println(city.getName());
+            System.out.print(city.getName()+" -> ");
         }
 
         DepthFirst df = new DepthFirst(cities.get(startIdx), cities.get(endIdx), graph);
@@ -64,9 +65,10 @@ public class Main {
         List<City> dfpath = df.findFirstRoute();
         final long dfEnd = System.currentTimeMillis();
         System.out.println("\nDFS Path: ");
-        System.out.println("Time: " + (dfEnd - dfStart) + "ms");
+        // System.out.println("Time: " + (dfEnd - dfStart) + "ms");
+        System.out.println("Distance: " + City.distanceThrough(dfpath));
         for(City city : dfpath){
-            System.out.println(city.getName());
+            System.out.print(city.getName() + " -> ");
         }
 
         IDDFS iddfs = new IDDFS(cities.get(startIdx), cities.get(endIdx), graph);
@@ -79,16 +81,43 @@ public class Main {
             System.out.println(city.getName());
         }
 
+        if( false ){
+            {
+                List<List<City>> allbfroutes = bf.findAllRoutes();
 
-        List<List<City>> allbfroutes = bf.findAllRoutes();
-        System.out.println("\nBFS All Routes: ");
-        int routeCount = 0;
-        for(List<City> route : allbfroutes){
-            System.out.print("Route " + routeCount++ + ": ");
-            for(City city : route){
-                System.out.print(city.getName() + " ");
+                Map<Double, List<City>> shortestRoutes = new java.util.TreeMap<>();
+                for(List<City> route : allbfroutes){
+                    shortestRoutes.putIfAbsent(City.distanceThrough(route), route);
+                }
+
+                System.out.println("\nBFS All Routes: ");
+                int routeCount = 0;
+                for(Map.Entry<Double, List<City>> entry : shortestRoutes.entrySet()){
+                    System.out.println("\n\nRoute " + routeCount + " Distance: " + entry.getKey());
+                    for(City city : entry.getValue()){
+                        System.out.print(city.getName() + " -> ");
+                    }
+                    routeCount++;
+                }
             }
-            System.out.println();
+            {
+                List<List<City>> alldfroutes = df.findAllRoutes();
+
+                Map<Double, List<City>> shortestRoutes = new java.util.TreeMap<>();
+                for(List<City> route : alldfroutes){
+                    shortestRoutes.putIfAbsent(City.distanceThrough(route), route);
+                }
+
+                System.out.println("\nDFS All Routes: ");
+                int routeCount = 0;
+                for(Map.Entry<Double, List<City>> entry : shortestRoutes.entrySet()){
+                    System.out.println("\n\nRoute " + routeCount + " Distance: " + entry.getKey());
+                    for(City city : entry.getValue()){
+                        System.out.print(city.getName() + " -> ");
+                    }
+                    routeCount++;
+                }
+            }
         }
     }
 

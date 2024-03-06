@@ -1,6 +1,7 @@
 package edu.umkc.cs461.hw1.algorithms;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.ArrayDeque;
 import java.util.Set;
@@ -42,12 +43,16 @@ public class BreadthFirst extends SearchState{
                 return createCityListFromNode(curr);
             }
             visited.add(current);
-            for(City neighbor : getGraph().getConnections(current).keySet()){
-                if(!visited.contains(neighbor)){
-                    Node neighborNode = new Node(neighbor, curr);
-                    queue.add(neighborNode);
-                }
-            }
+
+            //sort connections by distance and return as a list
+            getGraph().getConnections(current).entrySet().stream()
+                // .sorted((e1, e2) -> e1.getValue().compareTo(e2.getValue()))
+                .forEach(e -> {
+                    if(!visited.contains(e.getKey())){
+                        Node neighborNode = new Node(e.getKey(), curr);
+                        queue.add(neighborNode);
+                    }
+                });
         }
         return new ArrayList<City>();
     }
@@ -67,12 +72,18 @@ public class BreadthFirst extends SearchState{
             if(current.equals(getEnd())){
                 routes.add(createCityListFromNode(curr));
             }
-            for(City neighbor : getGraph().getConnections(current).keySet()){
-                if(!nodeInPath(curr, neighbor)){
-                    Node neighborNode = new Node(neighbor, curr);
-                    queue.add(neighborNode);
-                }
-            }
+
+            //sort connections by distance and return as a list
+            getGraph().getConnections(current).entrySet().stream()
+                // .sorted((e1, e2) -> e1.getValue().compareTo(e2.getValue()))
+                .forEach(e -> {
+                    //if the neighbor (child) is not in the path (a parent, grandparent, etc. of the current node)
+                    if(!nodeInPath(curr, e.getKey())){
+                        //add the neighbor to the queue
+                        Node neighborNode = new Node(e.getKey(), curr);
+                        queue.add(neighborNode);
+                    }
+                });
         }
         return routes;
     }
