@@ -11,32 +11,85 @@ import edu.umkc.cs461.hw1.data.City;
 import edu.umkc.cs461.hw1.data.BiDirectGraph;
 
 public class DepthFirst extends SearchState{
-
-
-
-    public DepthFirst(City start, City end, BiDirectGraph<City> graph) {
-        super(start, end, graph);
-        // TODO Auto-generated constructor stub
-    }
-
-    @Override
-    public List<City> findRoute(){
-        Set<City> visited = new HashSet<City>();
-        Stack<City> stack = new Stack<City>();
-        stack.push(getStart());
-        while(!stack.isEmpty()){
-            City current = stack.pop();
-            if(current.equals(getEnd())){
-                return new ArrayList<City>(visited);
-            }
-            visited.add(current);
-            for(City neighbor : getGraph().getConnections(current).keySet()){
-                if(!visited.contains(neighbor)){
-                    stack.push(neighbor);
-                }
+    
+        private class Node{
+            public final City city;
+            public final Node parent;
+            public Node(City city, Node parent){
+                this.city = city;
+                this.parent = parent;
             }
         }
-        return new ArrayList<City>(visited);
-    }
+    
+        public DepthFirst(final City start, final City end, final BiDirectGraph<City> graph){
+            super(start, end, graph);
+        }
+    
+        @Override
+        public List<City> findFirstRoute(){
+            Set<City> visited = new HashSet<City>();
+            Stack<Node> stack = new Stack<Node>();
+            
+            Node start = new Node(getStart(), null);
+            stack.push(start);
+    
+            while(!stack.isEmpty()){
+                Node curr = stack.pop();
+                City current = curr.city;
+                // System.out.println("Visiting " + current.getName());
+                if(current.equals(getEnd())){
+                    return createCityListFromNode(curr);
+                }
+                visited.add(current);
+                for(City neighbor : getGraph().getConnections(current).keySet()){
+                    if(!visited.contains(neighbor)){
+                        Node neighborNode = new Node(neighbor, curr);
+                        stack.push(neighborNode);
+                    }
+                }
+            }
+            return new ArrayList<City>();
+        }
 
-}
+        @Override
+        public List<List<City>> findAllRoutes(){
+            Stack<Node> stack = new Stack<Node>();
+            List<List<City>> routes = new ArrayList<List<City>>();
+            
+            Node start = new Node(getStart(), null);
+            stack.push(start);
+            while(!stack.isEmpty()){
+                Node curr = stack.pop();
+                City current = curr.city;
+                if(current.equals(getEnd())){
+                    routes.add(createCityListFromNode(curr));
+                }
+                for(City neighbor : getGraph().getConnections(current).keySet()){
+                    if(!NodeInPath(curr, neighbor)){
+                        Node neighborNode = new Node(neighbor, curr);
+                        stack.push(neighborNode);
+                    }
+                }
+            }
+            return routes;
+        }        
+
+        private boolean NodeInPath(Node node, City city){
+            while(node != null){
+                if(node.city.equals(city)){
+                    return true;
+                }
+                node = node.parent;
+            }
+            return false;
+        }
+    
+        private List<City> createCityListFromNode(Node node){
+            List<City> path = new ArrayList<City>();
+            while(node != null){
+                path.add(0, node.city);
+                node = node.parent;
+            }
+            return path;
+        }
+    }

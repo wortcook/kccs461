@@ -11,8 +11,8 @@ import edu.umkc.cs461.hw1.data.*;
 import edu.umkc.cs461.hw1.algorithms.*;
 
 public class Main {
-    private static final String CITIES_LIST    = "/Users/wortcook/Workspace/kccs461/hw01/data/coordinates.csv";
-    private static final String ADJACENCY_LIST = "/Users/wortcook/Workspace/kccs461/hw01/data/Adjacencies.txt";
+    private static final String CITIES_LIST    = "/Users/thomasjones/Workspace/kccs461/hw01/data/coordinates.csv";
+    private static final String ADJACENCY_LIST = "/Users/thomasjones/Workspace/kccs461/hw01/data/Adjacencies.txt";
 
 
     public static void main(String[] args) {
@@ -40,15 +40,56 @@ public class Main {
             }
         }
 
-        BreadthFirst bf = new BreadthFirst(cities.get(0), cities.get(cities.size()-1), graph);
+        // final int startIdx = cities.size()-1;
+        // final int endIdx   = 0;
+        final int startIdx = 2;
+        final int endIdx   = 0;
 
-        List<City> path = bf.findRoute();
+        System.out.println("Finding route from " + cities.get(startIdx).getName() + " to " + cities.get(endIdx).getName());
 
-        System.out.println("Path: ");
-        for(City city : path){
+        BreadthFirst bf = new BreadthFirst(cities.get(startIdx), cities.get(endIdx), graph);
+
+        final long bfStart = System.currentTimeMillis();
+        List<City> bfpath = bf.findFirstRoute();
+        final long bfEnd = System.currentTimeMillis();
+
+        System.out.println("\nBFS Path: ");
+        System.out.println("Time: " + (bfEnd - bfStart) + "ms");
+        for(City city : bfpath){
             System.out.println(city.getName());
         }
 
+        DepthFirst df = new DepthFirst(cities.get(startIdx), cities.get(endIdx), graph);
+        final long dfStart = System.currentTimeMillis();
+        List<City> dfpath = df.findFirstRoute();
+        final long dfEnd = System.currentTimeMillis();
+        System.out.println("\nDFS Path: ");
+        System.out.println("Time: " + (dfEnd - dfStart) + "ms");
+        for(City city : dfpath){
+            System.out.println(city.getName());
+        }
+
+        IDDFS iddfs = new IDDFS(cities.get(startIdx), cities.get(endIdx), graph);
+        final long iddfsStart = System.currentTimeMillis();
+        List<City> iddfsPath = iddfs.findFirstRoute();
+        final long iddfsEnd = System.currentTimeMillis();
+        System.out.println("\nIDDFS Path: ");
+        System.out.println("Time: " + (iddfsEnd - iddfsStart) + "ms");
+        for(City city : iddfsPath){
+            System.out.println(city.getName());
+        }
+
+
+        List<List<City>> allbfroutes = bf.findAllRoutes();
+        System.out.println("\nBFS All Routes: ");
+        int routeCount = 0;
+        for(List<City> route : allbfroutes){
+            System.out.print("Route " + routeCount++ + ": ");
+            for(City city : route){
+                System.out.print(city.getName() + " ");
+            }
+            System.out.println();
+        }
     }
 
     private static class DataLoader {

@@ -29,6 +29,7 @@ public abstract class SearchState {
         return graph;
     }
 
-    public abstract List<City> findRoute();
+    public abstract List<City> findFirstRoute();
+    public abstract List<List<City>> findAllRoutes();
 }
 
