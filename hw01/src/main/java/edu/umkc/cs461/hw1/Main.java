@@ -40,23 +40,25 @@ public class Main {
             }
         }
 
-        // final int startIdx = cities.size()-1;
-        // final int endIdx   = 0;
-        final int startIdx = 0;
-        final int endIdx   = cities.size()-1;
+        final int startIdx = cities.size()-1;
+        final int endIdx   = 0;
+        // final int startIdx = 0;
+        // final int endIdx   = cities.size()-1;
         final int maxIterations = 10000;
 
         System.out.println("Finding route from " + cities.get(startIdx).getName() + " to " + cities.get(endIdx).getName());
 
         BreadthFirst bf = new BreadthFirst(cities.get(startIdx), cities.get(endIdx), graph);
         {
+            SearchState.FindResult bFindResult = null;
 
-            List<City> bfpath = bf.findFirstRoute();
             final long bfStart = System.currentTimeMillis();
             for(int i = 0; i < maxIterations; i++){
-                bfpath = bf.findFirstRoute();
+                bFindResult = bf.find(false, false);
             }
             final long bfEnd = System.currentTimeMillis();
+
+            List<City> bfpath = bFindResult.routes.get(0);
 
             System.out.println("Time: " + (bfEnd - bfStart) + "ms");
             System.out.println("BFS Path: ");
@@ -65,18 +67,26 @@ public class Main {
             for(City city : bfpath){
                 System.out.print(city.getName()+" -> ");
             }
+
+            System.out.println("VISIT LIST: ");
+            for(SearchState.Node node : bFindResult.visitList){
+                System.out.print(node.city.getName() + " -> ");
+            }
+
             System.out.println();
         }
 
         DepthFirst df = new DepthFirst(cities.get(startIdx), cities.get(endIdx), graph);
         {
-            List<City> dfpath = df.findFirstRoute();
-
+            SearchState.FindResult dFindResult = null;
             final long dfStart = System.currentTimeMillis();
             for(int i = 0; i < maxIterations; i++){
-                dfpath = df.findFirstRoute();
+                dFindResult = df.find(false, false);
             }
             final long dfEnd = System.currentTimeMillis();
+
+            List<City> dfpath = dFindResult.routes.get(0);
+
             System.out.println("Time: " + (dfEnd - dfStart) + "ms");
             System.out.println("DFS Path: ");
             // System.out.println("Time: " + (dfEnd - dfStart) + "ms");
@@ -84,64 +94,137 @@ public class Main {
             for(City city : dfpath){
                 System.out.print(city.getName() + " -> ");
             }
+
+            System.out.println("VISIT LIST: ");
+            for(SearchState.Node node : dFindResult.visitList){
+                System.out.print(node.city.getName() + " -> ");
+            }
+
             System.out.println();
         }
 
         IDDFS iddfs = new IDDFS(cities.get(startIdx), cities.get(endIdx), graph);
         {
-            List<City> iddfsPath = iddfs.findFirstRoute();
+            SearchState.FindResult iFindResult = null;
+            
             final long iddfsStart = System.currentTimeMillis();
             for(int i = 0; i < maxIterations; i++){
-                iddfsPath = iddfs.findFirstRoute();
+                iFindResult = iddfs.find(false, false);
             }
             final long iddfsEnd = System.currentTimeMillis();
+
+            List<City> iddfsPath = iFindResult.routes.get(0);
+
             System.out.println("Time: " + (iddfsEnd - iddfsStart) + "ms");
             System.out.println("IDDFS Path: ");
             System.out.println("Distance: " + City.distanceThrough(iddfsPath));
             for(City city : iddfsPath){
                 System.out.print(city.getName() + " -> ");
             }
+            System.out.println("VISIT LIST: ");
+            for(SearchState.Node node : iFindResult.visitList){
+                System.out.print(node.city.getName() + " -> ");
+            }
+
             System.out.println();
         }
 
-        if( false ){
-            {
-                List<List<City>> allbfroutes = bf.findAllRoutes();
-
-                Map<Double, List<City>> shortestRoutes = new java.util.TreeMap<>();
-                for(List<City> route : allbfroutes){
-                    shortestRoutes.putIfAbsent(City.distanceThrough(route), route);
-                }
-
-                System.out.println("\nBFS All Routes: ");
-                int routeCount = 0;
-                for(Map.Entry<Double, List<City>> entry : shortestRoutes.entrySet()){
-                    System.out.println("\n\nRoute " + routeCount + " Distance: " + entry.getKey());
-                    for(City city : entry.getValue()){
-                        System.out.print(city.getName() + " -> ");
-                    }
-                    routeCount++;
-                }
+        AStar astar = new AStar(cities.get(startIdx), cities.get(endIdx), graph);
+        {
+            SearchState.FindResult aFindResult = null;
+            final long astarStart = System.currentTimeMillis();
+            for(int i = 0; i < maxIterations; i++){
+                aFindResult = astar.find(false, false);
             }
-            {
-                List<List<City>> alldfroutes = df.findAllRoutes();
+            final long astarEnd = System.currentTimeMillis();
 
-                Map<Double, List<City>> shortestRoutes = new java.util.TreeMap<>();
-                for(List<City> route : alldfroutes){
-                    shortestRoutes.putIfAbsent(City.distanceThrough(route), route);
-                }
+            List<City> astarPath = aFindResult.routes.get(0);
 
-                System.out.println("\nDFS All Routes: ");
-                int routeCount = 0;
-                for(Map.Entry<Double, List<City>> entry : shortestRoutes.entrySet()){
-                    System.out.println("\n\nRoute " + routeCount + " Distance: " + entry.getKey());
-                    for(City city : entry.getValue()){
-                        System.out.print(city.getName() + " -> ");
-                    }
-                    routeCount++;
-                }
+            System.out.println("Time: " + (astarEnd - astarStart) + "ms");
+            System.out.println("A* Path: ");
+            System.out.println("Distance: " + City.distanceThrough(astarPath));
+            for(City city : astarPath){
+                System.out.print(city.getName() + " -> ");
             }
+            System.out.println("VISIT LIST: ");
+            for(SearchState.Node node : aFindResult.visitList){
+                System.out.print(node.city.getName() + " -> ");
+            }
+
+            System.out.println();
         }
+
+        // if( false ){
+        //     {
+        //         List<List<City>> allbfroutes = bf.find(false,true);
+
+        //         Map<Double, List<City>> shortestRoutes = new java.util.TreeMap<>();
+        //         for(List<City> route : allbfroutes){
+        //             shortestRoutes.putIfAbsent(City.distanceThrough(route), route);
+        //         }
+
+        //         System.out.println("\nBFS All Routes: ");
+        //         int routeCount = 0;
+        //         for(Map.Entry<Double, List<City>> entry : shortestRoutes.entrySet()){
+        //             System.out.println("\n\nRoute " + routeCount + " Distance: " + entry.getKey());
+        //             for(City city : entry.getValue()){
+        //                 System.out.print(city.getName() + " -> ");
+        //             }
+        //             routeCount++;
+        //         }
+        //     }
+        //     {
+                // SearchState.FindResult alldfroutes = df.find(false,true);
+
+                // Map<Double, List<City>> shortestRoutes = new java.util.TreeMap<>();
+                // for(List<City> route : alldfroutes.routes){
+                //     shortestRoutes.putIfAbsent(City.distanceThrough(route), route);
+                // }
+
+                // System.out.println("\nDFS All Routes: ");
+                // int routeCount = 0;
+                // for(Map.Entry<Double, List<City>> entry : shortestRoutes.entrySet()){
+                //     System.out.println("\n\nRoute " + routeCount + " Distance: " + entry.getKey());
+                //     for(City city : entry.getValue()){
+                //         System.out.print(city.getName() + " -> ");
+                //     }
+                //     routeCount++;
+                // }
+
+                // SearchState.FindResult allroutes = iddfs.find(false,true);
+
+                // Map<Double, List<City>> shortestRoutes = new java.util.TreeMap<>();
+                // for(List<City> route : allroutes.routes){
+                //     shortestRoutes.putIfAbsent(City.distanceThrough(route), route);
+                // }
+
+                // System.out.println("IDDFS All Routes: ");
+                // int routeCount = 0;
+                // for(Map.Entry<Double, List<City>> entry : shortestRoutes.entrySet()){
+                //     System.out.println("\n\nRoute " + routeCount + " Distance: " + entry.getKey());
+                //     for(City city : entry.getValue()){
+                //         System.out.print(city.getName() + " -> ");
+                //     }
+                //     routeCount++;
+                // }
+
+
+                SearchState.FindResult allStarroutes = astar.find(false,true);
+
+                System.out.println("A* All Routes: ");
+                for(List<City> route : allStarroutes.routes){
+                    System.out.println("Distance: " + City.distanceThrough(route));
+                    for(City city : route){
+                        System.out.print(city.getName() + " -> ");
+                    }
+                    System.out.println();
+                }
+
+
+
+
+                //     }
+        // }
     }
 
     private static class DataLoader {

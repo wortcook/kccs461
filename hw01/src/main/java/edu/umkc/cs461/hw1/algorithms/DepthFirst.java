@@ -1,104 +1,60 @@
 package edu.umkc.cs461.hw1.algorithms;
 
 import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Stack;
-
+import java.util.stream.Stream;
 
 import edu.umkc.cs461.hw1.data.City;
 import edu.umkc.cs461.hw1.data.BiDirectGraph;
 
 public class DepthFirst extends SearchState{
     
-        private class Node{
-            public final City city;
-            public final Node parent;
-            public Node(City city, Node parent){
-                this.city = city;
-                this.parent = parent;
-            }
-        }
-    
-        public DepthFirst(final City start, final City end, final BiDirectGraph<City> graph){
-            super(start, end, graph);
-        }
-    
-        @Override
-        public List<City> findFirstRoute(){
-            Set<City> visited = new HashSet<City>();
-            Stack<Node> stack = new Stack<Node>();
-            
-            Node start = new Node(getStart(), null);
-            stack.push(start);
-    
-            while(!stack.isEmpty()){
-                Node curr = stack.pop();
-                City current = curr.city;
-                // System.out.println("Visiting " + current.getName());
-                if(current.equals(getEnd())){
-                    return createCityListFromNode(curr);
-                }
-
-                visited.add(current);
-
-                getGraph().getConnections(current).entrySet().stream()
-                    // .sorted((e1, e2) -> e1.getValue().compareTo(e2.getValue()))
-                    .forEach(e -> {
-                        if(!visited.contains(e.getKey())){
-                            Node neighborNode = new Node(e.getKey(), curr);
-                            stack.push(neighborNode);
-                        }
-                    });
-            }
-            return new ArrayList<City>();
-        }
-
-        @Override
-        public List<List<City>> findAllRoutes(){
-            Stack<Node> stack = new Stack<Node>();
-            List<List<City>> routes = new ArrayList<List<City>>();
-            
-            Node start = new Node(getStart(), null);
-            stack.push(start);
-            while(!stack.isEmpty()){
-                Node curr = stack.pop();
-                City current = curr.city;
-                if(current.equals(getEnd())){
-                    routes.add(createCityListFromNode(curr));
-                }
-
-                //sort connections by distance and return as a list
-                getGraph().getConnections(current).entrySet().stream()
-                    // .sorted((e1, e2) -> e1.getValue().compareTo(e2.getValue()))
-                    .forEach(e -> {
-                        if(!NodeInPath(curr, e.getKey())){
-                            Node neighborNode = new Node(e.getKey(), curr);
-                            stack.push(neighborNode);
-                        }
-                    });
-            }
-            return routes;
-        }        
-
-        private boolean NodeInPath(Node node, City city){
-            while(node != null){
-                if(node.city.equals(city)){
-                    return true;
-                }
-                node = node.parent;
-            }
-            return false;
-        }
-    
-        private List<City> createCityListFromNode(Node node){
-            List<City> path = new ArrayList<City>();
-            while(node != null){
-                path.add(0, node.city);
-                node = node.parent;
-            }
-            return path;
-        }
+    public DepthFirst(final City start, final City end, final BiDirectGraph<City> graph){
+        super(start, end, graph);
     }
+
+    @Override
+    public FindResult find(final boolean sortByDistance, final boolean findAllRoutes){
+        final List<Node> visitList = new LinkedList<Node>();
+
+        Stack<Node> stack = new Stack<Node>();
+        List<List<City>> routes = new ArrayList<List<City>>();
+        Set<City> visited = new HashSet<City>();
+
+        Node start = new Node(getStart(), null);
+        stack.push(start);
+
+        while(!stack.isEmpty()){
+            Node curr = stack.pop();
+            City current = curr.city;
+            visitList.add(curr);
+            visited.add(current);
+            if(current.equals(getEnd())){
+                routes.add(SearchState.createCityListFromNode(curr));
+                if(!findAllRoutes){
+                    return new FindResult(routes, visitList);
+                }
+            }
+
+            //sort connections by distance and return as a list
+            Stream<Entry<City,Double>> connStream = getGraph().getConnections(current).entrySet().stream();
+            if(sortByDistance){
+                connStream = connStream.sorted((e1, e2) -> -e1.getValue().compareTo(e2.getValue()));
+            }
+            connStream.forEach(e -> {     
+                    //if the neighbor (child) is not in the path (a parent, grandparent, etc. of the current node)
+                    if(!SearchState.checkCityForVisit(e.getKey(), visited, curr, findAllRoutes)){
+                        //add the neighbor to the queue
+                        Node neighborNode = new Node(e.getKey(), curr);
+                        stack.push(neighborNode);
+                    }
+                });
+        }
+        return new FindResult(routes, visitList);
+    }        
+}
