@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.Stack;
 import java.util.stream.Stream;
 
 import edu.umkc.cs461.hw1.data.BiDirectGraph;
@@ -19,7 +18,7 @@ public class AStar extends SearchState{
     }
 
     @Override
-    public FindResult find(final boolean sortByDistance, final boolean findAllRoutes) {
+    public FindResult find(final boolean findAllRoutes, Frontier<Node> frontierIgnore, int maxDepthIgnore, int depthSkipIgnore){
         final List<Node> visitList = new LinkedList<Node>();
 
         List<List<City>> routes = new ArrayList<List<City>>();

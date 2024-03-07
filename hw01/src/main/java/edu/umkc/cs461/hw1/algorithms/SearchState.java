@@ -65,7 +65,19 @@ public abstract class SearchState {
         return graph;
     }
 
-    public abstract FindResult find(final boolean sortByDistance, final boolean findAllRoutes);
+    public FindResult find(){
+        return find(false);
+    }
+
+    public FindResult find(final boolean findAllRoutes){
+        return find(findAllRoutes, null);
+    }
+
+    public FindResult find(final boolean findAllRoutes, Frontier<Node> frontier){
+        return find(findAllRoutes, frontier, 0, 0);
+    }
+
+    public abstract FindResult find(final boolean findAllRoutes, final Frontier<Node> frontier, final int maxDepth, final int depthSkip);
 
 
     //Utility methods

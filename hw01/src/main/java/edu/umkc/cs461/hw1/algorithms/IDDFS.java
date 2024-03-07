@@ -18,7 +18,7 @@ public class IDDFS extends SearchState {
     }
 
     @Override
-    public FindResult find(final boolean sortByDistance, final boolean findAllRoutes){
+    public FindResult find(final boolean findAllRoutes, Frontier<Node> frontierIgnore, int maxDepthIgnore, int depthSkipIgnore){
         final List<Node> visitList = new ArrayList<Node>();
         List<List<City>> routes = new ArrayList<List<City>>();
         //iterative deepening depth first search
@@ -47,9 +47,6 @@ public class IDDFS extends SearchState {
 
                 if(SearchState.checkDepth(curr, depth)){
                     Stream<Entry<City,Double>> connStream = getGraph().getConnections(current).entrySet().stream();
-                    if(sortByDistance){
-                        connStream = connStream.sorted((e1, e2) -> -e1.getValue().compareTo(e2.getValue()));
-                    }
                     connStream.forEach(e -> {     
                             //if the neighbor (child) is not in the path (a parent, grandparent, etc. of the current node)
                             if(!SearchState.checkCityForVisit(e.getKey(), visited, curr, findAllRoutes)){

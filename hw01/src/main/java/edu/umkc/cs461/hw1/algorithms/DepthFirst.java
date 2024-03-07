@@ -19,7 +19,7 @@ public class DepthFirst extends SearchState{
     }
 
     @Override
-    public FindResult find(final boolean sortByDistance, final boolean findAllRoutes){
+    public FindResult find(final boolean findAllRoutes, Frontier<Node> frontierIgnore, int maxDepthIgnore, int depthSkipIgnore){
         final List<Node> visitList = new LinkedList<Node>();
 
         Stack<Node> stack = new Stack<Node>();
@@ -43,9 +43,6 @@ public class DepthFirst extends SearchState{
 
             //sort connections by distance and return as a list
             Stream<Entry<City,Double>> connStream = getGraph().getConnections(current).entrySet().stream();
-            if(sortByDistance){
-                connStream = connStream.sorted((e1, e2) -> -e1.getValue().compareTo(e2.getValue()));
-            }
             connStream.forEach(e -> {     
                     //if the neighbor (child) is not in the path (a parent, grandparent, etc. of the current node)
                     if(!SearchState.checkCityForVisit(e.getKey(), visited, curr, findAllRoutes)){
