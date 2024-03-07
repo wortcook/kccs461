@@ -117,10 +117,32 @@ public class Main {
             (srchState) -> iddfsFrontier.isEmpty()
         );
 
+        System.out.println("Flexi IDDFS: ");
         runSearch(fsiddfs, iddfsStyleFrontier, false);
 
+        System.out.println("Best First: ");
+        runSearch(new BestFirst(cities.get(startIdx), cities.get(endIdx), graph), null, false);
+
+        System.out.println("Flexi Best First: ");
+        FlexiSearch fsbestfirst = new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph);
+        final PriorityQueue<SearchState.Node> bestFirstFrontier = new PriorityQueue<SearchState.Node>((n1, n2) -> {
+            return Double.compare(n1.city.distanceFrom(fsbestfirst.getEnd()), n2.city.distanceFrom(fsbestfirst.getEnd()));
+        });
+
+        Frontier<SearchState.Node> bestFirstStyleFrontier = new Frontier<SearchState.Node>(
+            (srchState) -> {bestFirstFrontier.clear();return null;},
+            (srchState, nodes) -> {bestFirstFrontier.addAll(nodes);return null;},
+            (srchState) -> bestFirstFrontier.remove(),
+            (srchState) -> bestFirstFrontier.isEmpty()
+        );
+
+        runSearch(fsbestfirst, bestFirstStyleFrontier, false);
+
+
+        System.out.println("A*: ");
         runSearch(new AStar(cities.get(startIdx), cities.get(endIdx), graph), null, false);
 
+        System.out.println("Flexi A*: ");
         FlexiSearch fsastar = new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph);
         final PriorityQueue<SearchState.Node> astarFrontier = new PriorityQueue<SearchState.Node>((n1, n2) -> {
             //f(n)         =       g(n)    +      h(n)
