@@ -18,7 +18,7 @@ public class IDDFS extends SearchState {
     }
 
     @Override
-    public FindResult find(final boolean findAllRoutes, Frontier<Node> frontierIgnore, int maxDepthIgnore, int depthSkipIgnore){
+    public FindResult find(final boolean findAllRoutes, Frontier<Node> frontierIgnore){
         final List<Node> visitList = new ArrayList<Node>();
         List<List<City>> routes = new ArrayList<List<City>>();
         //iterative deepening depth first search

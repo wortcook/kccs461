@@ -18,7 +18,7 @@ public class BestFirst extends SearchState{
     }
 
     @Override
-    public FindResult find(final boolean findAllRoutes, Frontier<Node> frontierIgnore, int maxDepthIgnore, int depthSkipIgnore){
+    public FindResult find(final boolean findAllRoutes, Frontier<Node> frontierIgnore){
         final List<Node> visitList = new LinkedList<Node>();
 
         Stack<Node> stack = new Stack<Node>();

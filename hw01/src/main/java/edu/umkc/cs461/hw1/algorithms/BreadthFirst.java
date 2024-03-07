@@ -18,7 +18,7 @@ public class BreadthFirst extends SearchState{
     }
 
     @Override
-    public FindResult find(final boolean findAllRoutes, Frontier<Node> frontierIgnore, int maxDepthIgnore, int depthSkipIgnore){
+    public FindResult find(final boolean findAllRoutes, Frontier<Node> frontierIgnore){
         final List<Node> visitList = new LinkedList<Node>();
 
         Queue<Node> queue = new ArrayDeque<Node>();
