@@ -59,7 +59,7 @@ public class FlexiSearch extends SearchState{
 
             if(frontier.continueNode(this,curr)){//Should process the connections to the current node
                 //Add all the connections from the current city to the frontier
-                frontier.add(this, 
+                List<Node> toAdd = 
                         getGraph() //from the search space
                         .getConnections(current) //get the connections from the current city
                         .entrySet() //get the connections as a set of entries
@@ -69,7 +69,8 @@ public class FlexiSearch extends SearchState{
                         //then convert each city into a node
                         .map(e -> new Node(e.getKey(), curr))
                         //collect the nodes into a list
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList());
+                frontier.add(this, toAdd);
             }
         }
         return new FindResult(routes, visitList);

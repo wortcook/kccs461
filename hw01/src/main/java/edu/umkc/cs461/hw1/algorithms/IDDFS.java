@@ -45,6 +45,7 @@ public class IDDFS extends SearchState {
                     }
                 }
 
+                List<Node> toAdd = new ArrayList<Node>();
                 if(SearchState.checkDepth(curr, depth)){
                     Stream<Entry<City,Double>> connStream = getGraph().getConnections(current).entrySet().stream();
                     connStream.forEach(e -> {     
@@ -52,9 +53,12 @@ public class IDDFS extends SearchState {
                             if(!SearchState.checkCityForVisit(e.getKey(), visited, curr, findAllRoutes)){
                                 //add the neighbor to the queue
                                 Node neighborNode = new Node(e.getKey(), curr);
-                                stack.push(neighborNode);
+                                toAdd.add(0,neighborNode);
                             }
                         });
+                }
+                for(Node n: toAdd){
+                    stack.push(n);
                 }
             }
             depth++;
