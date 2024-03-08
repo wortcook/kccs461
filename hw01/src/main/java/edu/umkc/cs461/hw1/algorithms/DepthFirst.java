@@ -42,15 +42,18 @@ public class DepthFirst extends SearchState{
             }
 
             //sort connections by distance and return as a list
-            Stream<Entry<City,Double>> connStream = getGraph().getConnections(current).entrySet().stream();
-            connStream.forEach(e -> {     
+            List<Node> toAdd = new ArrayList<>();
+            getGraph().getConnections(current).entrySet().forEach(e -> {     
                     //if the neighbor (child) is not in the path (a parent, grandparent, etc. of the current node)
                     if(!SearchState.checkCityForVisit(e.getKey(), visited, curr, findAllRoutes)){
                         //add the neighbor to the queue
                         Node neighborNode = new Node(e.getKey(), curr);
-                        stack.push(neighborNode);
+                        toAdd.add(neighborNode);
                     }
                 });
+            for(Node n: toAdd.reversed()){
+                stack.push(n);
+            }
         }
         return new FindResult(routes, visitList);
     }        

@@ -1,0 +1,318 @@
+Loading data...
+Data loaded.
+Connections for Abilene
+	Hays : 2.059866511603932
+	Salina : 0.446240439291562
+	Junction_City : 0.4037284392814792
+	Marion : 0.6120391897225583
+Connections for Andover
+	Augusta : 0.11215420859744281
+	Newton : 0.43373092659069007
+	Towanda : 0.1938920087207285
+	Winfield : 0.4352834478889456
+	Mulvane : 0.22004438366850507
+	Leon : 0.37412433918666615
+Connections for Anthony
+	Argonia : 0.3195599974234111
+	Bluff_City : 0.2100045165164722
+	Harper : 0.13269967946200315
+Connections for Argonia
+	Rago : 0.3681384816195737
+	Anthony : 0.3195599974234111
+	Caldwell : 0.2791542084738412
+Connections for Attica
+	Kiowa : 0.34168702670206674
+	Harper : 0.20298906009305445
+	Medicine_Lodge : 0.35630678444355013
+Connections for Augusta
+	Andover : 0.11215420859744281
+	Winfield : 0.4104543809826508
+	Emporia : 1.0492357349132317
+Connections for Bluff_City
+	South_Haven : 0.4748438272285063
+	Anthony : 0.2100045165164722
+	Kiowa : 0.6173715389674457
+	Mayfield : 0.37733762948952976
+Connections for Caldwell
+	Argonia : 0.2791542084738412
+	South_Haven : 0.21327373483563616
+	Wellington : 0.25416113138566354
+Connections for Cheney
+	Pratt : 0.9883921463610466
+	Clearwater : 0.2819479708624995
+	Mulvane : 0.551528458898803
+	Kingman : 0.3802591025615682
+Connections for Clearwater
+	Derby : 0.24823856404820832
+	Cheney : 0.2819479708624995
+Connections for Coldwater
+	Greensburg : 0.3517978040531813
+	Pratt : 0.7132135667303259
+	Kiowa : 0.8932568088540355
+Connections for Derby
+	Wichita : 0.31801400389684015
+	Clearwater : 0.24823856404820832
+Connections for El_Dorado
+	Newton : 0.5756032895721152
+	Hillsboro : 0.6279828282037647
+	Towanda : 0.11270818474365414
+Connections for Emporia
+	Augusta : 1.0492357349132317
+	Newton : 1.2122416978947699
+Connections for Florence
+	Hutchinson : 1.020725737050476
+	McPherson : 0.7645209953912355
+Connections for Greensburg
+	Coldwater : 0.3517978040531813
+Connections for Harper
+	Anthony : 0.13269967946200315
+	Attica : 0.20298906009305445
+Connections for Haven
+	Newton : 0.3921218936292262
+Connections for Hays
+	Abilene : 2.059866511603932
+Connections for Hillsboro
+	Lyons : 1.0060300036900534
+	El_Dorado : 0.6279828282037647
+	McPherson : 0.47659239860293495
+Connections for Hutchinson
+	Newton : 0.5179796961275197
+	Pratt : 0.9185995570498763
+	Florence : 1.020725737050476
+	McPherson : 0.4005628851781511
+Connections for Junction_City
+	Abilene : 0.4037284392814792
+Connections for Kingman
+	Cheney : 0.3802591025615682
+Connections for Kiowa
+	Bluff_City : 0.6173715389674457
+	Attica : 0.34168702670206674
+	Coldwater : 0.8932568088540355
+Connections for Leon
+	Wichita : 0.7928479777840458
+	Andover : 0.37412433918666615
+Connections for Lyons
+	Hillsboro : 1.0060300036900534
+	Salina : 0.7056405471541779
+Connections for Manhattan
+	Topeka : 0.9249817625258903
+	Marion : 0.8764502578617902
+Connections for Marion
+	Abilene : 0.6120391897225583
+	Manhattan : 0.8764502578617902
+	McPherson : 0.6651323212699503
+Connections for Mayfield
+	Bluff_City : 0.37733762948952976
+	Mulvane : 0.36965841361619606
+	Oxford : 0.37333869593494096
+	Wellington : 0.03176394138799447
+Connections for McPherson
+	Hutchinson : 0.4005628851781511
+	Newton : 0.42895119551950694
+	Hillsboro : 0.47659239860293495
+	Salina : 0.45512470467809907
+	Florence : 0.7645209953912355
+	Marion : 0.6651323212699503
+Connections for Medicine_Lodge
+	Attica : 0.35630678444355013
+Connections for Mulvane
+	South_Haven : 0.46133376796233644
+	Andover : 0.22004438366850507
+	Mayfield : 0.36965841361619606
+	Cheney : 0.551528458898803
+Connections for Newton
+	Haven : 0.3921218936292262
+	Hutchinson : 0.5179796961275197
+	Andover : 0.43373092659069007
+	El_Dorado : 0.5756032895721152
+	McPherson : 0.42895119551950694
+	Emporia : 1.2122416978947699
+Connections for Oxford
+	Mayfield : 0.37333869593494096
+	Wellington : 0.3422797467348922
+Connections for Pratt
+	Hutchinson : 0.9185995570498763
+	Zenda : 0.5433573820218378
+	Coldwater : 0.7132135667303259
+	Sawyer : 0.19902469694590877
+	Cheney : 0.9883921463610466
+Connections for Rago
+	Argonia : 0.3681384816195737
+	Viola : 0.4419142114463941
+Connections for Salina
+	Lyons : 0.7056405471541779
+	Abilene : 0.446240439291562
+	McPherson : 0.45512470467809907
+Connections for Sawyer
+	Pratt : 0.19902469694590877
+	Viola : 1.0385551909854205
+Connections for South_Haven
+	Bluff_City : 0.4748438272285063
+	Mulvane : 0.46133376796233644
+	Caldwell : 0.21327373483563616
+Connections for Topeka
+	Manhattan : 0.9249817625258903
+Connections for Towanda
+	Andover : 0.1938920087207285
+	El_Dorado : 0.11270818474365414
+Connections for Viola
+	Rago : 0.4419142114463941
+	Sawyer : 1.0385551909854205
+Connections for Wellington
+	Mayfield : 0.03176394138799447
+	Caldwell : 0.25416113138566354
+	Oxford : 0.3422797467348922
+Connections for Wichita
+	Derby : 0.31801400389684015
+	Leon : 0.7928479777840458
+Connections for Winfield
+	Augusta : 0.4104543809826508
+	Andover : 0.4352834478889456
+Connections for Zenda
+	Pratt : 0.5433573820218378
+Finding route from Zenda to Abilene
+BFS: 
+Time: 4ms for 1 iterations
+First Route: 
+Distance: 2.763884968219526
+Zenda -> Pratt -> Hutchinson -> McPherson -> Salina -> Abilene -> 
+VISIT LIST: 
+Zenda -> Pratt -> Hutchinson -> Coldwater -> Sawyer -> Cheney -> Newton -> Florence -> McPherson -> Greensburg -> Kiowa -> Viola -> Clearwater -> Mulvane -> Kingman -> Haven -> Andover -> El_Dorado -> McPherson -> Emporia -> McPherson -> Hillsboro -> Salina -> Marion -> Bluff_City -> Attica -> Rago -> Derby -> South_Haven -> Andover -> Mayfield -> Augusta -> Towanda -> Winfield -> Leon -> Hillsboro -> Towanda -> Hillsboro -> Salina -> Marion -> Augusta -> Hillsboro -> Salina -> Marion -> Lyons -> Lyons -> Abilene -> 
+
+Flexi BFS: 
+Time: 6ms for 1 iterations
+First Route: 
+Distance: 2.763884968219526
+Zenda -> Pratt -> Hutchinson -> McPherson -> Salina -> Abilene -> 
+VISIT LIST: 
+Zenda -> Pratt -> Hutchinson -> Coldwater -> Sawyer -> Cheney -> Newton -> Florence -> McPherson -> Greensburg -> Kiowa -> Viola -> Clearwater -> Mulvane -> Kingman -> Haven -> Andover -> El_Dorado -> McPherson -> Emporia -> McPherson -> Hillsboro -> Salina -> Marion -> Bluff_City -> Attica -> Rago -> Derby -> South_Haven -> Andover -> Mayfield -> Augusta -> Towanda -> Winfield -> Leon -> Hillsboro -> Towanda -> Hillsboro -> Salina -> Marion -> Augusta -> Hillsboro -> Salina -> Marion -> Lyons -> Lyons -> Abilene -> 
+
+DFS: 
+Time: 1ms for 1 iterations
+First Route: 
+Distance: 5.5061615735938645
+Zenda -> Pratt -> Hutchinson -> Newton -> Andover -> Towanda -> El_Dorado -> Hillsboro -> Lyons -> Salina -> Abilene -> 
+VISIT LIST: 
+Zenda -> Pratt -> Hutchinson -> Newton -> Haven -> Andover -> Augusta -> Winfield -> Emporia -> Towanda -> El_Dorado -> Hillsboro -> Lyons -> Salina -> Abilene -> 
+
+Flexi DFS: 
+Time: 0ms for 1 iterations
+First Route: 
+Distance: 5.5061615735938645
+Zenda -> Pratt -> Hutchinson -> Newton -> Andover -> Towanda -> El_Dorado -> Hillsboro -> Lyons -> Salina -> Abilene -> 
+VISIT LIST: 
+Zenda -> Pratt -> Hutchinson -> Newton -> Haven -> Andover -> Augusta -> Winfield -> Emporia -> Towanda -> El_Dorado -> Hillsboro -> Lyons -> Salina -> Abilene -> 
+
+IDDFS: 
+Time: 0ms for 1 iterations
+First Route: 
+Distance: 3.3102529746884013
+Zenda -> Pratt -> Hutchinson -> Newton -> McPherson -> Salina -> Abilene -> 
+VISIT LIST: 
+Zenda -> Pratt -> Zenda -> Pratt -> Hutchinson -> Coldwater -> Sawyer -> Cheney -> Zenda -> Pratt -> Hutchinson -> Newton -> Florence -> McPherson -> Coldwater -> Greensburg -> Kiowa -> Sawyer -> Viola -> Cheney -> Clearwater -> Mulvane -> Kingman -> Zenda -> Pratt -> Hutchinson -> Newton -> Haven -> Andover -> El_Dorado -> McPherson -> Emporia -> Florence -> McPherson -> Hillsboro -> Salina -> Marion -> Coldwater -> Greensburg -> Kiowa -> Bluff_City -> Attica -> Sawyer -> Viola -> Rago -> Cheney -> Clearwater -> Derby -> Mulvane -> South_Haven -> Mayfield -> Kingman -> Zenda -> Pratt -> Hutchinson -> Newton -> Haven -> Andover -> Augusta -> Towanda -> Winfield -> Mulvane -> Leon -> El_Dorado -> Hillsboro -> McPherson -> Salina -> Florence -> Marion -> Emporia -> Florence -> McPherson -> Coldwater -> Greensburg -> Kiowa -> Bluff_City -> South_Haven -> Anthony -> Mayfield -> Attica -> Harper -> Medicine_Lodge -> Sawyer -> Viola -> Rago -> Argonia -> Cheney -> Clearwater -> Derby -> Wichita -> Kingman -> Zenda -> Pratt -> Hutchinson -> Newton -> Haven -> Andover -> Augusta -> Winfield -> Emporia -> Towanda -> El_Dorado -> Winfield -> Mulvane -> South_Haven -> Mayfield -> Cheney -> Leon -> Wichita -> El_Dorado -> Hillsboro -> Lyons -> McPherson -> McPherson -> Salina -> Abilene -> 
+
+Flexi IDDFS: 
+Flexi IDDFS: 
+
+Zenda(0), 
+
+Pratt(1), 
+
+Hutchinson(2), Coldwater(2), Sawyer(2), Cheney(2), 
+
+Newton(3), Florence(3), McPherson(3), Coldwater(2), Sawyer(2), Cheney(2), 
+
+Florence(3), McPherson(3), Coldwater(2), Sawyer(2), Cheney(2), Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), 
+
+McPherson(3), Coldwater(2), Sawyer(2), Cheney(2), Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), 
+
+Coldwater(2), Sawyer(2), Cheney(2), Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), 
+
+Greensburg(3), Kiowa(3), Sawyer(2), Cheney(2), Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), 
+
+Kiowa(3), Sawyer(2), Cheney(2), Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), 
+
+Sawyer(2), Cheney(2), Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), 
+
+Viola(3), Cheney(2), Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), 
+
+Cheney(2), Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), 
+
+Clearwater(3), Mulvane(3), Kingman(3), Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), 
+
+Mulvane(3), Kingman(3), Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), 
+
+Kingman(3), Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), 
+
+Haven(4), Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), 
+
+Andover(4), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), 
+
+Augusta(5), Towanda(5), Winfield(5), Leon(5), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), 
+
+Towanda(5), Winfield(5), Leon(5), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), 
+
+Winfield(5), Leon(5), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), 
+
+Leon(5), El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), 
+
+El_Dorado(4), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), Wichita(6), 
+
+Hillsboro(5), McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), Wichita(6), 
+
+McPherson(4), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), Wichita(6), Lyons(6), 
+
+Salina(5), Marion(5), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), Wichita(6), Lyons(6), 
+
+Marion(5), Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), Wichita(6), Lyons(6), Lyons(6), Abilene(6), 
+
+Emporia(4), McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), Wichita(6), Lyons(6), Lyons(6), Abilene(6), Abilene(6), Manhattan(6), 
+
+McPherson(4), Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), Wichita(6), Lyons(6), Lyons(6), Abilene(6), Abilene(6), Manhattan(6), 
+
+Hillsboro(4), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), Wichita(6), Lyons(6), Lyons(6), Abilene(6), Abilene(6), Manhattan(6), 
+
+Lyons(5), Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), Wichita(6), Lyons(6), Lyons(6), Abilene(6), Abilene(6), Manhattan(6), 
+
+Salina(4), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), Wichita(6), Lyons(6), Lyons(6), Abilene(6), Abilene(6), Manhattan(6), 
+
+Abilene(5), Marion(4), Bluff_City(4), Attica(4), Rago(4), Derby(4), South_Haven(4), Andover(4), Mayfield(4), Winfield(6), Emporia(6), El_Dorado(6), Wichita(6), Lyons(6), Lyons(6), Abilene(6), Abilene(6), Manhattan(6), 
+Time: 3ms for 1 iterations
+First Route: 
+Distance: 2.763884968219526
+Zenda -> Pratt -> Hutchinson -> McPherson -> Salina -> Abilene -> 
+VISIT LIST: 
+Zenda -> Pratt -> Hutchinson -> Newton -> Florence -> McPherson -> Coldwater -> Greensburg -> Kiowa -> Sawyer -> Viola -> Cheney -> Clearwater -> Mulvane -> Kingman -> Haven -> Andover -> Augusta -> Towanda -> Winfield -> Leon -> El_Dorado -> Hillsboro -> McPherson -> Salina -> Marion -> Emporia -> McPherson -> Hillsboro -> Lyons -> Salina -> Abilene -> 
+
+Best First: 
+Time: 1ms for 1 iterations
+First Route: 
+Distance: 2.763884968219526
+Zenda -> Pratt -> Hutchinson -> McPherson -> Salina -> Abilene -> 
+VISIT LIST: 
+Zenda -> Pratt -> Hutchinson -> McPherson -> Salina -> Abilene -> 
+
+Flexi Best First: 
+Time: 0ms for 1 iterations
+First Route: 
+Distance: 2.763884968219526
+Zenda -> Pratt -> Hutchinson -> McPherson -> Salina -> Abilene -> 
+VISIT LIST: 
+Zenda -> Pratt -> Hutchinson -> McPherson -> Salina -> Abilene -> 
+
+A*: 
+Time: 1ms for 1 iterations
+First Route: 
+Distance: 2.763884968219526
+Zenda -> Pratt -> Hutchinson -> McPherson -> Salina -> Abilene -> 
+VISIT LIST: 
+Zenda -> Pratt -> Hutchinson -> McPherson -> Sawyer -> Salina -> Abilene -> 
+
+Flexi A*: 
+Time: 0ms for 1 iterations
+First Route: 
+Distance: 2.763884968219526
+Zenda -> Pratt -> Hutchinson -> McPherson -> Salina -> Abilene -> 
+VISIT LIST: 
+Zenda -> Pratt -> Hutchinson -> McPherson -> Sawyer -> Salina -> Abilene -> 
+

@@ -97,6 +97,9 @@ public abstract class SearchState {
     }
 
     public static boolean checkCityForVisit(final City theCity, final Set<City> visited, final Node checkPath, boolean usePath){
+        return checkCityForVisit(theCity, visited, checkPath, usePath, null);
+    }
+    public static boolean checkCityForVisit(final City theCity, final Set<City> visited, final Node checkPath, boolean usePath, Frontier<Node> frontier){
         if(usePath){
             return isNodeInPath(checkPath, theCity);
         }else{

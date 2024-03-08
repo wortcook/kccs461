@@ -22,12 +22,17 @@ public class FlexiSearch extends SearchState{
     //Default implementation is BFS
     public FindResult find(final boolean findAllRoutes){
         final Queue<Node> frontierStack = new ArrayDeque<Node>();
-        return find(findAllRoutes, new Frontier<Node>(
-            (srchState) -> {frontierStack.clear();return null;},
-            (srchState, nodes) -> {frontierStack.addAll(nodes);return null;},
-            (srchState) -> frontierStack.remove(),
-            (srchState) -> frontierStack.isEmpty()
-        ));
+        return find(findAllRoutes, new Frontier<Node>(){
+            public void add(SearchState srchState, List<Node> nodes){
+                frontierStack.addAll(nodes);
+            }
+            public Node pull(SearchState srchState){
+                return frontierStack.remove();
+            }
+            public boolean isEmpty(SearchState srchState){
+                return frontierStack.isEmpty();
+            }
+        });            
     }
 
     @Override
@@ -46,8 +51,12 @@ public class FlexiSearch extends SearchState{
         frontier.add(this, startList);
 
         while(!frontier.isEmpty(this)){
-            Node curr = frontier.remove(this);
-            City current = curr.city; 
+            Node curr = frontier.pull(this);
+            City current = curr.city;
+
+            if(visited.contains(current)){
+                continue;
+            }
             visitList.add(curr);
             visited.add(current);
             if(current.equals(end)){
@@ -57,21 +66,19 @@ public class FlexiSearch extends SearchState{
                 }
             }
 
-            if(frontier.continueNode(this,curr)){//Should process the connections to the current node
-                //Add all the connections from the current city to the frontier
-                List<Node> toAdd = 
-                        getGraph() //from the search space
-                        .getConnections(current) //get the connections from the current city
-                        .entrySet() //get the connections as a set of entries
-                        .stream() //convert the set to a stream
-                        //next filter out any cities that are already in the path or we have already visited
-                        .filter(e -> !SearchState.checkCityForVisit(e.getKey(), visited, curr, findAllRoutes))
-                        //then convert each city into a node
-                        .map(e -> new Node(e.getKey(), curr))
-                        //collect the nodes into a list
-                        .collect(Collectors.toList());
-                frontier.add(this, toAdd);
-            }
+            //Add all the connections from the current city to the frontier
+            List<Node> toAdd = 
+                    getGraph() //from the search space
+                    .getConnections(current) //get the connections from the current city
+                    .entrySet() //get the connections as a set of entries
+                    .stream() //convert the set to a stream
+                    //next filter out any cities that are already in the path or we have already visited
+                    .filter(e -> !SearchState.checkCityForVisit(e.getKey(), visited, curr, findAllRoutes, frontier))
+                    //then convert each city into a node
+                    .map(e -> new Node(e.getKey(), curr))
+                    //collect the nodes into a list
+                    .collect(Collectors.toList());
+            frontier.add(this, toAdd);
         }
         return new FindResult(routes, visitList);
     }

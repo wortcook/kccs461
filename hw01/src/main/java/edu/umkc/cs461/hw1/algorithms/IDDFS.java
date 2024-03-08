@@ -53,11 +53,11 @@ public class IDDFS extends SearchState {
                             if(!SearchState.checkCityForVisit(e.getKey(), visited, curr, findAllRoutes)){
                                 //add the neighbor to the queue
                                 Node neighborNode = new Node(e.getKey(), curr);
-                                toAdd.add(0,neighborNode);
+                                toAdd.add(neighborNode);
                             }
                         });
                 }
-                for(Node n: toAdd){
+                for(Node n: toAdd.reversed()){
                     stack.push(n);
                 }
             }

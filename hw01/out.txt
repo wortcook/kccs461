@@ -1,0 +1,66 @@
+Zenda -> Pratt -> 
+Zenda -> Pratt -> 
+    (Hutchinson -> Coldwater -> Sawyer -> Cheney ->) 
+Zenda -> Pratt -> 
+    Hutchinson -> 
+            Newton -> 
+            Florence -> 
+            McPherson -> 
+    Coldwater -> 
+            Greensburg -> 
+            Kiowa -> 
+    Sawyer -> 
+        Viola -> 
+    Cheney -> 
+        Clearwater -> 
+        Mulvane -> 
+        Kingman -> 
+
+
+Zenda -> 
+    Pratt -> 
+        Hutchinson -> 
+            Newton -> 
+                Haven -> 
+                Andover -> 
+                El_Dorado -> 
+                McPherson -> 
+                Emporia -> 
+            Florence -> 
+            McPherson -> 
+                Hillsboro -> 
+                Salina -> 
+                Marion -> 
+        Coldwater -> 
+            Greensburg -> 
+            Kiowa -> 
+                Bluff_City -> 
+                Attica -> 
+        Sawyer -> 
+            Viola -> 
+                Rago -> 
+        Cheney -> 
+            Clearwater -> 
+                Derby -> 
+            Mulvane -> 
+                South_Haven -> 
+                Mayfield -> 
+            Kingman -> 
+
+
+Zenda -> Pratt -> Hutchinson -> Newton -> Haven -> Andover -> Augusta -> Towanda -> Winfield -> Mulvane -> Leon -> El_Dorado -> Hillsboro -> McPherson -> Salina -> Florence -> Marion -> Emporia -> Florence -> McPherson -> Coldwater -> Greensburg -> Kiowa -> Bluff_City -> South_Haven -> Anthony -> Mayfield -> Attica -> Harper -> Medicine_Lodge -> Sawyer -> Viola -> Rago -> Argonia -> Cheney -> Clearwater -> Derby -> Wichita -> Kingman -> 
+Zenda -> Pratt -> Hutchinson -> Newton -> Haven -> Andover -> Augusta -> Winfield -> Emporia -> Towanda -> El_Dorado -> Winfield -> Mulvane -> South_Haven -> Mayfield -> Cheney -> Leon -> Wichita -> El_Dorado -> Hillsboro -> Lyons -> McPherson -> McPherson -> Salina -> Abilene -> 
+
+
+==============================
+
+Zenda -> Pratt -> Hutchinson -> Newton -> Florence -> McPherson -> Coldwater -> Greensburg -> Kiowa -> Sawyer -> Viola -> Cheney -> Clearwater -> Mulvane -> Kingman -> Haven -> Andover -> Augusta -> Towanda -> Winfield -> Leon -> El_Dorado -> Hillsboro -> McPherson -> Salina -> Marion -> Emporia -> McPherson -> Hillsboro -> Lyons -> Salina -> Abilene -> 
+
+
+Zenda -> 
+    Pratt -> 
+        Hutchinson -> 
+            Newton -> 
+                Florence -> 
+                    McPherson -> 
+        Coldwater -> Greensburg -> Kiowa -> Sawyer -> Viola -> Cheney -> Clearwater -> Mulvane -> Kingman -> Haven -> Andover -> Augusta -> Towanda -> Winfield -> Leon -> El_Dorado -> Hillsboro -> McPherson -> Salina -> Marion -> Emporia -> McPherson -> Hillsboro -> Lyons -> Salina -> Abilene -> 
