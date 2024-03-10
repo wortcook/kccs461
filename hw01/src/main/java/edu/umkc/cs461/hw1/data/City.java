@@ -14,6 +14,11 @@ public class City implements Comparable<City>, Measureable<City>{
         this.longitude = longitude;
     }
 
+    //Used for searching by city name
+    public City(final String name){
+        this(name, 0, 0);
+    }
+
     public String getName() {
         return name;
     }

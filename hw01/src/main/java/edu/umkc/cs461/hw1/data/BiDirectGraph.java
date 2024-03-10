@@ -3,6 +3,9 @@ package edu.umkc.cs461.hw1.data;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
+
+import edu.umkc.cs461.hw1.algorithms.SearchState;
+
 import java.util.HashMap;
 
 
@@ -13,18 +16,18 @@ import java.util.HashMap;
  */
 public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
     //Map of nodes to index values.
-    final Map<K, Integer> nodeMap = new HashMap<K, Integer>();
+    private final Map<K, Integer> nodeMap = new HashMap<K, Integer>();
 
     //Map of index values to nodes
-    final Map<Integer, K> reverseNodeMap = new HashMap<Integer, K>();
+    private final Map<Integer, K> reverseNodeMap = new HashMap<Integer, K>();
 
     //The edges of the graph, i.e. distances or infinity if not connected
-    final double[][] edges;
-
+    private final double[][] edges;
 
     //Memoization of the connections. We'll store connections here once requested
-    final Map<K, Map<K,Double>> connections = new HashMap<K, Map<K,Double>>();
+    private final Map<K, Map<K,Double>> connections = new HashMap<K, Map<K,Double>>();
 
+    private final Map<String,SearchState.Node> cityToNodeMap = new HashMap<String,SearchState.Node>();
 
     //Constructor is package private so that only the builder can create it
     /*package*/ BiDirectGraph(final  Map<K, Integer> nodeMap, final double[][] edges){
@@ -73,6 +76,14 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
         return this.nodeMap.size();
     }
 
+    public int getIndex(final K node){
+        if(null == node){
+            return -1;
+        }else if(!this.nodeMap.containsKey(node)){
+            return -1;
+        }
+        return this.nodeMap.get(node);
+    }
 
     public static class BiDirectGraphBuilder<K extends Comparable<K> & Measureable<K>>{
 
@@ -107,11 +118,11 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
             this.toAdd.sort(null);
 
             //Puts the list of nodes so we can map city name to array position
-            Map<K, Integer> nodeMap = new HashMap<K, Integer>();
+            Map<K, Integer> indexMap = new HashMap<K, Integer>();
 
             //the following auto suggested by co-pilot and slightly edited
             for(int i = 0; i < toAdd.size(); i++){
-                nodeMap.put(toAdd.get(i), i);
+                indexMap.put(toAdd.get(i), i);
             }
 
             //the following auto suggested by co-pilot and slightly edited
@@ -133,8 +144,8 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
 
             //Now handle the edges and set the distances
             for(NodePair<K> edge : edges){
-                int a = nodeMap.get(edge.getANode());
-                int b = nodeMap.get(edge.getBNode());
+                int a = indexMap.get(edge.getANode());
+                int b = indexMap.get(edge.getBNode());
 
                 //We need to swap so that a is the smaller number
                 //we make the assumption here that the nodes are
@@ -152,7 +163,7 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
                 edgeArray[a][b] = distance;
             }
 
-            return new BiDirectGraph<>(nodeMap, edgeArray);
+            return new BiDirectGraph<>(indexMap, edgeArray);
         }
     }
 }

@@ -1,7 +1,5 @@
 package edu.umkc.cs461.hw1.algorithms;
 
-import edu.umkc.cs461.hw1.data.City;
-
 import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Stack;
@@ -48,15 +46,15 @@ public class BeamFrontier implements Frontier<SearchState.Node>{
 
 
     private void printStackAnQueue(){
-        System.out.print("S:");
-        for(SearchState.Node n: stack){
-            System.out.print(n.city.getName() + " ");
-        }
-        System.out.println();
-        System.out.print("Q: ");
-        for(SearchState.Node n: queue){
-            System.out.print(n.city.getName() + " ");
-        }
-        System.out.println();
+        // System.out.print("S:");
+        // for(SearchState.Node n: stack){
+        //     System.out.print(n.city.getName() + " ");
+        // }
+        // System.out.println();
+        // System.out.print("Q: ");
+        // for(SearchState.Node n: queue){
+        //     System.out.print(n.city.getName() + " ");
+        // }
+        // System.out.println();
     }
 }

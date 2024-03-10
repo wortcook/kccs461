@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class AStarFrontier implements Frontier<SearchState.Node>{
-    private final City goal;
     private final PriorityQueue<SearchState.Node> pqueue;
 
     public AStarFrontier(final City goal){
-        this.goal = goal;
         this.pqueue = new PriorityQueue<SearchState.Node>((n1, n2) -> {
             //f(n)         =       g(n)    +      h(n)
             //total cost   =   distance to node + distance from node to goal
