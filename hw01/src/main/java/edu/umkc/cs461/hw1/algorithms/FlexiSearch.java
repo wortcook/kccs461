@@ -54,7 +54,7 @@ public class FlexiSearch extends SearchState{
             Node curr = frontier.pull(this);
             City current = curr.city;
 
-            if(visited.contains(current)){
+            if(!findAllRoutes && visited.contains(current)){
                 continue;
             }
             visitList.add(curr);
@@ -78,7 +78,9 @@ public class FlexiSearch extends SearchState{
                     .map(e -> new Node(e.getKey(), curr))
                     //collect the nodes into a list
                     .collect(Collectors.toList());
-            frontier.add(this, toAdd);
+            if(!toAdd.isEmpty()){                    
+                frontier.add(this, toAdd);
+            }
         }
         return new FindResult(routes, visitList);
     }

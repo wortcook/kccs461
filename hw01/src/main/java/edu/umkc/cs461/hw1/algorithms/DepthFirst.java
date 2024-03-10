@@ -1,13 +1,11 @@
 package edu.umkc.cs461.hw1.algorithms;
 
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Stack;
-import java.util.stream.Stream;
 
 import edu.umkc.cs461.hw1.data.City;
 import edu.umkc.cs461.hw1.data.BiDirectGraph;
@@ -32,6 +30,11 @@ public class DepthFirst extends SearchState{
         while(!stack.isEmpty()){
             Node curr = stack.pop();
             City current = curr.city;
+
+            if(!findAllRoutes && visited.contains(current)){
+                continue;
+            }
+
             visitList.add(curr);
             visited.add(current);
             if(current.equals(getEnd())){

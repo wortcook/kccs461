@@ -43,6 +43,9 @@ public class AStar extends SearchState{
             City current = curr.city;
             visitList.add(curr);
             visited.add(current);
+
+            
+
             if(current.equals(end)){
                 routes.add(SearchState.createCityListFromNode(curr));
                 if(!findAllRoutes){

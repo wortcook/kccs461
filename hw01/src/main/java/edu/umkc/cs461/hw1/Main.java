@@ -3,21 +3,16 @@ package edu.umkc.cs461.hw1;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Stack;
 
 import edu.umkc.cs461.hw1.data.*;
 import edu.umkc.cs461.hw1.algorithms.*;
 
 public class Main {
-    private static final String CITIES_LIST    = "/Users/thomasjones/Workspace/kccs461/hw01/data/coordinates.csv";
-    private static final String ADJACENCY_LIST = "/Users/thomasjones/Workspace/kccs461/hw01/data/Adjacencies.txt";
+    private static final String CITIES_LIST    = "/Users/wortcook/Workspace/kccs461/hw01/data/coordinates.csv";
+    private static final String ADJACENCY_LIST = "/Users/wortcook/Workspace/kccs461/hw01/data/Adjacencies.txt";
 
     private static final int MAX_ITERATIONS = 1;
 
@@ -49,8 +44,8 @@ public class Main {
 
         final int startIdx = cities.size()-1;
         final int endIdx   = 0;
-        // final int startIdx = 0;
-        // final int endIdx   = cities.size()-1;
+        // final int startIdx = 22;
+        // final int endIdx   = 23;
 
         System.out.println("Finding route from " + cities.get(startIdx).getName() + " to " + cities.get(endIdx).getName());
 
@@ -64,152 +59,28 @@ public class Main {
         runSearch(new DepthFirst(cities.get(startIdx), cities.get(endIdx), graph), null, false);
 
         System.out.println("Flexi DFS: ");
-        runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new StackFrontier(), false);
+        runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new StackFrontier(), true);
 
         System.out.println("IDDFS: ");
         runSearch(new IDDFS(cities.get(startIdx), cities.get(endIdx), graph), null, false);
 
         System.out.println("Flexi IDDFS: ");
-        FlexiSearch fsiddfs = new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph);
-
-        final List<SearchState.Node> iddfsFrontier = new LinkedList<SearchState.Node>();
-        final List<SearchState.Node> iddfsFrontierBackQueue = new LinkedList<SearchState.Node>();
-
-        Frontier<SearchState.Node> iddfsStyleFrontier = new Frontier<SearchState.Node>(){
-            public void init(SearchState srchState){
-                iddfsFrontier.clear();
-            }
-            public void add(SearchState srchState, List<SearchState.Node> nodes){
-                List<SearchState.Node> addAsStack = new ArrayList<>();
-
-                for(SearchState.Node node : nodes){
-                    int nodeDepth = node.findDepth();
-
-                    if(nodeDepth % 2 == 0){
-                        iddfsFrontierBackQueue.add(node);
-                    }else{
-                        addAsStack.add(node);
-                    }
-                }
-                // System.out.println("Adding " + addAsQueue.size() + " to queue and " + addAsStack.size() + " to stack");
-                for(SearchState.Node node : addAsStack.reversed()){iddfsFrontier.add(0, node);}
-
-                //Print out the frontier
-                System.out.println();
-                System.out.print("F:");
-                for(SearchState.Node node : iddfsFrontier){
-                    System.out.print(node.city.getName() + "(" + node.findDepth()+"), ");
-                }
-                System.out.println();
-                System.out.print("Q:");
-                for(SearchState.Node node : iddfsFrontierBackQueue){
-                    System.out.print(node.city.getName() + "(" + node.findDepth()+"), ");
-                }
-                System.out.println();
-            }
-            public SearchState.Node pull(SearchState srchState){
-                if(iddfsFrontier.isEmpty()){
-                    iddfsFrontier.addAll(iddfsFrontierBackQueue);
-                    iddfsFrontierBackQueue.clear();
-                }
-                return iddfsFrontier.removeFirst();
-            }
-            public boolean isEmpty(SearchState srchState){
-                return iddfsFrontier.isEmpty() && iddfsFrontierBackQueue.isEmpty();
-            }
-        };
-        
-        // (
-        //     (srchState) -> {iddfsFrontier.clear();return null;},
-        //     (srchState, nodes) -> {
-        //         List<SearchState.Node> addAsStack = new ArrayList<>();
-        //         List<SearchState.Node> addAsQueue = new ArrayList<>();
-
-        //         for(SearchState.Node node : nodes){
-        //             int nodeDepth = node.findDepth();
-
-        //             if(nodeDepth % 2 == 0){
-        //                 addAsQueue.add(node);
-        //             }else{
-        //                 addAsStack.add(node);
-        //             }
-        //         }
-        //         // System.out.println("Adding " + addAsQueue.size() + " to queue and " + addAsStack.size() + " to stack");
-        //         iddfsFrontier.addAll(addAsQueue);
-        //         for(SearchState.Node node : addAsStack.reversed()){iddfsFrontier.add(0, node);}
-
-        //         //Print out the frontier
-        //         System.out.println();
-        //         for(SearchState.Node node : iddfsFrontier){
-        //             System.out.print(node.city.getName() + "(" + node.findDepth()+"), ");
-        //         }
-        //         System.out.println();
-
-        //         return null;
-        //     },
-        //     (srchState) -> iddfsFrontier.remove(0),
-        //     (srchState) -> iddfsFrontier.isEmpty()
-        // );
-
-        System.out.println("Flexi IDDFS: ");
-        runSearch(fsiddfs, iddfsStyleFrontier, false);
+        runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new IDDFSFrontier(), false);
 
         System.out.println("Best First: ");
         runSearch(new BestFirst(cities.get(startIdx), cities.get(endIdx), graph), null, false);
 
-        // System.out.println("Flexi Best First: ");
-        // FlexiSearch fsbestfirst = new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph);
-        // final PriorityQueue<SearchState.Node> bestFirstFrontier = new PriorityQueue<SearchState.Node>((n1, n2) -> {
-        //     return Double.compare(n1.city.distanceFrom(fsbestfirst.getEnd()), n2.city.distanceFrom(fsbestfirst.getEnd()));
-        // });
-
-        // Frontier<SearchState.Node> bestFirstStyleFrontier = new Frontier<SearchState.Node>(
-        //     (srchState) -> {bestFirstFrontier.clear();return null;},
-        //     (srchState, nodes) -> {bestFirstFrontier.addAll(nodes);return null;},
-        //     (srchState) -> bestFirstFrontier.remove(),
-        //     (srchState) -> bestFirstFrontier.isEmpty()
-        // );
-
-        // runSearch(fsbestfirst, bestFirstStyleFrontier, false);
-
+        System.out.println("Flexi Best First:");
+        runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new BestFirstFrontier(cities.get(endIdx)), false);
 
         System.out.println("A*: ");
         runSearch(new AStar(cities.get(startIdx), cities.get(endIdx), graph), null, false);
 
-        // System.out.println("Flexi A*: ");
-        // FlexiSearch fsastar = new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph);
-        // final PriorityQueue<SearchState.Node> astarFrontier = new PriorityQueue<SearchState.Node>((n1, n2) -> {
-        //     //f(n)         =       g(n)    +      h(n)
-        //     //total cost   =   distance to node + distance from node to goal
-        //     double n1Value = SearchState.costFromStart(n1) + n1.city.distanceFrom(fsastar.getEnd());
-        //     double n2Value = SearchState.costFromStart(n2) + n2.city.distanceFrom(fsastar.getEnd());
-        //     return Double.compare(n1Value, n2Value);
-        // });
+        System.out.println("Flexi A*");
+        runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new AStarFrontier(cities.get(endIdx)), false);
 
-        // Frontier<SearchState.Node> astarStyleFrontier = new Frontier<SearchState.Node>(
-        //     (srchState) -> {astarFrontier.clear();return null;},
-        //     (srchState, nodes) -> {astarFrontier.addAll(nodes);return null;},
-        //     (srchState) -> astarFrontier.remove(),
-        //     (srchState) -> astarFrontier.isEmpty()
-        // );
-
-        // runSearch(fsastar, astarStyleFrontier, false);
-
-
-        //Beam Search
-        // System.out.println("Beam Search: ");
-        // FlexiSearch fsbeam = new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph);
-        // final List<SearchState.Node> beamFrontier = new ArrayList<SearchState.Node>();
-
-        // Frontier<SearchState.Node> beamStyleFrontier = new Frontier<SearchState.Node>(
-        //     (srchState) -> {beamFrontier.clear();return null;},
-        //     (srchState, nodes) -> {
-        //         return null;
-        //     },
-        //     (srchState) -> beamFrontier.remove(0),
-        //     (srchState) -> beamFrontier.isEmpty()
-        // );
-
+        System.out.println("Beam Search: ");
+        runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new BeamFrontier(), true);
 
     }
 
@@ -241,10 +112,11 @@ public class Main {
         }
 
         if(findAllRoutes){
-            System.out.println("All Routes (other than first): ");
+            System.out.println();
+            System.out.println("All Routes: ");
             for(List<City> route : findResult.routes){
                 System.out.println("Distance: " + City.distanceThrough(route));
-                System.out.println("Route: " + route);
+                System.out.println("Route: ");
                 for(City city : route){
                     System.out.print(city.getName() + " -> ");
                 }

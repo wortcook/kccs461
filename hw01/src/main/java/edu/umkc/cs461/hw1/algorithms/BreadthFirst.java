@@ -32,6 +32,11 @@ public class BreadthFirst extends SearchState{
         while(!queue.isEmpty()){
             Node curr = queue.remove();
             City current = curr.city;
+
+            if(!findAllRoutes && visited.contains(current)){
+                continue;
+            }
+
             visitList.add(curr);
             visited.add(current);
             if(current.equals(end)){

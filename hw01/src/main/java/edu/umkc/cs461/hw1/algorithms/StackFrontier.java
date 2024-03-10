@@ -11,9 +11,7 @@ public class StackFrontier implements Frontier<SearchState.Node> {
     }
 
     public void add(final SearchState searchState, List<SearchState.Node> nodes) {
-        for (SearchState.Node node : nodes) {
-            stack.push(node);
-        }
+        stack.addAll(nodes.reversed());
     }
 
     public boolean isEmpty(final SearchState searchState) {
