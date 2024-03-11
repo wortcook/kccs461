@@ -1,4 +1,4 @@
-#Homework Assignment #1
+# Homework Assignment #1
 Search
 
 To run (assuming Bazel installed):
@@ -20,10 +20,34 @@ n
 
 See AbileneToZendaFindFirst.json for the structured results. The remaining results will look something like the following:
 
+```
+A*: 
+Time: 1358ms for 1000000 iterations
+First Route: 
+Distance: 2.763884968219526
+Abilene -> Salina -> McPherson -> Hutchinson -> Pratt -> Zenda
+Visited: 
+Abilene -> Salina -> McPherson -> Hutchinson -> Lyons -> Marion -> Newton -> Haven -> Junction_City -> Pratt -> Zenda
+```
 
+1. The first line indicates the algorithm, in this case, A*.
+2. The next line shows the time taken for how many iterations. In this case, 1.358s to complete 1,000,000 iterations.
+3. The total distance of the first route found is show next.
+4. The first route found is displayed next. Given that this is A* we further expect in this case it is the shortest route.
+5. Finally, the order of the nodes visited is shown. This allows us to animate the search algorithm if we wish
+to observe it's behavior graphically.
+
+
+The block below shows the output from a route from Abilene to Zelda, showing the first route for each
+algorithm.
+
+Each algorithm also has a "Flexi" version of it.  See Flexi.md for a design discussion.
+
+```
 Loading data...
 Data loaded.
 Finding route from Abilene to Zenda
+
 BFS: 
 Time: 1890ms for 1000000 iterations
 First Route: 
@@ -31,7 +55,6 @@ Distance: 2.763884968219526
 Abilene -> Salina -> McPherson -> Hutchinson -> Pratt -> Zenda
 Visited: 
 Abilene -> Hays -> Salina -> Junction_City -> Marion -> Lyons -> McPherson -> Manhattan -> Hillsboro -> Hutchinson -> Newton -> Florence -> Topeka -> El_Dorado -> Pratt -> Haven -> Andover -> Emporia -> Towanda -> Zenda
-
 
 Flexi BFS: 
 Time: 2486ms for 1000000 iterations
@@ -112,4 +135,4 @@ Distance: 2.763884968219526
 Abilene -> Salina -> McPherson -> Hutchinson -> Pratt -> Zenda
 Visited: 
 Abilene -> Salina -> McPherson -> Hutchinson -> Lyons -> Marion -> Newton -> Haven -> Junction_City -> Pratt -> Zenda
-[/code]
+```
