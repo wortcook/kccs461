@@ -4,6 +4,7 @@ import edu.umkc.cs461.hw1.data.City;
 
 import java.util.List;
 import java.util.Stack;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class BestFirstFrontier implements Frontier<SearchState.Node> {
@@ -21,10 +22,16 @@ public class BestFirstFrontier implements Frontier<SearchState.Node> {
     }
 
     public void add(final SearchState searchState, List<SearchState.Node> nodes) {
+        Function<SearchState.Node,Double> heuristic = new Function<SearchState.Node,Double>(){
+            public Double apply(SearchState.Node node){
+                return (null==node.getHeuristic()) ? node.city.distanceFrom(end) : node.getHeuristic();
+            }
+        };
+
         stack.addAll(
             nodes.stream().sorted((n1,n2) -> {
-                double n1Value = n1.city.distanceFrom(end);
-                double n2Value = n2.city.distanceFrom(end);
+                double n1Value = heuristic.apply(n1);
+                double n2Value = heuristic.apply(n2);
                 return -Double.compare(n1Value, n2Value);
             }).collect(Collectors.toList())
         );

@@ -13,6 +13,21 @@ import edu.umkc.cs461.hw1.data.City;
 import edu.umkc.cs461.hw1.data.BiDirectGraph;
 
 
+/*
+ * Generalized search algorithm that can be used to implement
+ * BFS, DFS, A*, etc. The framing code provides for state
+ * tracking and visitation. The frontier is managed by the
+ * frontier object. The frontier object can be a stack, queue,
+ * or priority queue. The frontier object is responsible for
+ * managing the order of the nodes in the search space, handling
+ * removal of nodes from the search space, providing for the
+ * empty check.
+ * The find method allows for the search to be stopped early
+ * if the first route is found. It also allows for the search
+ * to continue until all routes are found, assuming the implementation
+ * of the Frontier allows exhaustive search, i.e. for findAll the
+ * frontier would ensure that all connections are handled.
+ */
 public class FlexiSearch extends SearchState{
 
     public FlexiSearch(final City start, final City end, final BiDirectGraph<City> graph){
@@ -36,6 +51,25 @@ public class FlexiSearch extends SearchState{
     }
 
     @Override
+    /*
+     * This is the generalized search algorithm. It is responsible for
+     * managing the search space and the frontier. The frontier is
+     * responsible for managing the order of the nodes in the search
+     * space, handling removal of nodes from the search space, and
+     * providing for the empty check.
+     * The search algorithm is responsible for managing the visitation
+     * of nodes and the creation of routes. The search algorithm
+     * can be stopped early if the first route is found. It also
+     * allows for the search to continue until all routes are found,
+     * 
+     * @param findAllRoutes - if true, the search will continue until
+     * all frontier defined routes are found. If false, the search will stop after the
+     * first route is found. Note, if findAllRoutes is True, the result
+     * will not include the nodes visited.
+     * @param frontier - the frontier object that manages the order of the nodes in the search space
+     * @return FindResult - the result of the search. See FindResult for more details.
+     * 
+     */
     public FindResult find(final boolean findAllRoutes, final Frontier<Node> frontier){
         final List<Node> visitList = new LinkedList<Node>();
 
@@ -78,7 +112,19 @@ public class FlexiSearch extends SearchState{
                     .map(e -> new Node(e.getKey(), curr))
                     //collect the nodes into a list
                     .collect(Collectors.toList());
-            if(!toAdd.isEmpty()){                    
+            if(!toAdd.isEmpty()){
+                //this is where we add the nodes to the frontier.
+                //The following comments heavily used co-pilot to fill out the text. I should be noted
+                //that the comments accuruately reflect the design of the code.
+                //The nodes (cities) are ordered alphabetically by default. This is the default heuristic.
+                //The frontier can manage these additions in any way it sees fit.
+                //For example, the frontier could add the nodes to a stack, queue, or priority queue.
+                //For a stack, the nodes would be added in reverse order.
+                //Which would make the search a depth first search.
+                //For a queue, the nodes would be added in the order they are found.
+                //Which would make the search a breadth first search.
+                //For a priority queue, the nodes would be added in order of the heuristic.
+                //Which would make the search an A* search.               
                 frontier.add(this, toAdd);
             }
         }

@@ -3,35 +3,97 @@ package edu.umkc.cs461.hw1.algorithms;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.umkc.cs461.hw1.data.City;
 import edu.umkc.cs461.hw1.data.BiDirectGraph;
 
+/*
+ * Search helper class that provides a common interface for the different search algorithms
+ * and provides some utility methods for the algorithms to use.
+ * 
+ */
 public abstract class SearchState {
     private final City start;
     private final City end;
     private final BiDirectGraph<City> graph;
 
+    /*
+     * Node class that represents a node in the search tree. It is possible
+     * that the tree will contain the same city in different locations depending
+     * on the search algorithm used.
+     */
     public class Node{
+        /*
+         * The city that this node represents
+         */
         public final City city;
+
+        /*
+         * The parent node of this node. This is used to track the path.
+         * If null then the node is the start node, i.e. the start city.
+         */
         public final Node parent;
+
+        /*
+         * The number of steps from the start node to this node.
+         */
         private int depth = -1;
+
+        /*
+         * The cost(distance) from the start node to this node.
+         */
+        private double cost = 0;
+
+        /**
+         * The heuristic value for this node, this is an 
+         * optimization so that the heuristic is only calculated
+         * once.
+         */
+        private Double heuristic = null;
+
+        /*
+         * Constructor for the node
+         * @param city The city that this node represents
+         * @param parent The parent node of this node
+         */
         public Node(City city, Node parent){
             this.city = city;
             this.parent = parent;
         }
 
+        /*
+         * Find the depth of this node in the tree
+         * @return The depth of this node in the tree
+         */
         public int findDepth(){
-            if(this.depth == -1){
-                if(parent == null){
-                    this.depth = 0;
-                }else{
-                    this.depth = parent.findDepth() + 1;
-                }
+            if( this.parent == null){
+                this.depth = 0;
+            }else{
+                this.depth = this.parent.findDepth() + 1;
             }
             return this.depth;
+        }
+
+        public double costFromStart(){
+            if(this.parent == null){
+                this.cost = 0.0;
+            }else{
+                double cost = this.city.distanceFrom(this.parent.city) + this.parent.cost;
+                this.cost = cost;
+            }
+    
+            return this.cost;
+        }
+
+        public Double getHeuristic(){
+            return heuristic;
+        }
+
+        public double getHeuristic(Supplier<Double> heuristic){
+            return heuristic.get();
         }
     }
 
@@ -111,19 +173,5 @@ public abstract class SearchState {
         return node.findDepth() <= depth;
     }
 
-    private final static Map<Node, Double> costMap = new HashMap<Node, Double>();
-    public static double costFromStart(final Node curr){
-        if(costMap.containsKey(curr)){
-            return costMap.get(curr);
-        }
-        double cost = 0;
-        Node node = curr;
-        while(node != null){
-            cost += node.city.distanceFrom(node.parent == null ? node.city : node.parent.city);
-            node = node.parent;
-        }
-        costMap.put(curr, cost);
-        return cost;
-    }
 }
 

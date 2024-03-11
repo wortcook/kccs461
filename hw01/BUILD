@@ -7,4 +7,8 @@ java_binary (
     deps = [
         # "@maven//:com_google_guava_guava",
     ],
+    data = [
+        "data/coordinates.csv",
+        "data/Adjacencies.txt",
+    ]
 )

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.function.Function;
 import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Stream;
@@ -48,13 +49,18 @@ public class BestFirst extends SearchState{
             //then we take the node with the lowest cost first
             //followed by the next lowest cost, etc.
 
+            Function<SearchState.Node,Double> heuristic = new Function<SearchState.Node,Double>(){
+                public Double apply(SearchState.Node node){
+                    return (null==node.getHeuristic()) ? node.city.distanceFrom(end) : node.getHeuristic();
+                }
+            };
+
             //sort connections by distance and return as a list
             Stream<Entry<City,Double>> connStream = getGraph().getConnections(current).entrySet().stream();
+            //Note, this is a local sort only as opposed to A* which sorts the frontier globally.
             connStream = connStream.sorted((e1, e2) ->{
-                //f(n)         =       g(n)    +      h(n)
-                //total cost   =   distance to node + distance from node to goal
-                double e1Value = e1.getValue() + e1.getKey().distanceFrom(end);
-                double e2Value = e2.getValue() + e2.getKey().distanceFrom(end);
+                double e1Value = heuristic.apply(new Node(e1.getKey(), curr));
+                double e2Value = heuristic.apply(new Node(e2.getKey(), curr));
                 return -Double.compare(e1Value, e2Value);
             });
             connStream.forEach(e -> {     

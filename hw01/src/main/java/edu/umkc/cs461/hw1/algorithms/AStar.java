@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -16,6 +18,7 @@ public class AStar extends SearchState{
     public AStar(final City start, final City end, final BiDirectGraph<City> graph){
         super(start, end, graph);
     }
+
 
     @Override
     public FindResult find(final boolean findAllRoutes, Frontier<Node> frontierIgnore){
@@ -30,8 +33,16 @@ public class AStar extends SearchState{
         PriorityQueue<Node> queue = new PriorityQueue<Node>((n1, n2) -> {
             //f(n)         =       g(n)    +      h(n)
             //total cost   =   distance to node + distance from node to goal
-            double n1Value = SearchState.costFromStart(n1) + n1.city.distanceFrom(end);
-            double n2Value = SearchState.costFromStart(n2) + n2.city.distanceFrom(end);
+
+            final Function<SearchState.Node,Double> heuristic = new Function<SearchState.Node,Double>(){
+                public Double apply(SearchState.Node node){
+                    return (null==node.getHeuristic()) ? node.costFromStart() + node.city.distanceFrom(end) : node.getHeuristic();
+                }
+            };
+
+            double n1Value = heuristic.apply(n1);
+            double n2Value = heuristic.apply(n2);
+
             return Double.compare(n1Value, n2Value);
         });
 

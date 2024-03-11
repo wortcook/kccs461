@@ -4,6 +4,7 @@ import edu.umkc.cs461.hw1.data.City;
 
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.function.Function;
 
 public class AStarFrontier implements Frontier<SearchState.Node>{
     private final PriorityQueue<SearchState.Node> pqueue;
@@ -12,8 +13,16 @@ public class AStarFrontier implements Frontier<SearchState.Node>{
         this.pqueue = new PriorityQueue<SearchState.Node>((n1, n2) -> {
             //f(n)         =       g(n)    +      h(n)
             //total cost   =   distance to node + distance from node to goal
-            double n1Value = SearchState.costFromStart(n1) + n1.city.distanceFrom(goal);
-            double n2Value = SearchState.costFromStart(n2) + n2.city.distanceFrom(goal);
+
+            final Function<SearchState.Node,Double> heuristic = new Function<SearchState.Node,Double>(){
+                public Double apply(SearchState.Node node){
+                    return (null==node.getHeuristic()) ? node.costFromStart() + node.city.distanceFrom(goal) : node.getHeuristic();
+                }
+            };
+
+            double n1Value = heuristic.apply(n1);
+            double n2Value = heuristic.apply(n2);
+
             return Double.compare(n1Value, n2Value);
         });
     }
