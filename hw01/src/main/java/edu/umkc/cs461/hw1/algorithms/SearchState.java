@@ -77,6 +77,10 @@ public abstract class SearchState {
             return this.depth;
         }
 
+        /*
+         * Calculate the cost from the start node to this node
+         * @return The cost from the start node to this node
+         */
         public double costFromStart(){
             if(this.parent == null){
                 this.cost = 0.0;
@@ -88,19 +92,54 @@ public abstract class SearchState {
             return this.cost;
         }
 
+        /**
+         * Get the heuristic value for this node
+         * @return The heuristic value for this node
+         */
         public Double getHeuristic(){
             return heuristic;
         }
 
+        /**
+         * Set the heuristic value for this node
+         * @param heuristic The heuristic value supplier for this node
+         */
         public double getHeuristic(Supplier<Double> heuristic){
-            return heuristic.get();
+            if(null == this.heuristic){
+                this.heuristic = heuristic.get();
+            }
+            return this.heuristic;
         }
     }
 
+    /*
+     * The result of the search
+     */
     public static class FindResult{
+
+        /*
+         * The routes found by the search. If findAllRoutes is true, then
+         * this list will contain all the routes found by the search. If
+         * findAllRoutes is false, then this list will contain only the
+         * first route found by the search.
+         */
         public final List<List<City>> routes;
+
+        /*
+         * The nodes visited by the search. This list will contain all the
+         * nodes visited by the search. If findAllRoutes is false, then
+         * this list will contain only the nodes visited by the search
+         * that are part of the first route found by the search.
+         * If findAllRoutes is true, then this list will be empty.
+         */
         public final List<Node> visitList;
 
+
+        /*
+         * Constructor for the result of the search
+         * @param routes The routes found by the search
+         * @param visitList The nodes visited by the search
+         */
         public FindResult(final List<List<City>> routes, final List<Node> visitList){
             this.routes = routes;
             this.visitList = visitList;
@@ -109,6 +148,13 @@ public abstract class SearchState {
 
 
 
+    /*
+     * Constructor for the search state. This is the base constructure that
+     * all search algorithms will use.
+     * @param start The start city for the search
+     * @param end The end city for the search
+     * @param graph The graph that the search will be performed on
+     */
     public SearchState(final City start, final City end, final BiDirectGraph<City> graph){
         this.start = start;
         this.end = end;
