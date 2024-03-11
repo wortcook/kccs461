@@ -50,7 +50,6 @@ public class FlexiSearch extends SearchState{
         });            
     }
 
-    @Override
     /*
      * This is the generalized search algorithm. It is responsible for
      * managing the search space and the frontier. The frontier is
@@ -70,6 +69,7 @@ public class FlexiSearch extends SearchState{
      * @return FindResult - the result of the search. See FindResult for more details.
      * 
      */
+    @Override
     public FindResult find(final boolean findAllRoutes, final Frontier<Node> frontier){
         final List<Node> visitList = new LinkedList<Node>();
 

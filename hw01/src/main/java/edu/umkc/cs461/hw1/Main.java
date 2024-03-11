@@ -14,15 +14,24 @@ import java.util.stream.Collectors;
 import edu.umkc.cs461.hw1.data.*;
 import edu.umkc.cs461.hw1.algorithms.*;
 
+/*
+ * Main demonstration class for the search algorithms
+ */
 public class Main {
+
+    //Fixed file paths from the inputs. We could use the file paths from the inputs, but we are using the fixed file paths for the demonstration.
     private static final String CITIES_LIST    = "./data/coordinates.csv";
     private static final String ADJACENCY_LIST = "./data/Adjacencies.txt";
 
     private static final int MAX_ITERATIONS = 1000000;
 
 
+    /*
+     * Main method for the demonstration
+     */
     public static void main(String[] args) {
 
+        //Variables to store the user input
         boolean findAllRoutes = false;
         String startCity = null;
         String endCity   = null;
@@ -64,34 +73,43 @@ public class Main {
 
         System.out.println("Loading data...");
 
-        //Load the data
+        //Load the list of cities; names and coordinates
         final List<City> cities = DataLoader.loadCities(CITIES_LIST);
 
+        //Load the list of adjacencies as pairs of cities
         final List<NodePair<City>> adjacencies = DataLoader.loadAdjacencies(ADJACENCY_LIST, cities);
 
+        //Create the graph
         BiDirectGraph.BiDirectGraphBuilder<City> builder = new BiDirectGraph.BiDirectGraphBuilder<City>();
+
+        //Add the cities and adjacencies to the graph
         builder.addNodes(cities);
         builder.addEdges(adjacencies);
 
+        //Build the graph based on the cities and adjacencies
         BiDirectGraph<City> graph = builder.build();
 
         System.out.println("Data loaded.");
 
-        // final int startIdx = cities.size()-1;
-        // final int endIdx   = 0;
+        //Find the start city
         final int startIdx = graph.getIndex(new City(startCity));
 
+        //If the start city is not found, print an error and exit
         if(startIdx == -1){
             System.out.println("Start city not found.");
             System.exit(1);
         }
 
+        //Find the end city
         final int endIdx = graph.getIndex(new City(endCity));
+
+        //If the end city is not found, print an error and exit
         if(endIdx == -1){
             System.out.println("End city not found.");
             System.exit(1);
         }
 
+        //Create the output file
         File outputFile = null;
         
         try{
@@ -105,6 +123,7 @@ public class Main {
             outputFile.delete();
         }
 
+        //Run the search algorithms
         try(FileWriter jsonOutput = new FileWriter(outputFile, true)){
 
             System.out.println("Finding route from " + cities.get(startIdx).getName() + " to " + cities.get(endIdx).getName());
@@ -115,51 +134,81 @@ public class Main {
             jsonOutput.write("\"findAllPaths\":"+findAllRoutes+",");
             jsonOutput.write("\"searches\":[");
 
+            /////////////////////////////////////////////////////////////////////////
+            // Breadth First Search
+            /////////////////////////////////////////////////////////////////////////
             jsonOutput.write("{\"name\":\"BSF\",");
             System.out.println("BFS: ");
             runSearch(new BreadthFirst(cities.get(startIdx), cities.get(endIdx), graph), null, findAllRoutes, jsonOutput);
             jsonOutput.write("},");
     
+            /////////////////////////////////////////////////////////////////////////
+            // Flexi BFS
+            /////////////////////////////////////////////////////////////////////////
             jsonOutput.write("{\"name\":\"FlexBSF\",");
             System.out.println("Flexi BFS: ");
             runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new QueueFrontier(), findAllRoutes, jsonOutput);
             jsonOutput.write("},");
     
+            /////////////////////////////////////////////////////////////////////////
+            // Depth First Search
+            /////////////////////////////////////////////////////////////////////////
             jsonOutput.write("{\"name\":\"DSF\",");
             System.out.println("DFS: ");
             runSearch(new DepthFirst(cities.get(startIdx), cities.get(endIdx), graph), null, findAllRoutes, jsonOutput);
             jsonOutput.write("},");
     
+            /////////////////////////////////////////////////////////////////////////
+            // Flexi DFS
+            /////////////////////////////////////////////////////////////////////////
             jsonOutput.write("{\"name\":\"FlexDSF\",");
             System.out.println("Flexi DFS: ");
             runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new StackFrontier(), findAllRoutes, jsonOutput);
             jsonOutput.write("},");
     
+            /////////////////////////////////////////////////////////////////////////
+            // Iterative Deepening Depth First Search
+            /////////////////////////////////////////////////////////////////////////
             jsonOutput.write("{\"name\":\"IDDSF\",");
             System.out.println("IDDFS: ");
             runSearch(new IDDFS(cities.get(startIdx), cities.get(endIdx), graph), null, findAllRoutes, jsonOutput);
             jsonOutput.write("},");
     
+            /////////////////////////////////////////////////////////////////////////
+            // Flexi IDDFS
+            /////////////////////////////////////////////////////////////////////////
             jsonOutput.write("{\"name\":\"FlexiIDDSF\",");
             System.out.println("Flexi IDDFS: ");
             runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new IDDFSFrontier(), findAllRoutes, jsonOutput);
             jsonOutput.write("},");
     
+            /////////////////////////////////////////////////////////////////////////
+            // Best First Search
+            /////////////////////////////////////////////////////////////////////////
             jsonOutput.write("{\"name\":\"BestFirst\",");
             System.out.println("Best First: ");
             runSearch(new BestFirst(cities.get(startIdx), cities.get(endIdx), graph), null, findAllRoutes, jsonOutput);
             jsonOutput.write("},");
     
+            /////////////////////////////////////////////////////////////////////////
+            // Flexi Best First Search
+            /////////////////////////////////////////////////////////////////////////
             jsonOutput.write("{\"name\":\"FlexiBestFirst\",");
             System.out.println("Flexi Best First:");
             runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new BestFirstFrontier(cities.get(endIdx)), findAllRoutes, jsonOutput);
             jsonOutput.write("},");
     
+            /////////////////////////////////////////////////////////////////////////
+            // A* Search
+            /////////////////////////////////////////////////////////////////////////
             jsonOutput.write("{\"name\":\"AStar\",");
             System.out.println("A*: ");
             runSearch(new AStar(cities.get(startIdx), cities.get(endIdx), graph), null, findAllRoutes, jsonOutput);
             jsonOutput.write("},");
     
+            /////////////////////////////////////////////////////////////////////////
+            // Flexi A* Search
+            /////////////////////////////////////////////////////////////////////////
             jsonOutput.write("{\"name\":\"FlexAStar\",");
             System.out.println("Flexi A*");
             runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new AStarFrontier(cities.get(endIdx)), findAllRoutes, jsonOutput);
@@ -172,13 +221,17 @@ public class Main {
         }
     }
 
+    //Run the search algorithm and write the results to the output file
     private static void runSearch(SearchState searchAlg, Frontier<SearchState.Node> frontier, boolean findAllRoutes, Writer fileOut)
     throws IOException
     {
         SearchState.FindResult findResult = null;
 
+        //If we are finding all routes, run the search algorithm and write the results to the output file
         if(findAllRoutes){
             findResult = searchAlg.find(true, frontier);
+
+        //If we are only finding the first route, run the search algorithm multiple times and write the results to the output file
         }else{
             final long bfStart = System.currentTimeMillis();
             for(int i = 0; i < MAX_ITERATIONS; i++){

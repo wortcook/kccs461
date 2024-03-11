@@ -13,31 +13,61 @@ import java.util.stream.Stream;
 import edu.umkc.cs461.hw1.data.BiDirectGraph;
 import edu.umkc.cs461.hw1.data.City;
 
+/*
+ * Best First Search algorithm implementation
+ */
 public class BestFirst extends SearchState{
+
+    /*
+     * Constructor for the BestFirst search algorithm
+     * @param start The city to start the search from
+     * @param end The city to search for
+     * @param graph The graph to search
+     */
     public BestFirst(final City start, final City end, final BiDirectGraph<City> graph){
         super(start, end, graph);
     }
 
+    /*
+     * Find the route(s) from the start city to the end city
+     * @param findAllRoutes If true, find all routes, otherwise just find the first route
+     * @param frontierIgnore Dummy frontier param to satisfy the interface
+     */
     @Override
     public FindResult find(final boolean findAllRoutes, Frontier<Node> frontierIgnore){
         final List<Node> visitList = new LinkedList<Node>();
 
+        //initialize the stack, routes, and visited set
         Stack<Node> stack = new Stack<Node>();
         List<List<City>> routes = new ArrayList<List<City>>();
         Set<City> visited = new HashSet<City>();
 
+        //push the start node onto the stack
         Node start = new Node(getStart(), null);
         stack.push(start);
 
+        //while the stack is not empty
         final City end = getEnd();
 
+        //while the stack is not empty
         while(!stack.isEmpty()){
+
+            //pop the top node off the stack
             Node curr = stack.pop();
+
+            //get the current city
             City current = curr.city;
+
+            //add the current node to the visit list
             visitList.add(curr);
             visited.add(current);
+
+            //if we are not looking for all routes and we have already visited the current city then skip
             if(current.equals(end)){
+                //if we have reached the end city
                 routes.add(SearchState.createCityListFromNode(curr));
+
+                //if we are not looking for all routes then return
                 if(!findAllRoutes){
                     return new FindResult(routes, visitList);
                 }

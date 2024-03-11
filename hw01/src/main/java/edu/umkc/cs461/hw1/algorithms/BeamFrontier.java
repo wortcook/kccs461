@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Queue;
 
-
+/*
+ * A frontier attempts to emulate the behavior of a beam search algorithm.
+ * Experimental
+ */
 public class BeamFrontier implements Frontier<SearchState.Node>{
     private final Stack<SearchState.Node> stack = new Stack<>();
     private final Queue<SearchState.Node> queue = new ArrayDeque<>();

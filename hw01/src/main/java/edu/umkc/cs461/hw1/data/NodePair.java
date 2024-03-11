@@ -1,5 +1,8 @@
 package edu.umkc.cs461.hw1.data;
 
+/*
+ * A class that represents a pair of things.
+ */
 public class NodePair<K> {
     private K a_node;
     private K b_node;

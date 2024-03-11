@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
-import edu.umkc.cs461.hw1.algorithms.SearchState;
-
 import java.util.HashMap;
 
 
@@ -27,8 +25,6 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
     //Memoization of the connections. We'll store connections here once requested
     private final Map<K, Map<K,Double>> connections = new HashMap<K, Map<K,Double>>();
 
-    private final Map<String,SearchState.Node> cityToNodeMap = new HashMap<String,SearchState.Node>();
-
     //Constructor is package private so that only the builder can create it
     /*package*/ BiDirectGraph(final  Map<K, Integer> nodeMap, final double[][] edges){
         this.nodeMap.putAll(nodeMap);
@@ -41,6 +37,10 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
         this.edges = edges;
     }
 
+    /*
+     * Get the connections for a given node
+     * @param node the node to get the connections for
+     */
     public Map<K,Double> getConnections(final K node){
 
         //memoization
@@ -48,12 +48,20 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
             return this.connections.get(node);
         }
 
+        //Get the index of the node
         int index = this.nodeMap.get(node);
 
+        //Create the return map
         Map<K,Double> ret = new HashMap<K,Double>();
 
+        //If the index is 0 then we only need to look at the row
+        //if the index is greater than 0 then we need to look at the row and the column
+
+        //Column scan
         if(index>0){
+            //We only need to look at the lower triangle of the matrix
             double[] indexRow = edges[index];
+
             for(int i = 0 ; i < indexRow.length; i++){
                 if(indexRow[i] != Double.POSITIVE_INFINITY){
                     ret.put( this.reverseNodeMap.get(i), indexRow[i]);
@@ -61,6 +69,7 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
             }
         }
 
+        //Row scan
         for(int i = index + 1; i < edges.length; i++){
             if(edges[i][index] != Double.POSITIVE_INFINITY){
                 ret.put( this.reverseNodeMap.get(i), edges[i][index]);
@@ -72,10 +81,19 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
         return ret;
     }
 
+    /*
+     * Get the number of nodes in the graph
+     * @return The number of nodes in the graph
+     */
     public int getNodeCount(){
         return this.nodeMap.size();
     }
 
+    /*
+     * Get the index of a node
+     * @param node The node to get the index of
+     * @return The index of the node
+     */
     public int getIndex(final K node){
         if(null == node){
             return -1;
@@ -85,35 +103,62 @@ public class BiDirectGraph<K extends Comparable<K> & Measureable<K>>{
         return this.nodeMap.get(node);
     }
 
+    /*
+     * Graph builder class
+     */
     public static class BiDirectGraphBuilder<K extends Comparable<K> & Measureable<K>>{
 
         private ArrayList<K> toAdd = new ArrayList<K>();
         private List<NodePair<K>> edges = new ArrayList<NodePair<K>>();
 
+        /*
+         * Constructor for the graph builder
+         */
         public BiDirectGraphBuilder(){
         }
 
+        /*
+         * Add a list of nodes to the graph
+         * @param nodes The nodes to add
+         * @return The builder
+         */
         public BiDirectGraphBuilder<K> addNodes(List<K> nodes){
             this.toAdd.addAll(nodes);
             return this;
         }
 
 
+        /*
+         * Add a node to the graph
+         * @param node The node to add
+         * @return The builder
+         */
         public BiDirectGraphBuilder<K> addNode(K node){
             this.toAdd.add(node);
             return this;
         }
 
+        /*
+         * Add a list of edges to the graph
+         * @param edges The edges to add
+         */
         public BiDirectGraphBuilder<K> addEdge(NodePair<K> edge){
             this.edges.add(edge);
             return this;
         }
 
+        /*
+         * Add a list of edges to the graph
+         * @param edges The edges to add
+         */
         public BiDirectGraphBuilder<K> addEdges(List<NodePair<K>> edges){
             this.edges.addAll(edges);
             return this;
         }
 
+        /*
+         * Build the graph based on the nodes and edges added
+         */
         public BiDirectGraph<K> build(){
             this.toAdd.sort(null);
 

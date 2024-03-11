@@ -2,6 +2,9 @@ package edu.umkc.cs461.hw1.data;
 
 import java.util.List;
 
+/*
+ * A class that represents a city. It contains the name of the city and the latitude and longitude
+ */
 public class City implements Comparable<City>, Measureable<City>{
 
     private final String name;
@@ -31,6 +34,11 @@ public class City implements Comparable<City>, Measureable<City>{
         return longitude;
     }
 
+    /*
+     * Returns the distance from this city to the other city
+     * as the Euclidean distance between the two cities.
+     * @param other The other city
+     */
     @Override
     public double distanceFrom(City other) {
         if(null == other){
@@ -68,6 +76,12 @@ public class City implements Comparable<City>, Measureable<City>{
         return false;
     }
 
+
+    /*
+     * Utility method to calculate the distance through a list of cities.
+     * Equal to the sum of the distances between each city in the list
+     * @param cities The list of cities
+     */
     public static double distanceThrough(final List<City> cities){
         double distance = 0;
         for(int i = 0; i < cities.size() - 1; i++){

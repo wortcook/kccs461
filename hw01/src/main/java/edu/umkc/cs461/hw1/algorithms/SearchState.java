@@ -1,11 +1,9 @@
 package edu.umkc.cs461.hw1.algorithms;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import edu.umkc.cs461.hw1.data.City;
 import edu.umkc.cs461.hw1.data.BiDirectGraph;
@@ -161,30 +159,74 @@ public abstract class SearchState {
         this.graph = graph;
     }
 
+    /*
+     * Get the start city for the search
+     * @return The start city for the search
+     */
     public City getStart() {
         return start;
     }
 
+    /*
+     * Get the end city for the search
+     * @return The end city for the search
+     */
     public City getEnd() {
         return end;
     }
 
+    /*
+     * Get the graph for the search
+     * @return The graph for the search
+     */
     public BiDirectGraph<City> getGraph(){
         return graph;
     }
 
+    /*
+     * Find the route(s) from the start city to the end city. Default implementation
+     * is to find the first route with a null frontier passed.
+     * @return The result of the search
+     */
     public FindResult find(){
         return find(false);
     }
 
+    /*
+     * Find the route(s) from the start city to the end city. Default implementation
+     * is to use a null frontier.
+     * @param findAllRoutes If true, find all routes, otherwise just find the first route
+     * @return The result of the search
+     */
     public FindResult find(final boolean findAllRoutes){
         return find(findAllRoutes, null);
     }
 
+    /*
+     * This is the generalized search algorithm. It is responsible for
+     * managing the search space and the frontier. The frontier is
+     * responsible for managing the order of the nodes in the search
+     * space, handling removal of nodes from the search space, and
+     * providing for the empty check.
+     * @param findAllRoutes - if true, the search will continue until
+     * all frontier defined routes are found. If false, the search will stop after the
+     * first route is found. Note, if findAllRoutes is True, the result
+     * will not include the nodes visited.
+     * @param frontier - the frontier object that manages the order of the nodes in the search space
+     * @return FindResult - the result of the search. See FindResult for more details.
+     */
     public abstract FindResult find(final boolean findAllRoutes, Frontier<Node> frontier);
 
 
     //Utility methods
+
+    /*
+     * Check if a city has been visited in a given path
+     * i.e. starting with a leaf node, does the city exist
+     * anywhere in the ancestor nodes.
+     * @param node The node to start the search from
+     * @param city The city to search for
+     */
     public static boolean isNodeInPath(Node node, City city){
         while(node != null){
             if(node.city.equals(city)){
@@ -195,6 +237,12 @@ public abstract class SearchState {
         return false;
     }
 
+    /*
+     * Create a list of cities from a node. This is used to create the route
+     * from the start city to the end city. The node is the end of the path
+     * i.e. the end city and the start city is the root of the path.
+     * @param node The node to start the search from
+     */
     public static List<City> createCityListFromNode(Node node){
         List<City> path = new ArrayList<City>();
         while(node != null){
@@ -204,9 +252,28 @@ public abstract class SearchState {
         return path;
     }
 
+    /*
+     * Check if a city has been visited in a given set of visited cities using a null frontier
+     * @param theCity The city to check for visitation
+     * @param visited The set of visited cities
+     * @param checkPath The path to check for visitation
+     * @param usePath If true, use the path to check for visitation, otherwise use the visited set
+     * @return True if the city has been visited, otherwise false
+     */
     public static boolean checkCityForVisit(final City theCity, final Set<City> visited, final Node checkPath, boolean usePath){
         return checkCityForVisit(theCity, visited, checkPath, usePath, null);
     }
+
+    /*
+     * Check if a city has been visited in a given set of visited cities. If usePath is true
+     * then the path is used to check for visitation, otherwise the visited set is used.
+     * Note that for this implementation frontier is passed but not currently used.
+     * @param theCity The city to check for visitation
+     * @param visited The set of visited cities
+     * @param checkPath The path to check for visitation
+     * @param usePath If true, use the path to check for visitation, otherwise use the visited set
+     * @param frontier The frontier. Not currently used.
+     */
     public static boolean checkCityForVisit(final City theCity, final Set<City> visited, final Node checkPath, boolean usePath, Frontier<Node> frontier){
         if(usePath){
             return isNodeInPath(checkPath, theCity);
@@ -215,6 +282,12 @@ public abstract class SearchState {
         }
     }
 
+    /*
+     * Check if the depth of a node is less than or equal to a given depth
+     * @param node The node to check the depth of
+     * @param depth The depth to check against
+     * @return True if the depth of the node is less than or equal to the given depth, otherwise false
+     */
     public static boolean checkDepth(Node node, final int depth){
         return node.findDepth() <= depth;
     }
