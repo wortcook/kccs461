@@ -1,4 +1,4 @@
-Homework Assignment #1
+#Homework Assignment #1
 Search
 
 To run (assuming Bazel installed):
