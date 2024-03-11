@@ -5,7 +5,10 @@ To run (assuming Bazel installed):
 
 bazel run //:hw1
 
-See ./data/coordinates.csv for list of available cities
+See ./data/coordinates.csv for list of available cities.
+
+An example set of inputs is shown below.
+
 Enter the start city:
 Abilene
 
