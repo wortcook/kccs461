@@ -15,8 +15,8 @@ Abilene
 Enter the end city:
 Zenda
 
-Enter the output file name (this is where the JSON results are written to)
-AbileneToZendaFindFirst.json
+Enter the output file name (this is where the JSON results are written to. The path must be absolute.)
+/some/fully/specified/route/AbileneToZendaFindFirst.json
 
 Find all routes? (y/n): 
 n
