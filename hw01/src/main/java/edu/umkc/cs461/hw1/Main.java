@@ -212,10 +212,19 @@ public class Main {
             jsonOutput.write("{\"name\":\"FlexAStar\",");
             System.out.println("Flexi A*");
             runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new AStarFrontier(cities.get(endIdx)), findAllRoutes, jsonOutput);
-            jsonOutput.write("}]}");
+            jsonOutput.write("},");
 
+
+            /////////////////////////////////////////////////////////////////////////
+            // Random Flex Search
+            /////////////////////////////////////////////////////////////////////////
+            jsonOutput.write("{\"name\":\"RandomFlex\",");
+            System.out.println("Random Flex: ");
+            runSearch(new FlexiSearch(cities.get(startIdx), cities.get(endIdx), graph), new RandomFrontier(), findAllRoutes, jsonOutput);
+
+            jsonOutput.write("}]}");
             jsonOutput.flush();
-    
+            
         }catch(IOException writeError){
             //
         }
