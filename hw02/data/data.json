@@ -1,0 +1,32 @@
+{
+    "facilitators" :["Lock","Glen","Banks","Richards","Shaw","Singer","Uther","Tyler","Numen","Zeldin"],
+    "activities" : ["SLA100A","SLA100B","SLA191A","SLA191B","SLA201","SLA291","SLA303","SLA304","SLA394","SLA449","SLA451"],
+    "rooms" :["Slater 003","Roman 216","Loft 206","Roman 201","Loft 310","Beach 201","Beach 301","Logos 325","Frank 119"],
+    "times" : ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00"],
+    "rules" :[
+        {
+            "name" : "Activity in same place and time",
+            "type" : "predicate",
+            "predicate" : "Assignment.timesEqual(a,b) && Assignment.roomsEqual(a,b)",
+            "score" : -0.5
+        },
+        {
+            "name" : "Room capacity",
+            "type" : "predicate",
+            "predicate" : "Room.willFit(a.room(),a.activity())",
+            "score" : -0.5
+        },
+        {
+            "name" : "Room too big",
+            "type" : "predicate",
+            "predicate" : "a.room().capacity() > 3 * a.activity().enrollment()",
+            "score" : -0.2
+        },
+        {
+            "name" : "Room way too big",
+            "type" : "predicate",
+            "predicate" : "a.room().capacity() > 6 * a.activity().enrollment()",
+            "score" : -0.4
+        }
+    ]
+}
