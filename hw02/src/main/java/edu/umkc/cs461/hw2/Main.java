@@ -7,12 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.Date;
 
 import edu.umkc.cs461.hw2.model.*;
 import edu.umkc.cs461.hw2.rules.*;
 
 public class Main {
+
+    public static final int STARTER_POPULATION = 1000000;
 
     public static void main(String[] args) {
         Map<Schedule, Double> population = new HashMap<>();
@@ -21,7 +24,8 @@ public class Main {
         
         generateInitialPopulation(population, model);
 
-        scorePopulation(model, population);
+        population = scorePopulation(model, population);
+        population = normalizeScores(population);
 
         //sort the population by score
         boolean continueGeneration = true;
@@ -57,6 +61,7 @@ public class Main {
 
             System.out.println("Best Schedule Score: " + bestScore);
             System.out.println("Worst Schedule Score: " + worstScore);
+            System.out.println("Population Size: " + population.size());
 
             if(remainingGenerations-- == 0){
                 continueGeneration = false;
@@ -70,18 +75,17 @@ public class Main {
     private static Map<Schedule, Double> mutatePopulation(Map<Schedule, Double> population, Model model, double mutationRate) {
         Map<Schedule, Double> newPopulation = new HashMap<>();
 
-        for(Schedule schedule : population.keySet()){
-            for(Activity activity : schedule.assignments().keySet()){
-                Assignment assignment = schedule.assignments().get(activity);
-                Room room = (Math.random()>mutationRate) ? assignment.location() : Model.getRandomRoom(model);
-                Date timeslot = (Math.random()>mutationRate) ? assignment.timeslot() : Model.getRandomTimeslot(model);
-                String facilitator = (Math.random()>mutationRate) ? assignment.facilitator() : Model.getRandomFacilitator(model);
+        population.keySet().parallelStream().forEach(schedule -> {
+            schedule.assignments().forEach((activity, assignment) -> {
+                Room room = (Math.random() > mutationRate) ? assignment.location() : Model.getRandomRoom(model);
+                Date timeslot = (Math.random() > mutationRate) ? assignment.timeslot() : Model.getRandomTimeslot(model);
+                String facilitator = (Math.random() > mutationRate) ? assignment.facilitator() : Model.getRandomFacilitator(model);
 
                 Assignment newAssignment = new Assignment(activity, timeslot, facilitator, room);
                 schedule.assignments().put(activity, newAssignment);
-            }
+            });
             newPopulation.put(schedule, 0.0);
-        }
+        });
         return newPopulation;
     }
 
@@ -130,18 +134,19 @@ public class Main {
     }
 
     private static Map<Schedule, Double> scorePopulation(Model model, Map<Schedule, Double> population) {
-        return population.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> ScheduleScorer.scoreSchedule(model, e.getKey())));
+        return population.entrySet().stream().parallel().collect(Collectors.toMap(Map.Entry::getKey, e -> ScheduleScorer.scoreSchedule(model, e.getKey())));
     }
 
     private static  Map<Schedule, Double> normalizeScores(Map<Schedule, Double> population) {
-        final double sum = population.values().stream().mapToDouble(Math::exp).sum();
+        final double sum = population.values().parallelStream().mapToDouble(Math::exp).sum();
 
-       return population.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> Math.exp(e.getValue()) / sum));
+       return population.entrySet().parallelStream().collect(Collectors.toMap(Map.Entry::getKey, e -> Math.exp(e.getValue()) / sum));
     }
 
     private static void generateInitialPopulation(final Map<Schedule, Double> population, Model model) {
         //initialize population randomly
-        for (int i = 0; i < 100000; i++) {
+        IntStream.range(0, STARTER_POPULATION).parallel().forEach(i -> {
+        //for (int i = 0; i < STARTER_POPULATION; i++) {
             Map<Activity, Assignment> assignments = new HashMap<>();
             for(Activity activity : model.activities().values()){
                 //randomly assign activities to rooms and timeslots
@@ -156,9 +161,15 @@ public class Main {
                 Assignment assignment = new Assignment(activity, timeslot, faciliator, room);
 
                 assignments.put(activity, assignment);
+
             }
+
+            if(i % 10000 == 0){
+                System.out.println("Generated " + i + " schedules");
+            }
+
             Schedule schedule = new Schedule(assignments);
             population.put(schedule, 0.0);
-        }
-    }
+        });
+   }
 }
