@@ -6,27 +6,13 @@
     "rules" :[
         {
             "name" : "Activity in same place and time",
-            "type" : "predicate",
-            "predicate" : "Assignment.timesEqual(a,b) && Assignment.roomsEqual(a,b)",
-            "score" : -0.5
+            "type" : "function",
+            "function" : "com.edu.umkc.cs461.hw2.ActivityInSamePlaceAndTimeScorer"
         },
         {
             "name" : "Room capacity",
-            "type" : "predicate",
-            "predicate" : "Room.willFit(a.room(),a.activity())",
-            "score" : -0.5
-        },
-        {
-            "name" : "Room too big",
-            "type" : "predicate",
-            "predicate" : "a.room().capacity() > 3 * a.activity().enrollment()",
-            "score" : -0.2
-        },
-        {
-            "name" : "Room way too big",
-            "type" : "predicate",
-            "predicate" : "a.room().capacity() > 6 * a.activity().enrollment()",
-            "score" : -0.4
+            "type" : "function",
+            "function" : "com.edu.umkc.cs461.hw2.RoomCapacityScorer"
         }
     ]
 }
