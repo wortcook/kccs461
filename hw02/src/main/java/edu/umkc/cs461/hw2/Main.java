@@ -6,19 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.NavigableMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.Date;
+
 
 import edu.umkc.cs461.hw2.model.*;
 import edu.umkc.cs461.hw2.rules.*;
 
 public class Main {
 
-    public static final int STARTER_POPULATION = 1000000;
+    public static final int STARTER_POPULATION = 10;
 
     public static void main(String[] args) {
-        Map<Schedule, Double> population = new HashMap<>();
+        NavigableMap<Schedule, Double> population = new ValueSortedMap<Schedule,Double>();
 
         Model model = ModelLoader.loadModel();
         
@@ -34,6 +36,8 @@ public class Main {
 
         int remainingGenerations = 1000;
 
+        System.out.println("Population Size: " + population.size());
+
         do{
             population = cullPopulation(population);
             population = crossoverPopulation(population);
@@ -41,23 +45,11 @@ public class Main {
             population = scorePopulation(model, population);
             population = normalizeScores(population);
 
-            final Map<Schedule, Double> refPop = population;
-            Comparator<Schedule> comparator = new Comparator<Schedule>() {
-                @Override
-                public int compare(Schedule o1, Schedule o2) {
-                    return Double.compare(refPop.get(o1), refPop.get(o2));
-                }
-            };
-    
-            //sort the population by score
-            TreeMap<Schedule, Double> sortedPopulation = new TreeMap<>(comparator);
-            sortedPopulation.putAll(population);
+            Schedule bestSchedule = population.lastKey();
+            Double bestScore = population.get(bestSchedule);
 
-            Schedule bestSchedule = sortedPopulation.lastKey();
-            double bestScore = sortedPopulation.get(bestSchedule);
-
-            Schedule worstSchedule = sortedPopulation.firstKey();
-            double worstScore = sortedPopulation.get(worstSchedule);
+            Schedule worstSchedule = population.firstKey();
+            Double worstScore = population.get(worstSchedule);
 
             System.out.println("Best Schedule Score: " + bestScore);
             System.out.println("Worst Schedule Score: " + worstScore);
@@ -72,10 +64,12 @@ public class Main {
 
     }
 
-    private static Map<Schedule, Double> mutatePopulation(Map<Schedule, Double> population, Model model, double mutationRate) {
-        Map<Schedule, Double> newPopulation = new HashMap<>();
+    private static NavigableMap<Schedule, Double> mutatePopulation(Map<Schedule, Double> population, Model model, double mutationRate) {
+        ValueSortedMap<Schedule, Double> newPopulation = new ValueSortedMap<>();
 
-        population.keySet().parallelStream().forEach(schedule -> {
+        Map<Schedule,Double> mutations = new HashMap<Schedule,Double>();
+
+        population.keySet().forEach(schedule -> {
             schedule.assignments().forEach((activity, assignment) -> {
                 Room room = (Math.random() > mutationRate) ? assignment.location() : Model.getRandomRoom(model);
                 Date timeslot = (Math.random() > mutationRate) ? assignment.timeslot() : Model.getRandomTimeslot(model);
@@ -84,20 +78,22 @@ public class Main {
                 Assignment newAssignment = new Assignment(activity, timeslot, facilitator, room);
                 schedule.assignments().put(activity, newAssignment);
             });
-            newPopulation.put(schedule, 0.0);
+            mutations.put(schedule, 0.0);
         });
+
+        newPopulation.putAll(mutations);
         return newPopulation;
     }
 
-    private static Map<Schedule, Double> crossoverPopulation(Map<Schedule, Double> population) {
-        Map<Schedule, Double> newPopulation = new HashMap<>();
+    private static NavigableMap<Schedule, Double> crossoverPopulation(Map<Schedule, Double> population) {
+        ValueSortedMap<Schedule, Double> newPopulation = new ValueSortedMap<>();
 
         List<Schedule> parentPopulation = new ArrayList<>(population.keySet());
 
         while(parentPopulation.size()>1){
             //get two random parents
-            Schedule parent1 = parentPopulation.remove((int)(Math.random()*parentPopulation.size()));
-            Schedule parent2 = parentPopulation.remove((int)(Math.random()*parentPopulation.size()));
+            Schedule parent1 = parentPopulation.remove((int)(Math.random()*(parentPopulation.size()-1)));
+            Schedule parent2 = parentPopulation.remove((int)(Math.random()*(parentPopulation.size()-1)));
 
             //for each activity, randomly select room, time, facilitator from one of the parents
             Map<Activity, Assignment> childMap = new HashMap<>();
@@ -118,34 +114,47 @@ public class Main {
             newPopulation.put(child, 0.0);
         }
 
+        newPopulation.putAll(population);
+
         return newPopulation;
     }
 
     //The culling algorithm we are using allows for additional random change
     //that a strong candiate will be removed from the population
     //or a weak candidate will be kept
-    private static Map<Schedule, Double> cullPopulation(Map<Schedule,Double> population) {
-        return population;
-        // Map<Schedule,Double> survivors = new HashMap<Schedule,Double>();
+    private static NavigableMap<Schedule, Double> cullPopulation(final Map<Schedule,Double> population) {
 
-        //Since our population scores are a probability distribution
-        //randomly select 66% of the population to survive
-        
+        final NavigableMap<Schedule, Double> retPop = new ValueSortedMap<Schedule,Double>();
+
+        retPop.putAll(population);
+
+        return retPop;
     }
 
-    private static Map<Schedule, Double> scorePopulation(Model model, Map<Schedule, Double> population) {
-        return population.entrySet().stream().parallel().collect(Collectors.toMap(Map.Entry::getKey, e -> ScheduleScorer.scoreSchedule(model, e.getKey())));
+    private static NavigableMap<Schedule, Double> scorePopulation(Model model, NavigableMap<Schedule, Double> population) {
+        ValueSortedMap<Schedule, Double> scoredPopulation = new ValueSortedMap<>();
+
+        Map<Schedule,Double> scored = population.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> ScheduleScorer.scoreSchedule(model, e.getKey())));
+
+        scoredPopulation.putAll(scored);
+        return scoredPopulation;
     }
 
-    private static  Map<Schedule, Double> normalizeScores(Map<Schedule, Double> population) {
+    private static  NavigableMap<Schedule, Double> normalizeScores(Map<Schedule, Double> population) {
+
+        ValueSortedMap<Schedule, Double> retPop = new ValueSortedMap<>();
+
         final double sum = population.values().parallelStream().mapToDouble(Math::exp).sum();
 
-       return population.entrySet().parallelStream().collect(Collectors.toMap(Map.Entry::getKey, e -> Math.exp(e.getValue()) / sum));
+        retPop.putAll(
+            population.entrySet().parallelStream().collect(Collectors.toMap(Map.Entry::getKey, e -> Math.exp(e.getValue()) / sum))
+        );
+        return retPop;
     }
 
     private static void generateInitialPopulation(final Map<Schedule, Double> population, Model model) {
         //initialize population randomly
-        IntStream.range(0, STARTER_POPULATION).parallel().forEach(i -> {
+        IntStream.range(0, STARTER_POPULATION)./*parallel().*/forEach(i -> {
         //for (int i = 0; i < STARTER_POPULATION; i++) {
             Map<Activity, Assignment> assignments = new HashMap<>();
             for(Activity activity : model.activities().values()){
