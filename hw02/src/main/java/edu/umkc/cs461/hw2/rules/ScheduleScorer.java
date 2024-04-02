@@ -26,7 +26,7 @@ public class ScheduleScorer {
         score += schedScore.score();
         scoreInfo.putAll(schedScore.scoreBreakdown());
 
-        schedScore = new Scorer.FacilitatorScorer().scoreSchedule(model, schedule);
+        schedScore = new Scorer.FacilitatorLoadScorer().scoreSchedule(model, schedule);
         score += schedScore.score();
         scoreInfo.putAll(schedScore.scoreBreakdown());
 

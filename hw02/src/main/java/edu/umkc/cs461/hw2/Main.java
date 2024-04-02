@@ -1,6 +1,7 @@
 package edu.umkc.cs461.hw2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class Main {
     public static final double MUTATION_RATE = 0.15;
     public static final double MUTATION_RATE_DECAY = 0.99;
 
-    public static final int GENERATION_COUNT = 256;
+    public static final int GENERATION_COUNT = 512;
 
     public static void main(String[] args) {
         NavigableMap<Schedule, Double> population = new ValueSortedMap<Schedule,Double>();
@@ -109,16 +110,22 @@ public class Main {
     }
 
     private static NavigableMap<Schedule, Double> crossoverPopulation(Map<Schedule, Double> population) {
-        ValueSortedMap<Schedule, Double> newPopulation = new ValueSortedMap<>();
+        Map<Schedule, Double> newPopulation = new HashMap<>();
 
         List<Schedule> parentPopulation = new ArrayList<>(population.keySet());
 
-        while(parentPopulation.size()>1){
-            //get two random parents
-            Schedule parent1 = parentPopulation.remove((int)(Math.random()*(parentPopulation.size()-1)));
-            Schedule parent2 = parentPopulation.remove((int)(Math.random()*(parentPopulation.size()-1)));
+        Collections.shuffle(parentPopulation);
 
-            //for each activity, randomly select room, time, facilitator from one of the parents
+        final List<Schedule> primary = parentPopulation.subList(0, parentPopulation.size()/2);
+        final List<Schedule> secondary = parentPopulation.subList(parentPopulation.size()/2, parentPopulation.size());
+
+        final int halfIndex = parentPopulation.size()/2;
+
+        //loop through the parent population and crossover the schedules select 2 at a time in parallel
+        IntStream.range(0, halfIndex).parallel().forEach(i -> {
+            Schedule parent1 = primary.get(i);
+            Schedule parent2 = secondary.get(i);
+
             Map<Activity, Assignment> childMap = new HashMap<>();
             for(Activity activity : parent1.assignments().keySet()){
                 Assignment assignment1 = parent1.assignments().get(activity);
@@ -135,11 +142,37 @@ public class Main {
 
             Schedule child = new Schedule(childMap);
             newPopulation.put(child, 0.0);
-        }
+        });
 
-        newPopulation.putAll(population);
+        // while(parentPopulation.size()>1){
+        //     //get two random parents
+        //     Schedule parent1 = parentPopulation.remove((int)(Math.random()*(parentPopulation.size()-1)));
+        //     Schedule parent2 = parentPopulation.remove((int)(Math.random()*(parentPopulation.size()-1)));
 
-        return newPopulation;
+        //     //for each activity, randomly select room, time, facilitator from one of the parents
+        //     Map<Activity, Assignment> childMap = new HashMap<>();
+        //     for(Activity activity : parent1.assignments().keySet()){
+        //         Assignment assignment1 = parent1.assignments().get(activity);
+        //         Assignment assignment2 = parent2.assignments().get(activity);
+
+        //         Room childRoom = Math.random() < 0.5 ? assignment1.location() : assignment2.location();
+        //         Date childTime = Math.random() < 0.5 ? assignment1.timeslot() : assignment2.timeslot();
+        //         String childFacilitator = Math.random() < 0.5 ? assignment1.facilitator() : assignment2.facilitator();
+
+        //         Assignment childAssignment = new Assignment(activity, childTime, childFacilitator, childRoom);
+                
+        //         childMap.put(activity, childAssignment);
+        //     }
+
+        //     Schedule child = new Schedule(childMap);
+        //     newPopulation.put(child, 0.0);
+        // }
+
+        final ValueSortedMap<Schedule, Double> retPop = new ValueSortedMap<>();
+        retPop.putAll(newPopulation);
+        retPop.putAll(population);
+
+        return retPop;
     }
 
     //The culling algorithm we are using allows for additional random change

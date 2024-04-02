@@ -1,5 +1,6 @@
 package edu.umkc.cs461.hw2.rules;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -144,7 +145,7 @@ public interface Scorer {
             boolean noTimeOverlap = true;
             for (Assignment otherAssignment : schedule.assignments().values()) {
                 //skip ourselves
-                if (otherAssignment != assignment) {
+                if (!otherAssignment.equals(assignment)) {
                     //This faciliator has another assignment
                     if (otherAssignment.facilitator().equals(assignedFacilitator)) {
                         facilitatorAssignmentCount++;
@@ -163,7 +164,8 @@ public interface Scorer {
 
             //facilitator only scheduled for one assignment
             if(noTimeOverlap){
-                scoreBreakdown.put("Facilitator " + assignedFacilitator + " is only scheduled for one assignment", 0.2);
+                final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                scoreBreakdown.put("Facilitator " + assignedFacilitator + " is only scheduled for one activity at " +sdf.format(assignment.timeslot()), 0.2);
                 score += 0.2;
             }
 
