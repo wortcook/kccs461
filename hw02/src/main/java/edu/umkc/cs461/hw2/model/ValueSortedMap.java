@@ -14,6 +14,9 @@ public class ValueSortedMap<K,V extends Comparable<V>> implements NavigableMap<K
 
     private final Map<K,V> internalMap = new HashMap<K,V>();
 
+    /**
+     * A comparator used for sorting keys in a value-sorted map.
+     */
     private final Comparator<K> comparator = new Comparator<K>() {
         public int compare(final K o1,final K o2) {
             final V v1 = internalMap.get(o1);
@@ -21,7 +24,7 @@ public class ValueSortedMap<K,V extends Comparable<V>> implements NavigableMap<K
 
             int retVal = v1.compareTo(v2);
             if(0 == retVal){
-                return Math.random() > 0.5 ? 1 : -1;
+                return o1.hashCode() - o2.hashCode();
             }
             return v1.compareTo(v2);
         }
@@ -81,7 +84,7 @@ public class ValueSortedMap<K,V extends Comparable<V>> implements NavigableMap<K
 
     @Override
     public V get(Object key) {
-        return sortMap.get(key);
+        return internalMap.get(key);
     }
 
     @Override

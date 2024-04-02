@@ -53,7 +53,8 @@ public class ModelLoader {
         Map<String,Date> timeslots = new HashMap<>();
         //populate the timeslots for Monday, Wednesday, then Friday
         SimpleDateFormat sdf = new SimpleDateFormat("E");
-        for(int i = 0; i < 3; i++){
+        // for(int i = 0; i < 3; i++){
+            int i = 0;
             for(String time : times){
                 Calendar cal = Calendar.getInstance();
                 cal.set(Calendar.YEAR, nextMonday.getYear());
@@ -65,7 +66,7 @@ public class ModelLoader {
                 cal.set(Calendar.MILLISECOND, 0);
                 timeslots.put(sdf.format(cal.getTime()) + " " + time, cal.getTime());
             }
-        }
+        // }
 
         //construct the Facilitators
         Map<String,String> facilitators = new HashMap<>();

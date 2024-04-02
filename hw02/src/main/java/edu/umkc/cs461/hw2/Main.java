@@ -1,11 +1,9 @@
 package edu.umkc.cs461.hw2;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.NavigableMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -17,7 +15,13 @@ import edu.umkc.cs461.hw2.rules.*;
 
 public class Main {
 
-    public static final int STARTER_POPULATION = 10;
+    public static final int STARTER_POPULATION = 1000000;
+    public static final int TARGET_STABLE_POPULATION_SIZE = 1000;
+
+    public static final double MUTATION_RATE = 0.15;
+    public static final double MUTATION_RATE_DECAY = 0.99;
+
+    public static final int GENERATION_COUNT = 256;
 
     public static void main(String[] args) {
         NavigableMap<Schedule, Double> population = new ValueSortedMap<Schedule,Double>();
@@ -32,18 +36,17 @@ public class Main {
         //sort the population by score
         boolean continueGeneration = true;
 
-        double mutationRate = 0.1;
+        double mutationRate = MUTATION_RATE;
 
-        int remainingGenerations = 1000;
+        int remainingGenerations = GENERATION_COUNT;
 
         System.out.println("Population Size: " + population.size());
 
         do{
-            population = cullPopulation(population);
+            population = cullPopulation(population, TARGET_STABLE_POPULATION_SIZE);
             population = crossoverPopulation(population);
             population = mutatePopulation(population, model, mutationRate);
             population = scorePopulation(model, population);
-            population = normalizeScores(population);
 
             Schedule bestSchedule = population.lastKey();
             Double bestScore = population.get(bestSchedule);
@@ -51,15 +54,35 @@ public class Main {
             Schedule worstSchedule = population.firstKey();
             Double worstScore = population.get(worstSchedule);
 
-            System.out.println("Best Schedule Score: " + bestScore);
-            System.out.println("Worst Schedule Score: " + worstScore);
-            System.out.println("Population Size: " + population.size());
+            System.out.println("Best Score: " + bestScore);
+            System.out.println("Worst Score: " + worstScore);
 
             if(remainingGenerations-- == 0){
                 continueGeneration = false;
             }
 
+            System.out.println("Population Size: " + population.size());
+
+            mutationRate = mutationRate * MUTATION_RATE_DECAY;
+
+
         }while(continueGeneration);
+
+        //Now lets print out the best schedule as a table
+        Schedule bestSchedule = population.lastKey();
+
+        System.out.println("Best Schedule");
+        //Print out the schedule as a table of M W F and the timeslots
+        System.out.println(Schedule.scheduleToString(bestSchedule));
+
+        Scorer.ScheduleScore score = ScheduleScorer.scoreSchedule(model, bestSchedule);
+        System.out.println("Score: " + score.score());
+        System.out.println("Score Breakdown:");
+        score.scoreBreakdown().entrySet().forEach(e -> {
+            System.out.println(e.getKey() + ": " + e.getValue());
+        });
+
+
 
 
     }
@@ -69,7 +92,7 @@ public class Main {
 
         Map<Schedule,Double> mutations = new HashMap<Schedule,Double>();
 
-        population.keySet().forEach(schedule -> {
+        population.keySet().parallelStream().forEach(schedule -> {
             schedule.assignments().forEach((activity, assignment) -> {
                 Room room = (Math.random() > mutationRate) ? assignment.location() : Model.getRandomRoom(model);
                 Date timeslot = (Math.random() > mutationRate) ? assignment.timeslot() : Model.getRandomTimeslot(model);
@@ -122,11 +145,25 @@ public class Main {
     //The culling algorithm we are using allows for additional random change
     //that a strong candiate will be removed from the population
     //or a weak candidate will be kept
-    private static NavigableMap<Schedule, Double> cullPopulation(final Map<Schedule,Double> population) {
+    private static NavigableMap<Schedule, Double> cullPopulation(final Map<Schedule,Double> population, final int targetSize) {
+
+
+        //calculate the size of the population to cull
+        //Start near 50% and then trend down to 33.33% which will maintain the target size after crossover.
+
+        // double ratio = (Math.log10((double)targetSize)/Math.log10((double)population.size()));
+        double ratio = ((double)targetSize)/((double)population.size());
+
+        double cullPercentage = 1.0 - (0.5 - (0.16666667 * ratio));
+
+
+        int cullSize = (int)(population.size() * cullPercentage);
+
+        //cull the population by 50%
+        final List<Schedule> cullList = new ArrayList<>(population.keySet()).reversed().subList(0, cullSize);
 
         final NavigableMap<Schedule, Double> retPop = new ValueSortedMap<Schedule,Double>();
-
-        retPop.putAll(population);
+        retPop.putAll(cullList.stream().collect(Collectors.toMap(s -> s, s -> 0.0)));
 
         return retPop;
     }
@@ -134,7 +171,7 @@ public class Main {
     private static NavigableMap<Schedule, Double> scorePopulation(Model model, NavigableMap<Schedule, Double> population) {
         ValueSortedMap<Schedule, Double> scoredPopulation = new ValueSortedMap<>();
 
-        Map<Schedule,Double> scored = population.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> ScheduleScorer.scoreSchedule(model, e.getKey())));
+        Map<Schedule,Double> scored = population.entrySet().parallelStream().collect(Collectors.toMap(Map.Entry::getKey, e -> ScheduleScorer.scoreSchedule(model, e.getKey()).score()));
 
         scoredPopulation.putAll(scored);
         return scoredPopulation;
@@ -154,7 +191,10 @@ public class Main {
 
     private static void generateInitialPopulation(final Map<Schedule, Double> population, Model model) {
         //initialize population randomly
-        IntStream.range(0, STARTER_POPULATION)./*parallel().*/forEach(i -> {
+
+        Map<Schedule,Double> newPopulation = new HashMap<>();
+
+        IntStream.range(0, STARTER_POPULATION).parallel().forEach(i -> {
         //for (int i = 0; i < STARTER_POPULATION; i++) {
             Map<Activity, Assignment> assignments = new HashMap<>();
             for(Activity activity : model.activities().values()){
@@ -178,7 +218,9 @@ public class Main {
             }
 
             Schedule schedule = new Schedule(assignments);
-            population.put(schedule, 0.0);
+            newPopulation.put(schedule, 0.0);
         });
+
+        population.putAll(newPopulation);
    }
 }
