@@ -1,0 +1,1706 @@
+29174 schedules generated
+31786 schedules generated
+52405 schedules generated
+58193 schedules generated
+62208 schedules generated
+66574 schedules generated
+71323 schedules generated
+91767 schedules generated
+95561 schedules generated
+Scoring population
+=====================================
+Population Size: 99999
+Mutation Rate: 0.05
+Generation: 1
+Starting Cull
+Scoring population
+Population Size After Cull: 50166
+Starting Crossover
+Scoring population
+Population Size After Crossover: 75249
+Starting Mutation
+Scoring population
+Population Size After Mutation: 75249
+Best Score: 10.0
+Worst Score: -10.2
+=====================================
+Population Size: 75249
+Mutation Rate: 0.0475
+Generation: 2
+Starting Cull
+Scoring population
+Population Size After Cull: 37791
+Starting Crossover
+Scoring population
+Population Size After Crossover: 56686
+Starting Mutation
+Scoring population
+Population Size After Mutation: 56685
+Best Score: 10.7
+Worst Score: -10.3
+=====================================
+Population Size: 56685
+Mutation Rate: 0.045125
+Generation: 3
+Starting Cull
+Scoring population
+Population Size After Cull: 28509
+Starting Crossover
+Scoring population
+Population Size After Crossover: 42763
+Starting Mutation
+Scoring population
+Population Size After Mutation: 42763
+Best Score: 11.0
+Worst Score: -9.8
+=====================================
+Population Size: 42763
+Mutation Rate: 0.04286875
+Generation: 4
+Starting Cull
+Scoring population
+Population Size After Cull: 21548
+Starting Crossover
+Scoring population
+Population Size After Crossover: 32322
+Starting Mutation
+Scoring population
+Population Size After Mutation: 32322
+Best Score: 11.0
+Worst Score: -7.699999999999999
+=====================================
+Population Size: 32322
+Mutation Rate: 0.04072531249999999
+Generation: 5
+Starting Cull
+Scoring population
+Population Size After Cull: 16327
+Starting Crossover
+Scoring population
+Population Size After Crossover: 24490
+Starting Mutation
+Scoring population
+Population Size After Mutation: 24490
+Best Score: 10.8
+Worst Score: -6.4
+=====================================
+Population Size: 24490
+Mutation Rate: 0.038689046874999994
+Generation: 6
+Starting Cull
+Scoring population
+Population Size After Cull: 12411
+Starting Crossover
+Scoring population
+Population Size After Crossover: 18616
+Starting Mutation
+Scoring population
+Population Size After Mutation: 18616
+Best Score: 12.8
+Worst Score: -7.499999999999998
+=====================================
+Population Size: 18616
+Mutation Rate: 0.03675459453124999
+Generation: 7
+Starting Cull
+Scoring population
+Population Size After Cull: 9474
+Starting Crossover
+Scoring population
+Population Size After Crossover: 14211
+Starting Mutation
+Scoring population
+Population Size After Mutation: 14211
+Best Score: 12.8
+Worst Score: -6.4
+=====================================
+Population Size: 14211
+Mutation Rate: 0.03491686480468749
+Generation: 8
+Starting Cull
+Scoring population
+Population Size After Cull: 7272
+Starting Crossover
+Scoring population
+Population Size After Crossover: 10908
+Starting Mutation
+Scoring population
+Population Size After Mutation: 10908
+Best Score: 11.7
+Worst Score: -5.6
+=====================================
+Population Size: 10908
+Mutation Rate: 0.03317102156445311
+Generation: 9
+Starting Cull
+Scoring population
+Population Size After Cull: 5620
+Starting Crossover
+Scoring population
+Population Size After Crossover: 8430
+Starting Mutation
+Scoring population
+Population Size After Mutation: 8430
+Best Score: 11.5
+Worst Score: -4.800000000000002
+=====================================
+Population Size: 8430
+Mutation Rate: 0.03151247048623045
+Generation: 10
+Starting Cull
+Scoring population
+Population Size After Cull: 4381
+Starting Crossover
+Scoring population
+Population Size After Crossover: 6571
+Starting Mutation
+Scoring population
+Population Size After Mutation: 6571
+Best Score: 11.5
+Worst Score: -5.6
+=====================================
+Population Size: 6571
+Mutation Rate: 0.02993684696191893
+Generation: 11
+Starting Cull
+Scoring population
+Population Size After Cull: 3452
+Starting Crossover
+Scoring population
+Population Size After Crossover: 5178
+Starting Mutation
+Scoring population
+Population Size After Mutation: 5178
+Best Score: 11.399999999999999
+Worst Score: -4.5
+=====================================
+Population Size: 5178
+Mutation Rate: 0.028440004613822983
+Generation: 12
+Starting Cull
+Scoring population
+Population Size After Cull: 2755
+Starting Crossover
+Scoring population
+Population Size After Crossover: 4132
+Starting Mutation
+Scoring population
+Population Size After Mutation: 4132
+Best Score: 11.5
+Worst Score: -4.800000000000001
+=====================================
+Population Size: 4132
+Mutation Rate: 0.027018004383131834
+Generation: 13
+Starting Cull
+Scoring population
+Population Size After Cull: 2232
+Starting Crossover
+Scoring population
+Population Size After Crossover: 3348
+Starting Mutation
+Scoring population
+Population Size After Mutation: 3348
+Best Score: 11.799999999999999
+Worst Score: -3.799999999999999
+=====================================
+Population Size: 3348
+Mutation Rate: 0.02566710416397524
+Generation: 14
+Starting Cull
+Scoring population
+Population Size After Cull: 1840
+Starting Crossover
+Scoring population
+Population Size After Crossover: 2760
+Starting Mutation
+Scoring population
+Population Size After Mutation: 2760
+Best Score: 12.100000000000001
+Worst Score: -3.5000000000000013
+=====================================
+Population Size: 2760
+Mutation Rate: 0.024383748955776476
+Generation: 15
+Starting Cull
+Scoring population
+Population Size After Cull: 1546
+Starting Crossover
+Scoring population
+Population Size After Crossover: 2319
+Starting Mutation
+Scoring population
+Population Size After Mutation: 2319
+Best Score: 11.600000000000001
+Worst Score: -4.300000000000001
+=====================================
+Population Size: 2319
+Mutation Rate: 0.023164561507987652
+Generation: 16
+Starting Cull
+Scoring population
+Population Size After Cull: 1326
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1989
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1989
+Best Score: 12.4
+Worst Score: -2.9
+=====================================
+Population Size: 1989
+Mutation Rate: 0.02200633343258827
+Generation: 17
+Starting Cull
+Scoring population
+Population Size After Cull: 1161
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1741
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1741
+Best Score: 12.4
+Worst Score: -3.1999999999999993
+=====================================
+Population Size: 1741
+Mutation Rate: 0.020906016760958854
+Generation: 18
+Starting Cull
+Scoring population
+Population Size After Cull: 1037
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1555
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1555
+Best Score: 12.4
+Worst Score: -4.399999999999999
+=====================================
+Population Size: 1555
+Mutation Rate: 0.019860715922910912
+Generation: 19
+Starting Cull
+Scoring population
+Population Size After Cull: 944
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1416
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1416
+Best Score: 12.4
+Worst Score: -6.1000000000000005
+=====================================
+Population Size: 1416
+Mutation Rate: 0.018867680126765367
+Generation: 20
+Starting Cull
+Scoring population
+Population Size After Cull: 874
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1311
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1311
+Best Score: 12.2
+Worst Score: -5.900000000000001
+=====================================
+Population Size: 1311
+Mutation Rate: 0.017924296120427098
+Generation: 21
+Starting Cull
+Scoring population
+Population Size After Cull: 822
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1233
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1233
+Best Score: 11.8
+Worst Score: -4.1000000000000005
+=====================================
+Population Size: 1233
+Mutation Rate: 0.01702808131440574
+Generation: 22
+Starting Cull
+Scoring population
+Population Size After Cull: 783
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1174
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1174
+Best Score: 11.8
+Worst Score: -2.9000000000000004
+=====================================
+Population Size: 1174
+Mutation Rate: 0.016176677248685455
+Generation: 23
+Starting Cull
+Scoring population
+Population Size After Cull: 753
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1129
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1129
+Best Score: 12.100000000000001
+Worst Score: -4.999999999999997
+=====================================
+Population Size: 1129
+Mutation Rate: 0.015367843386251181
+Generation: 24
+Starting Cull
+Scoring population
+Population Size After Cull: 731
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1096
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1096
+Best Score: 13.399999999999999
+Worst Score: -3.0999999999999996
+=====================================
+Population Size: 1096
+Mutation Rate: 0.014599451216938621
+Generation: 25
+Starting Cull
+Scoring population
+Population Size After Cull: 714
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1071
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1071
+Best Score: 13.399999999999999
+Worst Score: -3.2000000000000006
+=====================================
+Population Size: 1071
+Mutation Rate: 0.013869478656091689
+Generation: 26
+Starting Cull
+Scoring population
+Population Size After Cull: 702
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1053
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1053
+Best Score: 13.399999999999999
+Worst Score: -1.7000000000000015
+=====================================
+Population Size: 1053
+Mutation Rate: 0.013176004723287104
+Generation: 27
+Starting Cull
+Scoring population
+Population Size After Cull: 693
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1039
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1039
+Best Score: 13.0
+Worst Score: -3.799999999999999
+=====================================
+Population Size: 1039
+Mutation Rate: 0.012517204487122747
+Generation: 28
+Starting Cull
+Scoring population
+Population Size After Cull: 686
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1029
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1029
+Best Score: 12.799999999999997
+Worst Score: -1.700000000000001
+=====================================
+Population Size: 1029
+Mutation Rate: 0.011891344262766609
+Generation: 29
+Starting Cull
+Scoring population
+Population Size After Cull: 681
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1021
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1021
+Best Score: 12.799999999999997
+Worst Score: -1.1999999999999993
+=====================================
+Population Size: 1021
+Mutation Rate: 0.011296777049628278
+Generation: 30
+Starting Cull
+Scoring population
+Population Size After Cull: 677
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1015
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1015
+Best Score: 12.799999999999997
+Worst Score: -0.7000000000000006
+=====================================
+Population Size: 1015
+Mutation Rate: 0.010731938197146863
+Generation: 31
+Starting Cull
+Scoring population
+Population Size After Cull: 674
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1011
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1011
+Best Score: 12.799999999999997
+Worst Score: -2.599999999999999
+=====================================
+Population Size: 1011
+Mutation Rate: 0.010195341287289519
+Generation: 32
+Starting Cull
+Scoring population
+Population Size After Cull: 672
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1008
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1008
+Best Score: 12.700000000000001
+Worst Score: -2.200000000000002
+=====================================
+Population Size: 1008
+Mutation Rate: 0.009685574222925042
+Generation: 33
+Starting Cull
+Scoring population
+Population Size After Cull: 670
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1005
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1005
+Best Score: 12.700000000000001
+Worst Score: -3.500000000000001
+=====================================
+Population Size: 1005
+Mutation Rate: 0.00920129551177879
+Generation: 34
+Starting Cull
+Scoring population
+Population Size After Cull: 669
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1003
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1003
+Best Score: 13.2
+Worst Score: -3.1000000000000023
+=====================================
+Population Size: 1003
+Mutation Rate: 0.00874123073618985
+Generation: 35
+Starting Cull
+Scoring population
+Population Size After Cull: 668
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1002
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1002
+Best Score: 13.6
+Worst Score: -1.4000000000000012
+=====================================
+Population Size: 1002
+Mutation Rate: 0.008304169199380356
+Generation: 36
+Starting Cull
+Scoring population
+Population Size After Cull: 667
+Starting Crossover
+Scoring population
+Population Size After Crossover: 1000
+Starting Mutation
+Scoring population
+Population Size After Mutation: 1000
+Best Score: 13.6
+Worst Score: -1.3000000000000025
+=====================================
+Population Size: 1000
+Mutation Rate: 0.007888960739411338
+Generation: 37
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 13.6
+Worst Score: -0.40000000000000124
+=====================================
+Population Size: 999
+Mutation Rate: 0.0074945127024407705
+Generation: 38
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 13.6
+Worst Score: -1.7000000000000002
+=====================================
+Population Size: 999
+Mutation Rate: 0.007119787067318732
+Generation: 39
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 13.6
+Worst Score: -0.9000000000000004
+=====================================
+Population Size: 999
+Mutation Rate: 0.006763797713952795
+Generation: 40
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 13.6
+Worst Score: -0.40000000000000213
+=====================================
+Population Size: 999
+Mutation Rate: 0.006425607828255154
+Generation: 41
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 13.6
+Worst Score: -1.1000000000000014
+=====================================
+Population Size: 999
+Mutation Rate: 0.006104327436842396
+Generation: 42
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 14.400000000000002
+Worst Score: -1.2999999999999998
+=====================================
+Population Size: 999
+Mutation Rate: 0.005799111065000276
+Generation: 43
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 14.400000000000002
+Worst Score: -1.9000000000000004
+=====================================
+Population Size: 999
+Mutation Rate: 0.005509155511750262
+Generation: 44
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 13.600000000000001
+Worst Score: -0.2999999999999998
+=====================================
+Population Size: 999
+Mutation Rate: 0.005233697736162749
+Generation: 45
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 13.600000000000001
+Worst Score: 0.8999999999999986
+=====================================
+Population Size: 999
+Mutation Rate: 0.0049720128493546106
+Generation: 46
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 13.600000000000001
+Worst Score: -0.3000000000000007
+=====================================
+Population Size: 999
+Mutation Rate: 0.00472341220688688
+Generation: 47
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 15.3
+Worst Score: -0.10000000000000009
+=====================================
+Population Size: 999
+Mutation Rate: 0.004487241596542535
+Generation: 48
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 15.3
+Worst Score: -0.5000000000000004
+=====================================
+Population Size: 999
+Mutation Rate: 0.004262879516715408
+Generation: 49
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 15.5
+Worst Score: 0.0
+=====================================
+Population Size: 999
+Mutation Rate: 0.004049735540879638
+Generation: 50
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 15.5
+Worst Score: -0.5
+=====================================
+Population Size: 999
+Mutation Rate: 0.0038472487638356555
+Generation: 51
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 15.5
+Worst Score: -1.0999999999999996
+=====================================
+Population Size: 999
+Mutation Rate: 0.0036548863256438725
+Generation: 52
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 15.5
+Worst Score: 0.1999999999999993
+=====================================
+Population Size: 999
+Mutation Rate: 0.0034721420093616786
+Generation: 53
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 16.1
+Worst Score: 0.39999999999999947
+=====================================
+Population Size: 999
+Mutation Rate: 0.0032985349088935946
+Generation: 54
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 16.1
+Worst Score: -0.10000000000000142
+=====================================
+Population Size: 999
+Mutation Rate: 0.0031336081634489145
+Generation: 55
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 15.3
+Worst Score: -0.7999999999999998
+=====================================
+Population Size: 999
+Mutation Rate: 0.002976927755276469
+Generation: 56
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 16.4
+Worst Score: -2.0999999999999996
+=====================================
+Population Size: 999
+Mutation Rate: 0.0028280813675126454
+Generation: 57
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: 0.09999999999999964
+=====================================
+Population Size: 999
+Mutation Rate: 0.002686677299137013
+Generation: 58
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: 0.3999999999999986
+=====================================
+Population Size: 999
+Mutation Rate: 0.002552343434180162
+Generation: 59
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: 0.6999999999999984
+=====================================
+Population Size: 999
+Mutation Rate: 0.002424726262471154
+Generation: 60
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: -3.0999999999999996
+=====================================
+Population Size: 999
+Mutation Rate: 0.0023034899493475963
+Generation: 61
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: 0.6999999999999984
+=====================================
+Population Size: 999
+Mutation Rate: 0.0021883154518802165
+Generation: 62
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: -1.6000000000000005
+=====================================
+Population Size: 999
+Mutation Rate: 0.0020788996792862058
+Generation: 63
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: -0.8000000000000007
+=====================================
+Population Size: 999
+Mutation Rate: 0.0019749546953218952
+Generation: 64
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: -0.10000000000000098
+=====================================
+Population Size: 999
+Mutation Rate: 0.0018762069605558003
+Generation: 65
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: -0.10000000000000142
+=====================================
+Population Size: 999
+Mutation Rate: 0.0017823966125280102
+Generation: 66
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: -1.0
+=====================================
+Population Size: 999
+Mutation Rate: 0.0016932767819016095
+Generation: 67
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: 0.5999999999999979
+=====================================
+Population Size: 999
+Mutation Rate: 0.001608612942806529
+Generation: 68
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: 1.3999999999999986
+=====================================
+Population Size: 999
+Mutation Rate: 0.0015281822956662023
+Generation: 69
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: 1.299999999999999
+=====================================
+Population Size: 999
+Mutation Rate: 0.0014517731808828922
+Generation: 70
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: -1.3000000000000007
+=====================================
+Population Size: 999
+Mutation Rate: 0.0013791845218387474
+Generation: 71
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 999
+Starting Mutation
+Scoring population
+Population Size After Mutation: 999
+Best Score: 17.0
+Worst Score: 0.8999999999999977
+=====================================
+Population Size: 999
+Mutation Rate: 0.00131022529574681
+Generation: 72
+Starting Cull
+Scoring population
+Population Size After Cull: 666
+Starting Crossover
+Scoring population
+Population Size After Crossover: 998
+Starting Mutation
+Scoring population
+Population Size After Mutation: 998
+Best Score: 17.0
+Worst Score: 2.1999999999999993
+=====================================
+Population Size: 998
+Mutation Rate: 0.0012447140309594694
+Generation: 73
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 17.0
+Worst Score: 1.3999999999999995
+=====================================
+Population Size: 997
+Mutation Rate: 0.001182478329411496
+Generation: 74
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 17.2
+Worst Score: 1.6999999999999993
+=====================================
+Population Size: 997
+Mutation Rate: 0.001123354412940921
+Generation: 75
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 17.2
+Worst Score: 0.10000000000000053
+=====================================
+Population Size: 997
+Mutation Rate: 0.001067186692293875
+Generation: 76
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 0.39999999999999947
+=====================================
+Population Size: 997
+Mutation Rate: 0.0010138273576791811
+Generation: 77
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 1.1000000000000005
+=====================================
+Population Size: 997
+Mutation Rate: 9.63135989795222E-4
+Generation: 78
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 1.3999999999999986
+=====================================
+Population Size: 997
+Mutation Rate: 9.149791903054609E-4
+Generation: 79
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 0.2999999999999998
+=====================================
+Population Size: 997
+Mutation Rate: 8.692302307901878E-4
+Generation: 80
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 1.0999999999999979
+=====================================
+Population Size: 997
+Mutation Rate: 8.257687192506784E-4
+Generation: 81
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 1.6999999999999984
+=====================================
+Population Size: 997
+Mutation Rate: 7.844802832881444E-4
+Generation: 82
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 2.0999999999999996
+=====================================
+Population Size: 997
+Mutation Rate: 7.452562691237371E-4
+Generation: 83
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 1.2000000000000002
+=====================================
+Population Size: 997
+Mutation Rate: 7.079934556675502E-4
+Generation: 84
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 2.4999999999999996
+=====================================
+Population Size: 997
+Mutation Rate: 6.725937828841727E-4
+Generation: 85
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 1.6000000000000005
+=====================================
+Population Size: 997
+Mutation Rate: 6.38964093739964E-4
+Generation: 86
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 2.4000000000000004
+=====================================
+Population Size: 997
+Mutation Rate: 6.070158890529658E-4
+Generation: 87
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 2.499999999999999
+=====================================
+Population Size: 997
+Mutation Rate: 5.766650946003175E-4
+Generation: 88
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 3.6999999999999984
+=====================================
+Population Size: 997
+Mutation Rate: 5.478318398703016E-4
+Generation: 89
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.4
+Worst Score: 0.9999999999999982
+=====================================
+Population Size: 997
+Mutation Rate: 5.204402478767865E-4
+Generation: 90
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 18.200000000000003
+Worst Score: 2.299999999999998
+=====================================
+Population Size: 997
+Mutation Rate: 4.944182354829472E-4
+Generation: 91
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 19.199999999999996
+Worst Score: 0.29999999999999893
+=====================================
+Population Size: 997
+Mutation Rate: 4.696973237087998E-4
+Generation: 92
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 19.199999999999996
+Worst Score: 1.9999999999999996
+=====================================
+Population Size: 997
+Mutation Rate: 4.4621245752335983E-4
+Generation: 93
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 19.199999999999996
+Worst Score: 0.7999999999999989
+=====================================
+Population Size: 997
+Mutation Rate: 4.239018346471918E-4
+Generation: 94
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 19.2
+Worst Score: 1.299999999999999
+=====================================
+Population Size: 997
+Mutation Rate: 4.027067429148322E-4
+Generation: 95
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 19.2
+Worst Score: 4.1
+=====================================
+Population Size: 997
+Mutation Rate: 3.825714057690906E-4
+Generation: 96
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 19.2
+Worst Score: 1.7999999999999998
+=====================================
+Population Size: 997
+Mutation Rate: 3.63442835480636E-4
+Generation: 97
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 19.2
+Worst Score: 1.8999999999999977
+=====================================
+Population Size: 997
+Mutation Rate: 3.452706937066042E-4
+Generation: 98
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 19.2
+Worst Score: 0.1999999999999984
+=====================================
+Population Size: 997
+Mutation Rate: 3.2800715902127396E-4
+Generation: 99
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 19.2
+Worst Score: 3.0999999999999988
+=====================================
+Population Size: 997
+Mutation Rate: 3.1160680107021024E-4
+Generation: 100
+Starting Cull
+Scoring population
+Population Size After Cull: 665
+Starting Crossover
+Scoring population
+Population Size After Crossover: 997
+Starting Mutation
+Scoring population
+Population Size After Mutation: 997
+Best Score: 19.2
+Worst Score: 3.3
+Best Schedule
+  Time		 | Activity	|
++----------------+----------------+
+|		 | SLA191B	|
+| 10:00		 | Loft 206	|
+|		 | Banks 	|
++----------------+----------------+
+|		 | SLA100A	|
+| 11:00		 | Loft 206	|
+|		 | Glen 	|
++----------------+----------------+
+|		 | SLA451	|
+| 12:00		 | Loft 310	|
+|		 | Singer 	|
++----------------+----------------+
+|		 | SLA201	|
+| 12:00		 | Loft 206	|
+|		 | Glen 	|
++----------------+----------------+
+|		 | SLA394	|
+| 13:00		 | Slater 003	|
+|		 | Singer 	|
++----------------+----------------+
+|		 | SLA303	|
+| 13:00		 | Frank 119	|
+|		 | Glen 	|
++----------------+----------------+
+|		 | SLA100B	|
+| 13:00		 | Loft 310	|
+|		 | Banks 	|
++----------------+----------------+
+|		 | SLA449	|
+| 13:00		 | Loft 206	|
+|		 | Singer 	|
++----------------+----------------+
+|		 | SLA304	|
+| 14:00		 | Slater 003	|
+|		 | Banks 	|
++----------------+----------------+
+|		 | SLA291	|
+| 14:00		 | Frank 119	|
+|		 | Singer 	|
++----------------+----------------+
+|		 | SLA191A	|
+| 15:00		 | Frank 119	|
+|		 | Banks 	|
++----------------+----------------+
+
+Score: 19.2
+Score Breakdown:
+Loft 206 for SLA201 has a capacity of 75 which is at least the enrollment of 50: 0.3
+Banks is a preferred facilitator for SLA304: 0.5
+Slater 003 for SLA304 has a capacity of 45 which is at least the enrollment of 25: 0.3
+Facilitator Singer is assigned SLA394 and SLA451 consecutively: 0.5
+Singer is assigned SLA394 and SLA449 at the same time: -0.2
+Singer is a preferred facilitator for SLA451: 0.5
+Facilitator Glen is only scheduled for one activity at 11:00: 0.2
+Facilitator Glen is assigned SLA303 and SLA201 consecutively: 0.5
+Facilitator Glen is assigned SLA201 and SLA303 consecutively: 0.5
+Facilitator Singer is only scheduled for one activity at 14:00: 0.2
+Frank 119 for SLA191A has a capacity of 60 which is at least the enrollment of 50: 0.3
+Loft 206 for SLA449 has a capacity of 75 which is at least the enrollment of 60: 0.3
+Banks is a preferred facilitator for SLA100B: 0.5
+Facilitator Banks is only scheduled for one activity at 15:00: 0.2
+Facilitator Singer is assigned SLA449 and SLA291 consecutively: 0.5
+Frank 119 for SLA291 has a capacity of 60 which is at least the enrollment of 50: 0.3
+Singer is assigned SLA449 and SLA394 at the same time: -0.2
+Frank 119 for SLA303 has a capacity of 60 which is at least the enrollment of 60: 0.3
+Glen is a preferred facilitator for SLA303: 0.5
+Facilitator Glen is only scheduled for one activity at 12:00: 0.2
+Glen is a preferred facilitator for SLA100A: 0.5
+Facilitator Singer is assigned SLA291 and SLA394 consecutively: 0.5
+Loft 206 for SLA100A has a capacity of 75 which is at least the enrollment of 50: 0.3
+Banks is a preferred facilitator for SLA191B: 0.5
+Banks is a preferred facilitator for SLA191A: 0.5
+Activities SLA191A and SLA191B are 4 or more hours apart: 0.5
+Facilitator Singer is assigned SLA449 and SLA451 consecutively: 0.5
+Facilitator Banks is assigned SLA191A and SLA304 consecutively: 0.5
+Slater 003 for SLA394 has a capacity of 45 which is at least the enrollment of 20: 0.3
+Facilitator Banks is assigned SLA304 and SLA100B consecutively: 0.5
+Facilitator Banks is only scheduled for one activity at 14:00: 0.2
+Singer is a preferred facilitator for SLA394: 0.5
+Loft 310 for SLA100B has a capacity of 108 which is at least the enrollment of 50: 0.3
+Facilitator Glen is assigned SLA201 and SLA100A consecutively: 0.5
+Facilitator Glen is assigned SLA100A and SLA201 consecutively: 0.5
+Facilitator Glen is only scheduled for one activity at 13:00: 0.2
+Facilitator Singer is only scheduled for one activity at 12:00: 0.2
+Facilitator Singer is assigned SLA451 and SLA394 consecutively: 0.5
+Facilitator Banks is only scheduled for one activity at 10:00: 0.2
+Facilitator Singer is assigned SLA394 and SLA291 consecutively: 0.5
+Singer is a preferred facilitator for SLA291: 0.5
+Loft 310 for SLA451 has a capacity of 108 which is at least the enrollment of 100: 0.3
+Facilitator Singer is assigned SLA451 and SLA449 consecutively: 0.5
+Facilitator Singer is assigned SLA291 and SLA449 consecutively: 0.5
+Glen is a preferred facilitator for SLA201: 0.5
+Facilitator Banks is only scheduled for one activity at 13:00: 0.2
+Facilitator Banks is assigned SLA100B and SLA304 consecutively: 0.5
+Loft 206 for SLA191B has a capacity of 75 which is at least the enrollment of 50: 0.3
+Singer is a preferred facilitator for SLA449: 0.5
+Facilitator Banks is assigned SLA304 and SLA191A consecutively: 0.5
+Activities SLA191B and SLA191A are 4 or more hours apart: 0.5
+
+Worst Schedule
+  Time		 | Activity	|
++----------------+----------------+
+|		 | SLA451	|
+| 10:00		 | Loft 310	|
+|		 | Singer 	|
++----------------+----------------+
+|		 | SLA191A	|
+| 11:00		 | Frank 119	|
+|		 | Glen 	|
++----------------+----------------+
+|		 | SLA303	|
+| 11:00		 | Loft 206	|
+|		 | Banks 	|
++----------------+----------------+
+|		 | SLA291	|
+| 11:00		 | Frank 119	|
+|		 | Banks 	|
++----------------+----------------+
+|		 | SLA304	|
+| 13:00		 | Loft 206	|
+|		 | Glen 	|
++----------------+----------------+
+|		 | SLA201	|
+| 13:00		 | Frank 119	|
+|		 | Glen 	|
++----------------+----------------+
+|		 | SLA100A	|
+| 13:00		 | Loft 310	|
+|		 | Glen 	|
++----------------+----------------+
+|		 | SLA394	|
+| 13:00		 | Slater 003	|
+|		 | Singer 	|
++----------------+----------------+
+|		 | SLA449	|
+| 13:00		 | Loft 206	|
+|		 | Tyler 	|
++----------------+----------------+
+|		 | SLA191B	|
+| 15:00		 | Slater 003	|
+|		 | Banks 	|
++----------------+----------------+
+|		 | SLA100B	|
+| 15:00		 | Loft 310	|
+|		 | Glen 	|
++----------------+----------------+
+
+Score: 3.3
+Score Breakdown:
+Banks is a preferred facilitator for SLA191B: 0.5
+Glen is a preferred facilitator for SLA191A: 0.5
+Banks is assigned SLA303 and SLA291 at the same time: -0.2
+SLA191A and SLA291 are in the same place and time: -0.5
+Glen is assigned SLA100A and SLA304 at the same time: -0.2
+Activities SLA191A and SLA191B are 4 or more hours apart: 0.5
+SLA291 and SLA191A are in the same place and time: -0.5
+Loft 206 for SLA304 has a capacity of 75 which is at least the enrollment of 25: 0.3
+Banks is a preferred facilitator for SLA303: 0.5
+Glen is assigned SLA201 and SLA100A at the same time: -0.2
+Slater 003 for SLA394 has a capacity of 45 which is at least the enrollment of 20: 0.3
+Frank 119 for SLA201 has a capacity of 60 which is at least the enrollment of 50: 0.3
+Slater 003 for SLA191B has a capacity of 45 which is less than the enrollment of 50: -0.5
+Banks is a preferred facilitator for SLA291: 0.5
+Banks is assigned SLA291 and SLA303 at the same time: -0.2
+Singer is a preferred facilitator for SLA451: 0.5
+Singer is a preferred facilitator for SLA394: 0.5
+Loft 310 for SLA100B has a capacity of 108 which is at least the enrollment of 50: 0.3
+Facilitator Glen is only scheduled for one activity at 11:00: 0.2
+Glen is assigned SLA100A and SLA201 at the same time: -0.2
+Facilitator Glen is only scheduled for one activity at 15:00: 0.2
+Frank 119 for SLA191A has a capacity of 60 which is at least the enrollment of 50: 0.3
+Facilitator Singer is only scheduled for one activity at 10:00: 0.2
+Loft 206 for SLA449 has a capacity of 75 which is at least the enrollment of 60: 0.3
+Facilitator Glen has more than 4 assignments: -0.5
+Glen is assigned SLA201 and SLA304 at the same time: -0.2
+SLA449 and SLA304 are in the same place and time: -0.5
+Facilitator Singer has less than 3 assignments: -0.2
+Tyler is a preferred facilitator for SLA449: 0.5
+Loft 206 for SLA303 has a capacity of 75 which is at least the enrollment of 60: 0.3
+Loft 310 for SLA451 has a capacity of 108 which is at least the enrollment of 100: 0.3
+Facilitator Tyler is only scheduled for one activity at 13:00: 0.2
+Glen is a preferred facilitator for SLA304: 0.5
+Facilitator Banks is only scheduled for one activity at 15:00: 0.2
+Glen is a preferred facilitator for SLA201: 0.5
+Frank 119 for SLA291 has a capacity of 60 which is at least the enrollment of 50: 0.3
+SLA304 and SLA449 are in the same place and time: -0.5
+Glen is a preferred facilitator for SLA100B: 0.5
+Glen is assigned SLA304 and SLA201 at the same time: -0.2
+Activities SLA191B and SLA191A are 4 or more hours apart: 0.5
+Glen is assigned SLA304 and SLA100A at the same time: -0.2
+Glen is a preferred facilitator for SLA100A: 0.5
+Facilitator Singer is only scheduled for one activity at 13:00: 0.2
+Loft 310 for SLA100A has a capacity of 108 which is at least the enrollment of 50: 0.3

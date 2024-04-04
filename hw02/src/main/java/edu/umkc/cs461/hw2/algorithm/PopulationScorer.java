@@ -17,7 +17,6 @@ public interface PopulationScorer {
     public static class PopulationDefaultScorer implements PopulationScorer {
         @Override
         public NavigableMap<Schedule, Double> scorePopulation(final Model model, final NavigableMap<Schedule, Double> population) {
-            System.out.println("Scoring population");
             final Map<Schedule, Double> scored = new ConcurrentHashMap<>(population.size(), 1.0f, Runtime.getRuntime().availableProcessors());
             //iterate through population and score each schedule in parallel
             population.entrySet().parallelStream().forEach(e -> {

@@ -1,6 +1,9 @@
 package edu.umkc.cs461.hw2;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NavigableMap;
+import java.util.Queue;
 
 import edu.umkc.cs461.hw2.algorithm.PopulationCrossover;
 import edu.umkc.cs461.hw2.algorithm.PopulationCuller;
@@ -12,27 +15,33 @@ import edu.umkc.cs461.hw2.rules.*;
 
 public class Main {
 
-    public static final int STARTER_POPULATION = 1000000;
+    public static final int STARTER_POPULATION = 100000;
     public static final int TARGET_STABLE_POPULATION_SIZE = 1000;
 
-    public static final double MUTATION_RATE = 0.1;
-    public static final double MUTATION_RATE_DECAY = 0.99;
+    public static final double MUTATION_RATE = 0.8;
+    public static final double MUTATION_RATE_DECAY = 0.95;
 
-    public static final int GENERATION_COUNT = 256;
+    public static final int MIN_GENERATION_COUNT = 500;
+
+    public static final int LAST_N_SCORES = 10;
 
     public static void main(String[] args) {
         Model model = ModelLoader.loadModel();
 
-        PopulationGenerator generator = new PopulationGenerator.PopulationDefaultGenerator();
-        // PopulationGenerator generator = new PopulationGenerator.PopulationSpreadGenerator();
+        // PopulationGenerator generator = new PopulationGenerator.PopulationDefaultGenerator();
+        PopulationGenerator generator = new PopulationGenerator.PopulationSpreadGenerator();
         PopulationScorer scorer = new PopulationScorer.PopulationDefaultScorer();
-        PopulationCuller culler = new PopulationCuller.PopulationDefaultCuller();
+
+        // PopulationCuller culler = new PopulationCuller.PopulationDefaultCuller();
         // PopulationCuller culler = new PopulationCuller.BackfillCuller();
-        PopulationCrossover crossover = new PopulationCrossover.PopulationDefaultCrossover();
-        // PopulationCrossover crossover = new PopulationCrossover.RandomSelectionCrossover();
+        PopulationCuller culler = new PopulationCuller.RandomCuller();
+
+        // PopulationCrossover crossover = new PopulationCrossover.PopulationDefaultCrossover();
+        PopulationCrossover crossover = new PopulationCrossover.RandomSelectionCrossover();
         // PopulationCrossover crossover = new PopulationCrossover.RandomValueSelectionCrossover();
-        PopulationMutator mutator = new PopulationMutator.PopulationDefaultMutator();
-        // PopulationMutator mutator = new PopulationMutator.ScaledProbabilityMutator();
+
+        // PopulationMutator mutator = new PopulationMutator.PopulationDefaultMutator();
+        PopulationMutator mutator = new PopulationMutator.ScaledProbabilityMutator();
 
         NavigableMap<Schedule, Double> population = generator.generateInitialPopulation(model, STARTER_POPULATION);
         population = scorer.scorePopulation(model, population);
@@ -44,14 +53,16 @@ public class Main {
 
         double mutationRate = MUTATION_RATE;
 
-        int remainingGenerations = GENERATION_COUNT;
+        int remainingGenerations = MIN_GENERATION_COUNT;
 
+        List<Double> lastNScores = new LinkedList<>();
 
+        int generationCount = 1;
         do{
             System.out.println("=====================================");
             System.out.println("Population Size: " + population.size());
             System.out.println("Mutation Rate: " + mutationRate);
-            System.out.println("Remaining Generations: " + remainingGenerations);
+            System.out.println("Generation: " + generationCount++);
 
             System.out.println("Starting Cull");
             population = culler.cullPopulation(model, population, TARGET_STABLE_POPULATION_SIZE);
@@ -77,11 +88,24 @@ public class Main {
             System.out.println("Best Score: " + bestScore);
             System.out.println("Worst Score: " + worstScore);
 
-            if(remainingGenerations-- == 0){
-                continueGeneration = false;
+            if(remainingGenerations == LAST_N_SCORES+1){
+                lastNScores.addFirst(bestScore);
+                if(lastNScores.size() > LAST_N_SCORES){
+                    lastNScores.removeLast();
+
+                    double averageScore = lastNScores.stream().mapToDouble(Double::doubleValue).average().getAsDouble();
+
+                    if(Math.abs(averageScore - bestScore) < 0.001){
+                        continueGeneration = false;
+                    }
+                }
+            }else{
+                remainingGenerations--;
             }
 
+
             mutationRate = mutationRate * MUTATION_RATE_DECAY;
+
 
         }while(continueGeneration);
 

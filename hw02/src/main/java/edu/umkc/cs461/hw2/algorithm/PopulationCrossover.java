@@ -17,11 +17,26 @@ import edu.umkc.cs461.hw2.model.Room;
 import edu.umkc.cs461.hw2.model.Schedule;
 import edu.umkc.cs461.hw2.model.ValueSortedMap;
 
+/**
+ * PopulationCrossover
+ * The PopulationCrossover interface defines the method to crossover a population of schedules. The crossover
+ * method takes a model and a population of schedules and returns a new population of schedules. The crossover
+ * method is responsible for selecting two parents from the population and creating a child schedule by randomly
+ * selecting the room, time, and facilitator for each activity from one of the parents.
+ * 
+ * See the specific implementation classes for more details on how the crossover is performed.
+ */
 public interface PopulationCrossover {
     default NavigableMap<Schedule, Double> crossoverPopulation(Model model, Map<Schedule, Double> population) {
         return new PopulationDefaultCrossover().crossoverPopulation(model, population);
     }
 
+    /**
+     * Default crossover implementation. This implementation first shuffles the order of the population and then
+     * and then splits it into two halfs. It them "zippers" the two collections together to create a new population
+     * by randomly selecting the room, time, and facilitator for each activity from one of the parents.
+     * Each attribute is selected with a 50% probability from one of the parents.
+     */
     public static class PopulationDefaultCrossover implements PopulationCrossover {
         @Override
         public NavigableMap<Schedule, Double> crossoverPopulation(final Model model, final Map<Schedule, Double> population) {
@@ -112,6 +127,15 @@ public interface PopulationCrossover {
         }
     }
 
+    /**
+     * Crossover where there is some choice on the part of one of the parents. This crossover iterates
+     * from 0 to half the population size (the number of children to be produced). A random parent is selected
+     * and then 10 other parents are randomly selected. The parent from the 10 with the best score is selected
+     * as the second parent. The child is then created by randomly selecting the room, time, and facilitator for
+     * each activity from one of the parents.
+     * There is a 50% chance that the child will select the room, time, and facilitator from parent1 and a 50% chance
+     * that the child will select the room, time, and facilitator from parent2.
+     */
     public static class RandomValueSelectionCrossover implements PopulationCrossover {
         @Override
         public NavigableMap<Schedule, Double> crossoverPopulation(final Model model, final Map<Schedule, Double> population) {

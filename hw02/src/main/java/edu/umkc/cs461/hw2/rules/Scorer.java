@@ -153,10 +153,10 @@ public interface Scorer {
                         if (Assignment.areTimesEqual(assignment, otherAssignment)) {
                             scoreBreakdown.put(
                                 assignedFacilitator + " is assigned " + assignment.activity().name() + " and " + otherAssignment.activity().name() + " at the same time",
-                                -0.2
+                                -0.5
                             );
                             noTimeOverlap = false;
-                            score -= 0.2;
+                            score -= 0.5;
                         }else{//Same facilitator, different time
                             //if the activities are consequitive
                             if(Math.abs(assignment.timeslot().getTime() - otherAssignment.timeslot().getTime()) == ONE_HOUR){
