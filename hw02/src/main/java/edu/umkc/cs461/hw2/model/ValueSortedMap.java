@@ -22,15 +22,23 @@ public class ValueSortedMap<K,V extends Comparable<V>> implements NavigableMap<K
             final V v1 = internalMap.get(o1);
             final V v2 = internalMap.get(o2);
 
-            int retVal = v1.compareTo(v2);
+            final int retVal = v1.compareTo(v2);
             if(0 == retVal){
                 return o1.hashCode() - o2.hashCode();
             }
-            return v1.compareTo(v2);
+            return retVal;
         }
     };
 
     private final NavigableMap<K,V> sortMap = new TreeMap<K,V>(this.comparator);
+
+    public ValueSortedMap(){
+    }
+
+    public ValueSortedMap(final Map<K,V> map){
+        internalMap.putAll(map);
+        sortMap.putAll(map);
+    }
 
     @Override
     public Comparator<K> comparator() {

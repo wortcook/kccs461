@@ -157,6 +157,32 @@ public interface Scorer {
                             );
                             noTimeOverlap = false;
                             score -= 0.2;
+                        }else{//Same facilitator, different time
+                            //if the activities are consequitive
+                            if(Math.abs(assignment.timeslot().getTime() - otherAssignment.timeslot().getTime()) == ONE_HOUR){
+                                final Room otherLocation = otherAssignment.location();
+                                final Room thisLocation = assignment.location();
+                                //Check for Beach or Roman
+                                if(
+                                    otherLocation.name().startsWith("Roman") ||
+                                    otherLocation.name().startsWith("Beach") ||
+                                    thisLocation.name().startsWith("Roman") ||
+                                    thisLocation.name().startsWith("Beach")
+                                ){
+                                    //if the rooms are in the same building
+                                    if(otherLocation.name().substring(0, 4).equals(thisLocation.name().substring(0, 4))){
+                                        scoreBreakdown.put("Facilitator " + assignedFacilitator + " is assigned " + assignment.activity().name() + " and " + otherAssignment.activity().name() + " consecutively in the same building", 0.5);
+                                        score += 0.5;
+                                    //otherwise one is in beach and the other in roman
+                                    }else{
+                                        scoreBreakdown.put("Facilitator " + assignedFacilitator + " is assigned " + assignment.activity().name() + " and " + otherAssignment.activity().name() + " consecutively in different buildings (Roman/Beach)", -0.4);
+                                        score -= 0.4;
+                                    }
+                                }else{
+                                    scoreBreakdown.put("Facilitator " + assignedFacilitator + " is assigned " + assignment.activity().name() + " and " + otherAssignment.activity().name() + " consecutively", 0.5);
+                                    score += 0.5;
+                                }
+                            }
                         }
                     }
                 }
@@ -240,8 +266,8 @@ public interface Scorer {
 
                         //if the activities are consecutive, 1 hour apart
                         if(Math.abs(otherTime.getTime() - thisTime.getTime()) == ONE_HOUR){
-                            Room otherLocation = otherAssignment.location();
-                            Room thisLocation = assignment.location();
+                            final Room otherLocation = otherAssignment.location();
+                            final Room thisLocation = assignment.location();
                             //Check for Beach or Roman
                             if(
                                 otherLocation.name().startsWith("Roman") ||
