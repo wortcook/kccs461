@@ -72,7 +72,7 @@ public interface Scorer {
                     }
                 }
             }
-            return new ScheduleScore(0.0, Collections.EMPTY_MAP);;
+            return new ScheduleScore(0.0, Collections.EMPTY_MAP);
         }
     }    
 
