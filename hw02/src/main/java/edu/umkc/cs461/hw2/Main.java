@@ -3,7 +3,6 @@ package edu.umkc.cs461.hw2;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NavigableMap;
-import java.util.Queue;
 
 import edu.umkc.cs461.hw2.algorithm.PopulationCrossover;
 import edu.umkc.cs461.hw2.algorithm.PopulationCuller;
