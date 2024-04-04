@@ -6,6 +6,9 @@ import java.util.Map;
 import edu.umkc.cs461.hw2.model.Model;
 import edu.umkc.cs461.hw2.model.Schedule;
 
+/**
+ * Scorer for a schedule.
+ */
 public class ScheduleScorer {
     public static Scorer.ScheduleScore scoreSchedule(final Model model, final Schedule schedule) {
         Double score = 0.0;

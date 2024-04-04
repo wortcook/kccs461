@@ -31,11 +31,9 @@ public interface PopulationCuller {
 
             //calculate the size of the population to cull
             //Start near 50% and then trend down to 33.33% which will maintain the target size after crossover.
+            final double ratio = ((double)targetSize)/((double)population.size());
 
-            // double ratio = (Math.log10((double)targetSize)/Math.log10((double)population.size()));
-            double ratio = ((double)targetSize)/((double)population.size());
-
-            double cullPercentage = 1.0 - (0.5 - (0.16666667 * ratio));
+            final double cullPercentage = 1.0 - (0.5 - (0.16666667 * ratio));
 
             int cullSize = (int)(population.size() * cullPercentage);
 
@@ -53,10 +51,13 @@ public interface PopulationCuller {
     public static class BackfillCuller implements PopulationCuller {
         @Override
         public NavigableMap<Schedule, Double> cullPopulation(final Model model, final Map<Schedule, Double> population, final int targetSize) {
+
+            //Cull as normal
             NavigableMap<Schedule, Double> returnCull = new PopulationDefaultCuller().cullPopulation(model, population, targetSize);
 
             final int cullTarget = (2*targetSize)/3;
 
+            //backfill the population randomly if we fall below the target size
             if(returnCull.size() < cullTarget){
                 int backfillSize = cullTarget - returnCull.size() + (int)((targetSize/100.0)*Math.random());
 
@@ -86,13 +87,19 @@ public interface PopulationCuller {
 
             final int populationSize = population.size();
 
+            //As the population size nears the target size, the cull rate trends down to 33.33%
             final double ratioThird = 0.333333*((double)targetSize)/((double)populationSize);
 
+            //For each schedule in the population
             IntStream.range(0, population.size()).parallel().forEach(i ->{
                 final Schedule schedule = schedules.get(i);
 
+                //Calculate the survival rate for the schedule
+                //Start at 100% and trend down to 0% survial rate from best to worst schedule
+                //The ratio third is used to ensure we don't cull too much and fall below the target size
                 final double scheduleSurvivalRate = ((double)i / (double)populationSize) + ratioThird;
 
+                //If the schedule survives, add it to the survivor map
                 if(Math.random() < scheduleSurvivalRate){
                     survivorMap.put(schedule, population.get(schedule));
                 }

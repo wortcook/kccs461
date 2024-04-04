@@ -45,16 +45,20 @@ public interface PopulationCrossover {
 
             Collections.shuffle(parentPopulation);
 
+            //Split the list into two halves
             final List<Schedule> primary = parentPopulation.subList(0, parentPopulation.size()/2);
             final List<Schedule> secondary = parentPopulation.subList(parentPopulation.size()/2, parentPopulation.size());
 
             final int halfIndex = parentPopulation.size()/2;
 
-            //loop through the parent population and crossover the schedules select 2 at a time in parallel
+            //Run the loop population/2 in parallel
             IntStream.range(0, halfIndex).parallel().forEach(i -> {
+
+                //Pick a parent from each sublist
                 final Schedule parent1 = primary.get(i);
                 final Schedule parent2 = secondary.get(i);
 
+                //for each activity, randomly select room, time, facilitator from one of the parents
                 Map<Activity, Assignment> childMap = new HashMap<>();
                 for(Activity activity : parent1.assignments().keySet()){
                     final Assignment assignment1 = parent1.assignments().get(activity);
@@ -97,8 +101,10 @@ public interface PopulationCrossover {
 
             final int maxCount = population.size()/2;
 
+            //Run the loop population/2 in parallel, i.e. produce population/2 children
             IntStream.range(0, maxCount).parallel().forEach(
                 i -> {
+                    //Randomly select two parents, note, it's possible to select the same parent twice
                     final Schedule parent1 = parentPopulation.get((int)(Math.random()*(parentPopulation.size()-1)));
                     final Schedule parent2 = parentPopulation.get((int)(Math.random()*(parentPopulation.size()-1)));
 
@@ -152,15 +158,19 @@ public interface PopulationCrossover {
 
             final int maxCount = population.size()/2;
 
+            //Run the loop population/2 in parallel, i.e. produce population/2 children
             IntStream.range(0, maxCount).parallel().forEach(
                 i -> {
+                    //Randomly select the initial parent
                     final Schedule parent1 = parentPopulation.get((int)(Math.random()*(parentPopulation.size()-1)));
 
+                    //Randomly select 10 other parents
                     final List<Schedule> parent2List = new ArrayList<>(subSelectCount);
                     for(int j = 0; j < subSelectCount; j++){
                         parent2List.add(parentPopulation.get((int)(Math.random()*(parentPopulation.size()-1))));
                     }
 
+                    //Make sure the 10 selected are scored
                     final ValueSortedMap<Schedule, Double> parent2Map = new ValueSortedMap<>();
                     for(Schedule parent2 : parent2List){
                         parent2Map.put(parent2, 0.0);

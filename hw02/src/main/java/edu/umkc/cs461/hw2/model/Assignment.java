@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+/*
+ * Represents an assignment of an activity to a timeslot, facilitator, and location.
+ */
 public record Assignment(Activity activity, Date timeslot, String facilitator, Room location) {
     public Assignment {
         Objects.requireNonNull(activity);

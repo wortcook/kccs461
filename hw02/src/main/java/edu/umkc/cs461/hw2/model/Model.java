@@ -3,6 +3,9 @@ package edu.umkc.cs461.hw2.model;
 import java.util.Date;
 import java.util.Map;
 
+/*
+ * Global model containing the list of activities, facilitators, timeslots, and locations.
+ */
 public record Model(
     Map<String,Activity> activities,
     Map<String,String> facilitators,

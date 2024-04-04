@@ -6,33 +6,54 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 import edu.umkc.cs461.hw2.model.*;
 
+/**
+ * Interface for scoring a schedule.
+ */
 public interface Scorer {
 
     public static final long ONE_HOUR = 60 * 60 * 1000;
     public static final long TWO_HOURS = 2 * 60 * 60 * 1000;
     public static final long FOUR_HOURS = 4 * 60 * 60 * 1000;
 
+    /**
+     * Represents the score of a schedule.
+     */
     public record ScheduleScore(double score, Map<String, Double> scoreBreakdown){
         public ScheduleScore {
             Objects.requireNonNull(scoreBreakdown);
         }
     }
 
+    /**
+     * Scores an assignment in the context of a schedule.
+     * @param model - the model, i.e. the domain of the data
+     * @param schedule - the schedule to which the assignment belongs
+     * @param assignment - the assignment to score
+     * @return the score of the assignment
+     */
     default ScheduleScore scoreAssignment( Model model, Schedule schedule, Assignment assignment){
         return new ScheduleScore(0.0, Map.of());
     }
 
+    /**
+     * Scores an entire schedule by iterating through the assignments and scoring each one.
+     * @param model
+     * @param schedule
+     * @return
+     */
     default ScheduleScore scoreSchedule(final Model model, final Schedule schedule){
-        double score = 0.0;
-        Map<String, Double> scoreBreakdown = new HashMap<>();
-        for (Assignment assignment : schedule.assignments().values()) {
+        ConcurrentHashMap<String, Double> scoreBreakdown = new ConcurrentHashMap<>(schedule.assignments().size(), 1.0f, Runtime.getRuntime().availableProcessors());
+
+        double score = schedule.assignments().values().parallelStream().mapToDouble(assignment -> {
             ScheduleScore assignmentScore = scoreAssignment(model, schedule, assignment);
-            score += assignmentScore.score();
             scoreBreakdown.putAll(assignmentScore.scoreBreakdown());
-        }
+            return assignmentScore.score();
+        }).sum();
+            
         return new ScheduleScore(score, scoreBreakdown);
     }
 
@@ -153,10 +174,10 @@ public interface Scorer {
                         if (Assignment.areTimesEqual(assignment, otherAssignment)) {
                             scoreBreakdown.put(
                                 assignedFacilitator + " is assigned " + assignment.activity().name() + " and " + otherAssignment.activity().name() + " at the same time",
-                                -0.5
+                                -0.2
                             );
                             noTimeOverlap = false;
-                            score -= 0.5;
+                            score -= 0.2;
                         }else{//Same facilitator, different time
                             //if the activities are consequitive
                             if(Math.abs(assignment.timeslot().getTime() - otherAssignment.timeslot().getTime()) == ONE_HOUR){

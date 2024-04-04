@@ -14,12 +14,18 @@ import edu.umkc.cs461.hw2.model.Room;
 import edu.umkc.cs461.hw2.model.Schedule;
 import edu.umkc.cs461.hw2.model.ValueSortedMap;
 
+/**
+ * Interface for generating an initial population of schedules.
+  */
 public interface PopulationGenerator {
 
     default NavigableMap<Schedule, Double> generateInitialPopulation(final Model model, final int populationSize) {
         return new PopulationDefaultGenerator().generateInitialPopulation(model, populationSize);
     }
 
+    /**
+     * Default implementation of the generateInitialPopulation method. This implementation generates a population of schedules with random assignments.
+     */
     public static class PopulationDefaultGenerator implements PopulationGenerator {
         @Override
         public NavigableMap<Schedule, Double> generateInitialPopulation(final Model model, final int populationSize) {

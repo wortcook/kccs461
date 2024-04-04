@@ -1,14 +1,13 @@
 package edu.umkc.cs461.hw2.model;
 
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a schedule of activities. Each activity should be represented once in a schedule.
+ */
 public record Schedule(Map<Activity,Assignment> assignments) {
     public Schedule {
         if (assignments == null) {

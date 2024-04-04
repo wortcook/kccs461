@@ -9,11 +9,17 @@ import edu.umkc.cs461.hw2.model.Schedule;
 import edu.umkc.cs461.hw2.model.ValueSortedMap;
 import edu.umkc.cs461.hw2.rules.ScheduleScorer;
 
+/**
+ * Interface for scoring a population of schedules.
+ */
 public interface PopulationScorer {
     default NavigableMap<Schedule, Double> scorePopulation(Model model, NavigableMap<Schedule, Double> population){
         return new PopulationDefaultScorer().scorePopulation(model, population);
     }
 
+    /**
+     * Default implementation of the scorePopulation method. This implementation scores the population by scoring each schedule in the population in parallel.
+     */
     public static class PopulationDefaultScorer implements PopulationScorer {
         @Override
         public NavigableMap<Schedule, Double> scorePopulation(final Model model, final NavigableMap<Schedule, Double> population) {

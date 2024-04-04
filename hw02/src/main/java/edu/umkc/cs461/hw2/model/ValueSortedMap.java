@@ -10,6 +10,9 @@ import java.util.NavigableSet;
 import java.util.Set;
 import java.util.SortedMap;
 
+/**
+ * A map that is sorted by the values of the map entries. In case of a tie, the keys are sorted by their hash codes.
+ */
 public class ValueSortedMap<K,V extends Comparable<V>> implements NavigableMap<K,V>{
 
     private final Map<K,V> internalMap = new HashMap<K,V>();
