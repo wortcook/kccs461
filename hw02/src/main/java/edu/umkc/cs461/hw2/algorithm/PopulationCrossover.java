@@ -1,5 +1,6 @@
 package edu.umkc.cs461.hw2.algorithm;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -27,8 +28,8 @@ import edu.umkc.cs461.hw2.model.ValueSortedMap;
  * See the specific implementation classes for more details on how the crossover is performed.
  */
 public interface PopulationCrossover {
-    default NavigableMap<Schedule, Double> crossoverPopulation(Model model, Map<Schedule, Double> population) {
-        return new PopulationDefaultCrossover().crossoverPopulation(model, population);
+    default List<Schedule> crossoverPopulation(Model model, List<Schedule> parentPopulation) {
+        return new PopulationDefaultCrossover().crossoverPopulation(model, parentPopulation);
     }
 
     /**
@@ -39,10 +40,10 @@ public interface PopulationCrossover {
      */
     public static class PopulationDefaultCrossover implements PopulationCrossover {
         @Override
-        public NavigableMap<Schedule, Double> crossoverPopulation(final Model model, final Map<Schedule, Double> population) {
-            final Map<Schedule, Double> newPopulation = new ConcurrentHashMap<>(population.size()/2+1, 1.0f, Runtime.getRuntime().availableProcessors());
-            final List<Schedule> parentPopulation = new ArrayList<>(population.keySet());
+        public List<Schedule> crossoverPopulation(final Model model, final List<Schedule> population) {
 
+            final List<Schedule> newPopulation = Collections.synchronizedList(new ArrayList<>(population.size()/2+1));
+            final ArrayList<Schedule> parentPopulation = new ArrayList<>(population);
             Collections.shuffle(parentPopulation);
 
             //Split the list into two halves
@@ -73,11 +74,11 @@ public interface PopulationCrossover {
                     childMap.put(activity, childAssignment);
                 }
 
-                newPopulation.put(new Schedule(childMap), 0.0);
+                newPopulation.add(new Schedule(childMap));
             });
 
-            final ValueSortedMap<Schedule, Double> retPop = new ValueSortedMap<>(newPopulation);
-            retPop.putAll(population); //includes parents in return population as well
+            List<Schedule> retPop = new ArrayList<>(newPopulation);
+            retPop.addAll(parentPopulation); //add parent population
 
             return retPop;
         }
@@ -93,11 +94,11 @@ public interface PopulationCrossover {
      */
     public static class RandomSelectionCrossover implements PopulationCrossover {
         @Override
-        public NavigableMap<Schedule, Double> crossoverPopulation(final Model model, final Map<Schedule, Double> population) {
+        public List<Schedule> crossoverPopulation(final Model model, final List<Schedule> population) {
 
-            final Map<Schedule, Double> newPopulation = new ConcurrentHashMap<>(population.size()/2+1, 1.0f, Runtime.getRuntime().availableProcessors());
+            final List<Schedule> newPopulation = Collections.synchronizedList(new ArrayList<>(population.size()/2+1));
 
-            final List<Schedule> parentPopulation = new ArrayList<>(population.keySet());
+            final List<Schedule> parentPopulation = new ArrayList<>(population);
 
             final int maxCount = population.size()/2;
 
@@ -123,11 +124,12 @@ public interface PopulationCrossover {
                         childMap.put(activity, childAssignment);
                     }
 
-                    newPopulation.put(new Schedule(childMap), 0.0);
+                    newPopulation.add(new Schedule(childMap));
                 }
             );
-            final ValueSortedMap<Schedule, Double> retPop = new ValueSortedMap<>(newPopulation);
-            retPop.putAll(population); //add parent population
+    
+            List<Schedule> retPop = new ArrayList<>(newPopulation);
+            retPop.addAll(parentPopulation); //add parent population
 
             return retPop;
         }
@@ -144,17 +146,14 @@ public interface PopulationCrossover {
      */
     public static class RandomValueSelectionCrossover implements PopulationCrossover {
         @Override
-        public NavigableMap<Schedule, Double> crossoverPopulation(final Model model, final Map<Schedule, Double> population) {
+        public List<Schedule> crossoverPopulation(final Model model, final List<Schedule> population) {
             return crossoverPopulation(model, population, 10);
         }
 
-        public NavigableMap<Schedule, Double> crossoverPopulation(final Model model, final Map<Schedule, Double> population, final int subSelectCount) {
+        public List<Schedule> crossoverPopulation(final Model model, final List<Schedule> population, final int subSelectCount) {
+            final List<Schedule> newPopulation = Collections.synchronizedList(new ArrayList<>(population.size()/2+1));
 
-            final Map<Schedule, Double> newPopulation = new ConcurrentHashMap<>(population.size()/2+1, 1.0f, Runtime.getRuntime().availableProcessors());
-
-            final List<Schedule> parentPopulation = new ArrayList<>(population.keySet());
-
-            final PopulationScorer scorer = new PopulationScorer.PopulationDefaultScorer();
+            final List<Schedule> parentPopulation = new ArrayList<>(population);
 
             final int maxCount = population.size()/2;
 
@@ -170,16 +169,8 @@ public interface PopulationCrossover {
                         parent2List.add(parentPopulation.get((int)(Math.random()*(parentPopulation.size()-1))));
                     }
 
-                    //Make sure the 10 selected are scored
-                    final ValueSortedMap<Schedule, Double> parent2Map = new ValueSortedMap<>();
-                    for(Schedule parent2 : parent2List){
-                        parent2Map.put(parent2, 0.0);
-                    }
-
-                    scorer.scorePopulation(model, parent2Map);
-
                     //get the best score
-                    final Schedule parent2 = parent2Map.lastKey();
+                    final Schedule parent2 = Model.sortPopulation(parent2List, model).getLast();
 
                     //for each activity, randomly select room, time, facilitator from one of the parents
                     final Map<Activity, Assignment> childMap = new HashMap<>();
@@ -196,11 +187,12 @@ public interface PopulationCrossover {
                         childMap.put(activity, childAssignment);
                     }
 
-                    newPopulation.put(new Schedule(childMap), 0.0);
+                    newPopulation.add(new Schedule(childMap));
                 }
             );
-            final ValueSortedMap<Schedule, Double> retPop = new ValueSortedMap<>(newPopulation);
-            retPop.putAll(population); //add parent population
+    
+            List<Schedule> retPop = new ArrayList<>(newPopulation);
+            retPop.addAll(parentPopulation); //add parent population
 
             return retPop;
         }

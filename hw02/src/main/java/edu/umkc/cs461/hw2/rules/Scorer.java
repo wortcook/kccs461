@@ -68,7 +68,7 @@ public interface Scorer {
                 if (otherAssignment != assignment) {
                     if (assignment.timeslot().equals(otherAssignment.timeslot()) && assignment.location().equals(otherAssignment.location())) {
                         String scoreDescription = assignment.activity().name() + " and " + otherAssignment.activity().name() + " are in the same place and time";
-                        return new ScheduleScore(-0.5, Map.of(scoreDescription, -0.5));
+                        return new ScheduleScore(-10.0, Map.of(scoreDescription, -10.0));
                     }
                 }
             }
@@ -174,10 +174,10 @@ public interface Scorer {
                         if (Assignment.areTimesEqual(assignment, otherAssignment)) {
                             scoreBreakdown.put(
                                 assignedFacilitator + " is assigned " + assignment.activity().name() + " and " + otherAssignment.activity().name() + " at the same time",
-                                -0.2
+                                -10.0
                             );
                             noTimeOverlap = false;
-                            score -= 0.2;
+                            score -= 10.0;
                         }else{//Same facilitator, different time
                             //if the activities are consequitive
                             if(Math.abs(assignment.timeslot().getTime() - otherAssignment.timeslot().getTime()) == ONE_HOUR){

@@ -1,7 +1,14 @@
 package edu.umkc.cs461.hw2.model;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.NavigableMap;
+
+import edu.umkc.cs461.hw2.rules.ScheduleScorer;
 
 /*
  * Global model containing the list of activities, facilitators, timeslots, and locations.
@@ -37,5 +44,27 @@ public record Model(
 
     public static Date getRandomTimeslot(final Model model) {
         return model.timeslots().values().stream().skip((int)(model.timeslots().size()*Math.random())).findFirst().get();
+    }
+
+    private static final Map<Schedule,Double> globalScoreMap = Collections.synchronizedMap(new HashMap<>());
+
+    public static Double fetchScore(final Schedule schedule, final Model model) {
+        Double retVal = globalScoreMap.get(schedule);
+        
+        if(null == retVal){
+            retVal = ScheduleScorer.scoreSchedule(model, schedule).score();
+            globalScoreMap.put(schedule, retVal);
+        }
+
+
+        return retVal;
+    }
+
+    public static List<Schedule> sortPopulation(final List<Schedule> population, final Model model){
+        Schedule[] schedules = population.toArray(new Schedule[0]);
+        Arrays.parallelSort(schedules, (s1, s2) -> {
+            return fetchScore(s1, model).compareTo(fetchScore(s2, model));
+        });
+        return Arrays.asList(schedules);
     }
 }

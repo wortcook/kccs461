@@ -1,5 +1,8 @@
 package edu.umkc.cs461.hw2.model;
 
+/**
+ * Represents a room that can be scheduled.
+ */
 public record Room(String name, int capacity){
     public Room {
         if (capacity <= 0) {

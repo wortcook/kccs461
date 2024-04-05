@@ -2,6 +2,9 @@ package edu.umkc.cs461.hw2.model;
 
 import java.util.Set;
 
+/**
+ * Represents an activity that can be scheduled.
+ */
 public record Activity(String name, int enrollment, Set<String> preferredFacilitators, Set<String> secondaryFacilitators){
     public Activity {
         if (enrollment <= 0) {

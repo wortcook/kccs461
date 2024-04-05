@@ -12,6 +12,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Class for loading the model with the default data.
+ */
 public class ModelLoader {
     public static final Set<String> facilitators = new HashSet<>(Arrays.asList("Lock","Glen","Banks","Richards","Shaw","Singer","Uther","Tyler","Numen","Zeldin"));
     public static final Set<String> activities = new HashSet<>(Arrays.asList("SLA100A","SLA100B","SLA191A","SLA191B","SLA201","SLA291","SLA303","SLA304","SLA394","SLA449","SLA451"));

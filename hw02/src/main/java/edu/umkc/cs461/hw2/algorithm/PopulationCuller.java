@@ -1,22 +1,20 @@
 package edu.umkc.cs461.hw2.algorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 import edu.umkc.cs461.hw2.model.Model;
 import edu.umkc.cs461.hw2.model.Schedule;
-import edu.umkc.cs461.hw2.model.ValueSortedMap;
 
 /**
  * Interface for culling a population of schedules.
  */
 public interface PopulationCuller {
-    default NavigableMap<Schedule, Double> cullPopulation(final Model model, final Map<Schedule,Double> population, final int targetSize){
+    default List<Schedule> cullPopulation(final Model model, final List<Schedule> population, final int targetSize){
         return new PopulationDefaultCuller().cullPopulation(model, population, targetSize);
     }
 
@@ -27,7 +25,7 @@ public interface PopulationCuller {
      * which will bring the population back to the target size.
      */
     public static class PopulationDefaultCuller implements PopulationCuller {
-        public NavigableMap<Schedule, Double> cullPopulation(final Model model, final Map<Schedule,Double> population, final int targetSize) {
+        public List<Schedule> cullPopulation(final Model model, final List<Schedule> population, final int targetSize) {
 
             //calculate the size of the population to cull
             //Start near 50% and then trend down to 33.33% which will maintain the target size after crossover.
@@ -37,10 +35,17 @@ public interface PopulationCuller {
 
             int cullSize = (int)(population.size() * cullPercentage);
 
-            //cull the population
-            final List<Schedule> cullList = new ArrayList<>(population.keySet()).reversed().subList(0, cullSize);
+            return Model.sortPopulation(population, model).reversed().subList(0, cullSize);
 
-            return new ValueSortedMap<Schedule,Double>(cullList.stream().collect(Collectors.toMap(s -> s, s -> 0.0)));
+        }
+    }
+
+    public static class PopulationUniqueCuller implements PopulationCuller {
+        @Override
+        public List<Schedule> cullPopulation(final Model model, final List<Schedule> population, final int targetSize) {
+            final List<Schedule> returnCull = new PopulationDefaultCuller().cullPopulation(model, population, targetSize);
+            Set<Schedule> uniqueSchedules = new HashSet<>(returnCull);
+            return new ArrayList<>(uniqueSchedules);
         }
     }
 
@@ -50,10 +55,10 @@ public interface PopulationCuller {
      */
     public static class BackfillCuller implements PopulationCuller {
         @Override
-        public NavigableMap<Schedule, Double> cullPopulation(final Model model, final Map<Schedule, Double> population, final int targetSize) {
+        public List<Schedule> cullPopulation(final Model model, final List<Schedule> population, final int targetSize) {
 
             //Cull as normal
-            NavigableMap<Schedule, Double> returnCull = new PopulationDefaultCuller().cullPopulation(model, population, targetSize);
+            List<Schedule> returnCull = new PopulationDefaultCuller().cullPopulation(model, population, targetSize);
 
             final int cullTarget = (2*targetSize)/3;
 
@@ -61,7 +66,7 @@ public interface PopulationCuller {
             if(returnCull.size() < cullTarget){
                 int backfillSize = cullTarget - returnCull.size() + (int)((targetSize/100.0)*Math.random());
 
-                returnCull.putAll(
+                returnCull.addAll(
                     (new PopulationGenerator.PopulationDefaultGenerator()).generateInitialPopulation(model, backfillSize)
                 );
             }
@@ -79,20 +84,20 @@ public interface PopulationCuller {
      */
     public static class RandomCuller implements PopulationCuller {
         @Override
-        public NavigableMap<Schedule, Double> cullPopulation(final Model model, final Map<Schedule, Double> population, final int targetSize) {
+        public List<Schedule> cullPopulation(final Model model, final List<Schedule> population, final int targetSize) {
 
-            final List<Schedule> schedules = new ArrayList<>(population.keySet());
-
-            final Map<Schedule,Double> survivorMap = new ConcurrentHashMap<Schedule,Double>(population.size(), 1.0f, Runtime.getRuntime().availableProcessors());
+            final List<Schedule> survivors = Collections.synchronizedList(new ArrayList<>());
 
             final int populationSize = population.size();
 
             //As the population size nears the target size, the cull rate trends down to 33.33%
             final double ratioThird = 0.333333*((double)targetSize)/((double)populationSize);
 
+            final List<Schedule> sortedPopSchedule = Model.sortPopulation(population, model);
+
             //For each schedule in the population
-            IntStream.range(0, population.size()).parallel().forEach(i ->{
-                final Schedule schedule = schedules.get(i);
+            IntStream.range(0, sortedPopSchedule.size()).parallel().forEach(i ->{
+                final Schedule schedule = sortedPopSchedule.get(i);
 
                 //Calculate the survival rate for the schedule
                 //Start at 100% and trend down to 0% survial rate from best to worst schedule
@@ -101,21 +106,21 @@ public interface PopulationCuller {
 
                 //If the schedule survives, add it to the survivor map
                 if(Math.random() < scheduleSurvivalRate){
-                    survivorMap.put(schedule, population.get(schedule));
+                    survivors.add(schedule);
                 }
             });
 
             //safety net to ensure we don't fall too below the target size, if we don't do this
             //the population tends to collapse.
-            if(survivorMap.size() < targetSize/3){
-                final int backfillSize = targetSize - survivorMap.size();
+            if(survivors.size() < targetSize/3){
+                final int backfillSize = targetSize - survivors.size();
 
-                survivorMap.putAll(
+                survivors.addAll(
                     (new PopulationGenerator.PopulationDefaultGenerator()).generateInitialPopulation(model, backfillSize)
                 );
             }
 
-            return new ValueSortedMap<Schedule,Double>(survivorMap);
+            return survivors;
         }
     }
 }

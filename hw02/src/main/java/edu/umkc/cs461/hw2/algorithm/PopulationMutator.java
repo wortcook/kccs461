@@ -1,10 +1,10 @@
 package edu.umkc.cs461.hw2.algorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.NavigableMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.IntStream;
 
@@ -18,7 +18,7 @@ import edu.umkc.cs461.hw2.model.ValueSortedMap;
  * Interface for mutating a population of schedules.
  */
 public interface PopulationMutator {
-    default NavigableMap<Schedule, Double> mutatePopulation( Model model, Map<Schedule, Double> population, double mutationRate) {
+    default List<Schedule> mutatePopulation( Model model, List<Schedule> population, double mutationRate) {
         return new PopulationDefaultMutator().mutatePopulation(model, population, mutationRate);
     }
 
@@ -28,11 +28,11 @@ public interface PopulationMutator {
      */
     public static class PopulationDefaultMutator implements PopulationMutator {
         @Override
-        public NavigableMap<Schedule, Double> mutatePopulation( Model model, Map<Schedule, Double> population, double mutationRate) {
-            final Map<Schedule,Double> mutations = new ConcurrentHashMap<Schedule,Double>(population.size(), 1.0f, Runtime.getRuntime().availableProcessors());
+        public List<Schedule> mutatePopulation( Model model, List<Schedule> population, double mutationRate) {
+            final List<Schedule> mutations = Collections.synchronizedList(new ArrayList<>());
 
             //For all schedules
-            population.keySet().parallelStream().forEach(schedule -> {
+            population.parallelStream().forEach(schedule -> {
 
                 //For all assignments in the schedule
                 schedule.assignments().forEach((activity, assignment) -> {
@@ -45,10 +45,10 @@ public interface PopulationMutator {
                     final Assignment newAssignment = new Assignment(activity, timeslot, facilitator, room);
                     schedule.assignments().put(activity, newAssignment);
                 });
-                mutations.put(schedule, 0.0);
+                mutations.add(schedule);
             });
 
-            return new ValueSortedMap<>(mutations);
+            return mutations;
         }
     }
 
@@ -58,15 +58,15 @@ public interface PopulationMutator {
      */
     public static class ScaledProbabilityMutator implements PopulationMutator {
         @Override
-        public NavigableMap<Schedule, Double> mutatePopulation( final Model model, final Map<Schedule, Double> population, final double mutationRate) {
+        public List<Schedule> mutatePopulation( final Model model, final List<Schedule> population, final double mutationRate) {
+            final List<Schedule> mutations = Collections.synchronizedList(new ArrayList<>(population.size()));
+            final List<Schedule> sortedSchedules = Model.sortPopulation(population, model);
 
-            final Map<Schedule,Double> mutatedPopulation = new ConcurrentHashMap<Schedule,Double>(population.size(), 1.0f, Runtime.getRuntime().availableProcessors());
-            final List<Schedule> schedules = new ArrayList<>(population.keySet());
             final int populationSize = population.size();
 
             //For all schedules
             IntStream.range(0, population.size()).parallel().forEach(i -> {
-                    final Schedule schedule = schedules.get(i);
+                    final Schedule schedule = sortedSchedules.get(i);
 
                     //The mutation rate scales down as the schedule position increases, i.e. more fit schedules are less likely to mutate
                     final double scheduleMutationRate = mutationRate * (1.0- ((double)i / (double)populationSize));
@@ -79,10 +79,10 @@ public interface PopulationMutator {
                         Assignment newAssignment = new Assignment(activity, timeslot, facilitator, room);
                         schedule.assignments().put(activity, newAssignment);
                     });
-                    mutatedPopulation.put(schedule, 0.0);
+                    mutations.add(schedule);
             });
 
-            return new ValueSortedMap<>(mutatedPopulation);
+            return mutations;
         }
     }
 }

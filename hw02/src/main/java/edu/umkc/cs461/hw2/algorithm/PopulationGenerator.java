@@ -1,7 +1,10 @@
 package edu.umkc.cs461.hw2.algorithm;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,7 +22,7 @@ import edu.umkc.cs461.hw2.model.ValueSortedMap;
   */
 public interface PopulationGenerator {
 
-    default NavigableMap<Schedule, Double> generateInitialPopulation(final Model model, final int populationSize) {
+    default List<Schedule> generateInitialPopulation(final Model model, final int populationSize) {
         return new PopulationDefaultGenerator().generateInitialPopulation(model, populationSize);
     }
 
@@ -28,10 +31,10 @@ public interface PopulationGenerator {
      */
     public static class PopulationDefaultGenerator implements PopulationGenerator {
         @Override
-        public NavigableMap<Schedule, Double> generateInitialPopulation(final Model model, final int populationSize) {
+        public List<Schedule> generateInitialPopulation(final Model model, final int populationSize) {
             //initialize population randomly
 
-            Map<Schedule,Double> newPopulation = new ConcurrentHashMap<>();
+            List<Schedule> newPopulation = Collections.synchronizedList(new ArrayList<>(populationSize));
 
             IntStream.range(0, populationSize).parallel().forEach(i -> {
             //for (int i = 0; i < STARTER_POPULATION; i++) {
@@ -52,14 +55,15 @@ public interface PopulationGenerator {
                 }
 
                 Schedule schedule = new Schedule(assignments);
-                newPopulation.put(schedule, 0.0);
+                newPopulation.add(schedule);
 
                 if((i % 10000 == 0)&&(i!=0)){
                     System.out.println(newPopulation.size() + " schedules generated");
                 }
             });
 
-            return new ValueSortedMap<Schedule,Double>(newPopulation);
+            return newPopulation;
+            
         }
     }
 
@@ -68,10 +72,10 @@ public interface PopulationGenerator {
      */
     public static class PopulationSpreadGenerator implements PopulationGenerator {
         @Override
-        public NavigableMap<Schedule, Double> generateInitialPopulation(final Model model, final int populationSize) {
+        public List<Schedule> generateInitialPopulation(final Model model, final int populationSize) {
             //initialize population randomly
 
-            Map<Schedule,Double> newPopulation = new ConcurrentHashMap<>();
+            List<Schedule> newPopulation = Collections.synchronizedList(new ArrayList<>(populationSize));
 
             //Ensure that each domain has at least one value represented in the initial population
 
@@ -87,7 +91,7 @@ public interface PopulationGenerator {
                     Assignment assignment = new Assignment(activity, timeslot, faciliator, room);
                     assignments.put(activity, assignment);
                 }
-                newPopulation.put(new Schedule(assignments), 0.0);
+                newPopulation.add(new Schedule(assignments));
             }
 
             //For each timeslot, create a schedule with a random assignment for each activity
@@ -102,7 +106,7 @@ public interface PopulationGenerator {
                     Assignment assignment = new Assignment(activity, timeslot, faciliator, room);
                     assignments.put(activity, assignment);
                 }
-                newPopulation.put(new Schedule(assignments), 0.0);
+                newPopulation.add(new Schedule(assignments));
             }
 
             //For each facilitator, create a schedule with a random assignment for each activity
@@ -117,7 +121,7 @@ public interface PopulationGenerator {
                     Assignment assignment = new Assignment(activity, timeslot, facilitator, room);
                     assignments.put(activity, assignment);
                 }
-                newPopulation.put(new Schedule(assignments), 0.0);
+                newPopulation.add(new Schedule(assignments));
             }
 
             //Fill in the rest of the population randomly
@@ -139,15 +143,14 @@ public interface PopulationGenerator {
                     assignments.put(activity, assignment);
                 }
 
-                Schedule schedule = new Schedule(assignments);
-                newPopulation.put(schedule, 0.0);
+                newPopulation.add(new Schedule(assignments));
 
                 if((i % 10000 == 0)&&(i!=0)){
                     System.out.println(newPopulation.size() + " schedules generated");
                 }
             });
 
-            return new ValueSortedMap<Schedule,Double>(newPopulation);
+            return newPopulation;
         }
     }
 }
