@@ -1,18 +1,24 @@
 package edu.umkc.cs461.hw2.model;
 
 import java.text.SimpleDateFormat;
-import java.util.Map;
+import java.util.List;
+import java.util.NavigableMap;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
  * Represents a schedule of activities. Each activity should be represented once in a schedule.
  */
-public record Schedule(Map<Activity,Assignment> assignments) {
+public record Schedule(NavigableMap<Activity,Assignment> assignments) implements Comparable<Schedule>{
     public Schedule {
         if (assignments == null) {
             throw new IllegalArgumentException("Assignments must not be null");
         }
+    }
+
+    @Override
+    public int compareTo(Schedule o) {
+        return assignments.hashCode() - o.assignments.hashCode();
     }
 
     public static boolean checkAllActivitiesScheduled(final Schedule schedule, final Set<Activity> activities) {
@@ -44,8 +50,15 @@ public record Schedule(Map<Activity,Assignment> assignments) {
         sb.append(header);
 
         //Get the activities from the schedule and sort by time
-        var sortedActivities = schedule.assignments().values().stream()
-            .sorted((a1, a2) -> a1.timeslot().compareTo(a2.timeslot()))
+        final List<Assignment> sortedActivities = schedule.assignments().values().stream()
+            .sorted((a1, a2) -> {
+                int tsVal = a1.timeslot().compareTo(a2.timeslot());
+                if (tsVal != 0) {
+                    return tsVal;
+                }else{
+                    return a1.activity().name().compareTo(a2.activity().name());
+                }
+            })          
             .collect(Collectors.toList());
 
         //Dateformatter that prints the day of the week as a single letter then the time

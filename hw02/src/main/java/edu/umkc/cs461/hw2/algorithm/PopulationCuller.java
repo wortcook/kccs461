@@ -2,9 +2,7 @@ package edu.umkc.cs461.hw2.algorithm;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.IntStream;
 
 import edu.umkc.cs461.hw2.model.Model;
@@ -33,19 +31,29 @@ public interface PopulationCuller {
 
             final double cullPercentage = 1.0 - (0.5 - (0.16666667 * ratio));
 
-            int cullSize = (int)(population.size() * cullPercentage);
+            final int cullSize = Math.min((int)(population.size() * cullPercentage), population.size());
 
             return Model.sortPopulation(population, model).reversed().subList(0, cullSize);
 
         }
     }
 
-    public static class PopulationUniqueCuller implements PopulationCuller {
+    public static class PopulationNegativeCuller implements PopulationCuller {
         @Override
         public List<Schedule> cullPopulation(final Model model, final List<Schedule> population, final int targetSize) {
-            final List<Schedule> returnCull = new PopulationDefaultCuller().cullPopulation(model, population, targetSize);
-            Set<Schedule> uniqueSchedules = new HashSet<>(returnCull);
-            return new ArrayList<>(uniqueSchedules);
+            //remove any schedules with a negative score
+            List<Schedule> retList = Collections.synchronizedList(new ArrayList<>(targetSize));
+
+            population.parallelStream().forEach(schedule -> {
+                if(Model.fetchScore(schedule, model) >= 0){
+                    retList.add(schedule);
+                }
+            });
+
+            System.out.println("Culled " + (population.size() - retList.size()) + " schedules with negative scores");
+
+            //Run through the backfill culler to ensure we have enough schedules
+            return (new BackfillCuller()).cullPopulation(model, retList, targetSize);
         }
     }
 
@@ -58,7 +66,7 @@ public interface PopulationCuller {
         public List<Schedule> cullPopulation(final Model model, final List<Schedule> population, final int targetSize) {
 
             //Cull as normal
-            List<Schedule> returnCull = new PopulationDefaultCuller().cullPopulation(model, population, targetSize);
+            List<Schedule> returnCull = new ArrayList<>(new PopulationDefaultCuller().cullPopulation(model, population, targetSize));
 
             final int cullTarget = (2*targetSize)/3;
 

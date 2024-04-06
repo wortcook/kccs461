@@ -1,14 +1,11 @@
 package edu.umkc.cs461.hw2.algorithm;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.NavigableMap;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.TreeMap;
 import java.util.stream.IntStream;
 
 import edu.umkc.cs461.hw2.model.Model;
@@ -16,7 +13,6 @@ import edu.umkc.cs461.hw2.model.Activity;
 import edu.umkc.cs461.hw2.model.Assignment;
 import edu.umkc.cs461.hw2.model.Room;
 import edu.umkc.cs461.hw2.model.Schedule;
-import edu.umkc.cs461.hw2.model.ValueSortedMap;
 
 /**
  * PopulationCrossover
@@ -60,7 +56,7 @@ public interface PopulationCrossover {
                 final Schedule parent2 = secondary.get(i);
 
                 //for each activity, randomly select room, time, facilitator from one of the parents
-                Map<Activity, Assignment> childMap = new HashMap<>();
+                final NavigableMap<Activity, Assignment> childMap = new TreeMap<>();
                 for(Activity activity : parent1.assignments().keySet()){
                     final Assignment assignment1 = parent1.assignments().get(activity);
                     final Assignment assignment2 = parent2.assignments().get(activity);
@@ -110,7 +106,7 @@ public interface PopulationCrossover {
                     final Schedule parent2 = parentPopulation.get((int)(Math.random()*(parentPopulation.size()-1)));
 
                     //for each activity, randomly select room, time, facilitator from one of the parents
-                    final Map<Activity, Assignment> childMap = new HashMap<>();
+                    final NavigableMap<Activity, Assignment> childMap = new TreeMap<>();
                     for(Activity activity : parent1.assignments().keySet()){
                         final Assignment assignment1 = parent1.assignments().get(activity);
                         final Assignment assignment2 = parent2.assignments().get(activity);
@@ -173,7 +169,7 @@ public interface PopulationCrossover {
                     final Schedule parent2 = Model.sortPopulation(parent2List, model).getLast();
 
                     //for each activity, randomly select room, time, facilitator from one of the parents
-                    final Map<Activity, Assignment> childMap = new HashMap<>();
+                    final NavigableMap<Activity, Assignment> childMap = new TreeMap<>();
                     for(Activity activity : parent1.assignments().keySet()){
                         final Assignment assignment1 = parent1.assignments().get(activity);
                         final Assignment assignment2 = parent2.assignments().get(activity);

@@ -8,12 +8,17 @@ import java.util.Objects;
 /*
  * Represents an assignment of an activity to a timeslot, facilitator, and location.
  */
-public record Assignment(Activity activity, Date timeslot, String facilitator, Room location) {
+public record Assignment(Activity activity, Date timeslot, String facilitator, Room location) implements Comparable<Assignment>{
     public Assignment {
         Objects.requireNonNull(activity);
         Objects.requireNonNull(timeslot);
         Objects.requireNonNull(facilitator);
         Objects.requireNonNull(location);
+    }
+
+    @Override
+    public int compareTo(Assignment o) {
+        return activity.compareTo(o.activity);
     }
 
     public static boolean areTimesEqual(final Assignment a1, final Assignment a2) {

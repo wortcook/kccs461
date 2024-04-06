@@ -12,13 +12,13 @@ import edu.umkc.cs461.hw2.rules.*;
 
 public class Main {
 
-    public static final int STARTER_POPULATION = 100000;
-    public static final int TARGET_STABLE_POPULATION_SIZE = 1000;
+    public static final int STARTER_POPULATION = 10000000;
+    public static final int TARGET_STABLE_POPULATION_SIZE = 10000;
 
     public static final double MUTATION_RATE = 0.9;
     public static final double MUTATION_RATE_DECAY = 0.95;
 
-    public static final int MIN_GENERATION_COUNT = 500;
+    public static final int MIN_GENERATION_COUNT = 1000;
 
     public static final int LAST_N_SCORES = 10;
 
@@ -30,7 +30,7 @@ public class Main {
             // PopulationGenerator generator = new PopulationGenerator.PopulationSpreadGenerator();
 
             // PopulationCuller culler = new PopulationCuller.PopulationDefaultCuller();
-            PopulationCuller culler = new PopulationCuller.PopulationUniqueCuller();
+            PopulationCuller culler = new PopulationCuller.PopulationNegativeCuller();
             // PopulationCuller culler = new PopulationCuller.BackfillCuller();
             // PopulationCuller culler = new PopulationCuller.RandomCuller();
 
@@ -139,6 +139,22 @@ public class Main {
             score.scoreBreakdown().entrySet().forEach(e -> {
                 System.out.println(e.getKey() + ": " + e.getValue());
             });
+
+            //iterate through population looking for exact string match to best
+            final String bestString = Schedule.scheduleToString(bestSchedule);
+            boolean foundMatch = false;
+            for(Schedule s : population){
+                if(bestString.equals(s.toString()) && (bestSchedule != s)){
+                    System.out.println("Found a match");
+                    System.out.println(Schedule.scheduleToString(s));
+                    System.out.println("Score: " + Model.fetchScore(s, model));
+                    foundMatch = true;
+                }
+            }
+
+            if(!foundMatch){
+                System.out.println("No match found");
+            }
 
         }catch(Exception e){
             System.out.println("An error occurred");

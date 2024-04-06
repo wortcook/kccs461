@@ -5,12 +5,23 @@ import java.util.Set;
 /**
  * Represents an activity that can be scheduled.
  */
-public record Activity(String name, int enrollment, Set<String> preferredFacilitators, Set<String> secondaryFacilitators){
+public record Activity(String name, int enrollment, Set<String> preferredFacilitators, Set<String> secondaryFacilitators) implements Comparable<Activity>{
     public Activity {
         if (enrollment <= 0) {
             throw new IllegalArgumentException("Enrollment must be greater than 0");
         }
     }
+
+    @Override
+    public int compareTo(Activity o) {
+        return name.compareTo(o.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
 
     //Everything below this line suggested by Co-Pilot
     public static boolean isFacilitatorPreferred(final Activity activity, final String facilitator) {
